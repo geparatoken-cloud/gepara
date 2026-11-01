@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Dosya Kanıtı</title>
+<meta name="description" content="Dosyanın belirli bir tarihte sizde olduğunu ücretsiz kanıtlayın. Dosya bilgisayarınızdan çıkmaz.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<style>
+:root{
+  --bg:#F5F1E6; --paper:#FBF9F3; --ink:#152238; --muted:#4F5B6C; --rule:#D8D0BC;
+  --navy:#12284A; --gold:#A8812C; --gold-soft:#C9A24A; --on-navy:#F5EFE0;
+  --ok:#2C6B3F; --ok-soft:#E3EFE5; --bad:#A3392D; --bad-soft:#F6E4E1; --info-soft:#E9EEF6;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0E1726; --paper:#142035; --ink:#EDE7D8; --muted:#A9B2C0; --rule:#2A3955;
+  --navy:#0A1424; --gold:#D3AE5C; --gold-soft:#C9A24A; --on-navy:#F5EFE0;
+  --ok:#7CC48F; --ok-soft:#173326; --bad:#E58B7E; --bad-soft:#3A1E1B; --info-soft:#1B2A44;}}
+:root[data-theme="dark"]{
+  --bg:#0E1726; --paper:#142035; --ink:#EDE7D8; --muted:#A9B2C0; --rule:#2A3955;
+  --navy:#0A1424; --gold:#D3AE5C; --on-navy:#F5EFE0;
+  --ok:#7CC48F; --ok-soft:#173326; --bad:#E58B7E; --bad-soft:#3A1E1B; --info-soft:#1B2A44;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 "Source Sans 3",system-ui,sans-serif;-webkit-text-size-adjust:100%}
+.wrap{max-width:880px;margin:0 auto;padding:0 16px}
+header{background:var(--navy);color:var(--on-navy)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:14px}
+.brand{font:700 1.25rem Cinzel,serif;letter-spacing:.08em;color:var(--on-navy);text-decoration:none}
+.brand small{display:block;font:600 .62rem "Source Sans 3",sans-serif;letter-spacing:.28em;color:var(--gold-soft)}
+.langs{display:flex;gap:4px}
+.langs button{background:none;border:1px solid #ffffff33;color:var(--on-navy);border-radius:4px;padding:4px 9px;font-family:inherit;font-weight:600;font-size:.8rem;cursor:pointer}
+.langs button[aria-pressed="true"]{background:var(--gold-soft);color:#12284A;border-color:var(--gold-soft)}
+.hero{background:var(--navy);color:var(--on-navy);padding:28px 0 44px}
+.hero h1{font:700 clamp(1.7rem,4.5vw,2.6rem)/1.15 Cinzel,serif;margin:0 0 12px}
+.hero p{margin:0;max-width:640px;color:#D9D3C4;font-size:1.08rem}
+.tabs{display:flex;gap:8px;margin:-22px auto 0;position:relative}
+.tabs button{flex:1;background:var(--paper);color:var(--ink);border:1px solid var(--rule);border-radius:8px 8px 0 0;padding:14px;font-family:inherit;font-weight:700;font-size:1rem;cursor:pointer}
+.tabs button[aria-selected="true"]{border-bottom-color:var(--paper);box-shadow:inset 0 3px 0 var(--gold)}
+.panel{background:var(--paper);border:1px solid var(--rule);border-top:0;border-radius:0 0 8px 8px;padding:22px}
+.drop{display:block;border:2px dashed var(--rule);border-radius:10px;padding:34px 16px;text-align:center;cursor:pointer;background:var(--bg)}
+.drop:hover,.drop.on{border-color:var(--gold)}
+.drop strong{display:block;font-size:1.15rem;margin-bottom:4px}
+.drop span{color:var(--muted);font-size:.95rem}
+input[type=file]{position:absolute;width:1px;height:1px;opacity:0}
+.list{display:grid;gap:12px;margin-top:18px}
+.item{border:1px solid var(--rule);border-radius:8px;padding:14px;background:var(--paper)}
+.item h3{margin:0 0 4px;font-size:1.02rem;word-break:break-all}
+.hash{font:12.5px/1.4 ui-monospace,Menlo,Consolas,monospace;color:var(--muted);word-break:break-all}
+.st{margin-top:8px;font-weight:600}
+.st.ok{color:var(--ok)}.st.bad{color:var(--bad)}.st.wait{color:var(--muted)}
+.row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.btn{display:inline-block;background:var(--navy);color:var(--on-navy);border:0;border-radius:6px;padding:10px 16px;font-family:inherit;font-weight:600;font-size:.95rem;text-decoration:none;cursor:pointer}
+.btn.ghost{background:none;color:var(--ink);border:1px solid var(--rule)}
+.res{border-radius:8px;padding:14px;margin-top:12px}
+.res.ok{background:var(--ok-soft)}.res.bad{background:var(--bad-soft)}.res.info{background:var(--info-soft)}
+.res b{display:block;margin-bottom:2px}
+section.info{padding:40px 0}
+section.info h2{font:700 1.4rem Cinzel,serif;margin:0 0 14px}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;padding:0;margin:0;list-style:none;counter-reset:s}
+.steps li{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:16px;counter-increment:s}
+.steps li::before{content:counter(s);display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--gold-soft);color:#12284A;font-weight:700;margin-bottom:8px}
+.steps h3{margin:0 0 4px;font-size:1.02rem}.steps p{margin:0;color:var(--muted);font-size:.95rem}
+details{border-bottom:1px solid var(--rule);padding:12px 0}
+summary{cursor:pointer;font-weight:700}
+details p{margin:8px 0 0;color:var(--muted)}
+.note{font-size:.9rem;color:var(--muted)}
+footer{border-top:1px solid var(--rule);padding:24px 0 40px;color:var(--muted);font-size:.9rem}
+@media (max-width:640px){.steps{grid-template-columns:1fr}.tabs button{padding:12px 6px;font-size:.92rem}}
+@media print{header,.hero,.tabs,.drop,section.info,footer,.row{display:none!important}.panel{border:0}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="brand" href="#">DOSYA KANITI<small>GEPARA</small></a>
+  <div class="langs" role="group" aria-label="Dil">
+    <button type="button" data-l="tr">TR</button><button type="button" data-l="en">EN</button><button type="button" data-l="de">DE</button>
+  </div>
+</div></header>
+
+<div class="hero"><div class="wrap">
+  <h1 data-i="h1"></h1>
+  <p data-i="lead"></p>
+</div></div>
+
+<main class="wrap">
+  <div class="tabs" role="tablist">
+    <button type="button" role="tab" id="t-al" aria-selected="true" data-i="tabGet"></button>
+    <button type="button" role="tab" id="t-paket" aria-selected="false" data-i="tabPack"></button>
+    <button type="button" role="tab" id="t-kontrol" aria-selected="false" data-i="tabCheck"></button>
+  </div>
+
+  <div class="panel" id="p-al">
+    <label class="drop" id="d-al"><input type="file" id="f-al" multiple><strong data-i="dropGet"></strong><span data-i="dropSub"></span></label>
+    <div class="list" id="l-al"></div>
+  </div>
+
+  <div class="panel" id="p-paket" hidden>
+    <p data-i="packIntro" style="margin-top:0"></p>
+    <label class="drop" id="d-p"><input type="file" id="f-p" multiple accept="image/*,video/*,.pdf"><strong data-i="dropPack"></strong><span data-i="dropPackSub"></span></label>
+    <label style="display:block;margin-top:14px"><span data-i="packNote" style="font-weight:600"></span>
+      <textarea id="p-not" rows="2" style="width:100%;margin-top:6px;font:inherit;padding:10px;border:1px solid var(--rule);border-radius:6px;background:var(--bg);color:var(--ink)"></textarea></label>
+    <div class="row"><button type="button" class="btn" id="p-yap" data-i="packMake" disabled></button><span class="note" id="p-say"></span></div>
+    <div class="list" id="l-p"></div>
+  </div>
+
+  <div class="panel" id="p-kontrol" hidden>
+    <label class="drop" id="d-k"><input type="file" id="f-k" multiple><strong data-i="dropCheck"></strong><span data-i="dropCheckSub"></span></label>
+    <div id="l-k"></div>
+  </div>
+
+  <section class="info">
+    <h2 data-i="howH"></h2>
+    <ol class="steps">
+      <li><h3 data-i="s1h"></h3><p data-i="s1p"></p></li>
+      <li><h3 data-i="s2h"></h3><p data-i="s2p"></p></li>
+      <li><h3 data-i="s3h"></h3><p data-i="s3p"></p></li>
+    </ol>
+  </section>
+
+  <section class="info" style="padding-top:0">
+    <h2 data-i="faqH"></h2>
+    <details><summary data-i="q1"></summary><p data-i="a1"></p></details>
+    <details><summary data-i="q2"></summary><p data-i="a2"></p></details>
+    <details><summary data-i="q3"></summary><p data-i="a3"></p></details>
+    <details><summary data-i="q4"></summary><p data-i="a4"></p></details>
+    <details><summary data-i="q5"></summary><p data-i="a5"></p></details>
+  </section>
+</main>
+
+<footer><div class="wrap"><p data-i="foot"></p></div></footer>
+
+<script>
+const T={
+tr:{tabPack:"Teslim paketi",packIntro:"Ev, araç ya da eşya teslim ederken çektiğiniz fotoğrafları tek bir kanıt paketinde toplayın. Depozito ve hasar tartışmalarında, fotoğrafların o gün çekildiğini ve sonradan değiştirilmediğini gösterir.",dropPack:"Fotoğrafları seçin ya da telefonda çekin",dropPackSub:"Fotoğraflar telefonunuzda kalır; yalnızca parmak izleri kaydedilir.",packNote:"Not (isteğe bağlı, örn. \"Daire 5 teslim, 1 Kasım\")",packMake:"Kanıt paketini oluştur",packFiles:"dosya seçildi",packDone:"Paket hazır. İki dosyayı fotoğraflarla birlikte saklayın ve karşı tarafla paylaşın.",packDl1:"Paket listesini indir (.json)",packDl2:"Paket kanıtını indir (.ots)",chkPackOk:"Bu fotoğraf kanıt paketinde var",chkPackNo:"Bu fotoğraf kanıt paketinde YOK ya da değiştirilmiş",chkPackOts:"Paket kanıtı (.ots) bu paket listesine ait.",h1:"Dosyanın o tarihte sizde olduğunu kanıtlayın",lead:"Ücretsiz. Hesap gerekmez. Dosyanız bilgisayarınızdan çıkmaz; yalnızca dijital parmak izi dünya genelindeki zaman kayıt sunucularına gönderilir ve birkaç saat içinde Bitcoin blokzincirine işlenir.",
+tabGet:"Kanıt al",tabCheck:"Kontrol et",dropGet:"Dosyaları buraya bırakın ya da tıklayıp seçin",dropSub:"Fotoğraf, video, sözleşme, eser, tez… her tür dosya. Birden çok dosya seçebilirsiniz.",
+dropCheck:"Kontrol edilecek dosyayı ve varsa .ots kanıt dosyasını bırakın",dropCheckSub:"İkisini birlikte seçebilirsiniz.",
+fp:"Parmak izi",working:"Parmak izi çıkarılıyor…",sending:"Zaman kayıt sunucularına gönderiliyor…",done:"Kanıt hazır. Kanıt dosyasını indirip orijinal dosyanın yanında saklayın.",fail:"Sunuculara ulaşılamadı. İnternet bağlantınızı kontrol edip tekrar deneyin.",
+dl:"Kanıt dosyasını indir (.ots)",print:"Kanıt belgesini yazdır",date:"Kayıt tarihi",cals:"sunucu kaydı aldı",
+chkFile:"Dosya",chkOtsOk:"Bu .ots kanıt dosyası bu dosyaya ait.",chkOtsBad:"Bu .ots kanıt dosyası bu dosyaya ait DEĞİL. Dosya değiştirilmiş olabilir.",chkOtsMore:"Bitcoin onayını bağımsız olarak doğrulamak için dosyayı ve .ots kanıtını opentimestamps.org adresinde kontrol edebilirsiniz.",
+chkReg:"GEPARA bilirkişi kayıt sisteminde kayıtlı",chkRegNo:"GEPARA bilirkişi kayıt sisteminde kayıt yok.",chkNoOts:"Bu dosya için .ots kanıt dosyası seçmediniz. Kanıt dosyası varsa onu da birlikte seçin.",chkErr:"Blokzincire ulaşılamadı, biraz sonra tekrar deneyin.",
+howH:"Nasıl çalışır?",s1h:"Dosyayı seçin",s1p:"Dosyanız bilgisayarınızda kalır. Tarayıcınız dosyanın benzersiz parmak izini çıkarır.",s2h:"Parmak izi kaydedilir",s2p:"Yalnızca parmak izi, bağımsız zaman kayıt sunucularına gönderilir ve Bitcoin blokzincirine işlenir.",s3h:"Kanıtı saklayın",s3p:"İndirdiğiniz .ots dosyasını orijinal dosyayla birlikte saklayın. Gerektiğinde herkes kontrol edebilir.",
+faqH:"Sık sorulanlar",q1:"Dosyam internete yükleniyor mu?",a1:"Hayır. Dosyanın kendisi hiçbir yere gönderilmez. Yalnızca 64 karakterlik parmak izi gönderilir; parmak izinden dosyanın içeriği elde edilemez.",
+q2:"Bu kanıt neyi gösterir?",a2:"Dosyanın, kaydın blokzincire işlendiği tarihte var olduğunu ve o günden beri tek bir harfinin bile değişmediğini gösterir. Dosyanın kime ait olduğunu tek başına kanıtlamaz.",
+q3:"Mahkemede geçerli mi?",a3:"Bu bir noter onayı ya da yasal nitelikli zaman damgası değildir. Pek çok ülkede delil olarak sunulabilir; değerlendirmesi mahkemeye aittir. Hukuken kesin kanıt gerekiyorsa nitelikli zaman damgası veya noter kullanın.",
+q4:"Kanıt dosyasını kaybedersem?",a4:"Aynı dosyayı tekrar kaydedebilirsiniz, ancak yeni kanıt yeni tarihi gösterir. Bu yüzden .ots dosyasını orijinal dosyanın yanında saklayın.",
+q5:"Ücretli mi?",a5:"Hayır. Kanıt almak ve kontrol etmek ücretsizdir. Kayıtlar, açık kaynaklı OpenTimestamps sunucuları üzerinden Bitcoin'e işlenir.",
+foot:"Dosya Kanıtı, GEPARA projesinin ücretsiz hizmetidir. Hukuki tavsiye değildir. Kayıtlar OpenTimestamps altyapısıyla Bitcoin blokzincirine işlenir. İletişim: geparatoken@gmail.com"},
+en:{tabPack:"Handover pack",packIntro:"Bundle the photos you take when handing over a flat, a car or an item into one proof pack. In deposit and damage disputes it shows the photos were taken that day and not changed since.",dropPack:"Choose photos or take them with your phone",dropPackSub:"Photos stay on your phone; only their fingerprints are recorded.",packNote:"Note (optional, e.g. \"Flat 5 handover, 1 Nov\")",packMake:"Create proof pack",packFiles:"files selected",packDone:"Pack ready. Keep both files with the photos and share them with the other party.",packDl1:"Download pack list (.json)",packDl2:"Download pack proof (.ots)",chkPackOk:"This photo is in the proof pack",chkPackNo:"This photo is NOT in the proof pack or was changed",chkPackOts:"The pack proof (.ots) belongs to this pack list.",h1:"Prove the file was yours on that date",lead:"Free. No account. Your file never leaves your computer; only its digital fingerprint is sent to public timestamp servers and anchored in the Bitcoin blockchain within a few hours.",
+tabGet:"Get proof",tabCheck:"Check",dropGet:"Drop files here or click to choose",dropSub:"Photos, videos, contracts, artwork, theses… any file. You can pick several.",
+dropCheck:"Drop the file to check and its .ots proof, if you have one",dropCheckSub:"You can select both together.",
+fp:"Fingerprint",working:"Computing fingerprint…",sending:"Sending to timestamp servers…",done:"Proof ready. Download the proof file and keep it next to the original.",fail:"Could not reach the servers. Check your connection and try again.",
+dl:"Download proof file (.ots)",print:"Print proof sheet",date:"Recorded",cals:"servers accepted it",
+chkFile:"File",chkOtsOk:"This .ots proof belongs to this file.",chkOtsBad:"This .ots proof does NOT belong to this file. The file may have been changed.",chkOtsMore:"To verify the Bitcoin confirmation independently, check the file and its .ots proof at opentimestamps.org.",
+chkReg:"Recorded in the GEPARA expert registry",chkRegNo:"No record in the GEPARA expert registry.",chkNoOts:"You did not select an .ots proof for this file. If you have one, select it too.",chkErr:"Could not reach the blockchain. Try again shortly.",
+howH:"How it works",s1h:"Choose the file",s1p:"Your file stays on your computer. Your browser computes its unique fingerprint.",s2h:"The fingerprint is recorded",s2p:"Only the fingerprint goes to independent timestamp servers and is anchored in the Bitcoin blockchain.",s3h:"Keep the proof",s3p:"Keep the downloaded .ots file with the original. Anyone can check it when needed.",
+faqH:"Questions",q1:"Is my file uploaded?",a1:"No. The file itself is never sent anywhere. Only a 64-character fingerprint is sent; the content cannot be recovered from it.",
+q2:"What does the proof show?",a2:"That the file existed when the record was anchored and that not a single letter has changed since. On its own it does not prove who owns the file.",
+q3:"Is it valid in court?",a3:"It is not a notarisation or a qualified legal timestamp. In many countries it can be submitted as evidence; the court decides its weight. For conclusive legal proof, use a qualified timestamp or a notary.",
+q4:"What if I lose the proof file?",a4:"You can record the same file again, but the new proof shows the new date. Keep the .ots file with the original.",
+q5:"Is it free?",a5:"Yes. Getting and checking proofs is free. Records are anchored in Bitcoin through the open-source OpenTimestamps servers.",
+foot:"File Proof is a free service of the GEPARA project. Not legal advice. Records are anchored in the Bitcoin blockchain via OpenTimestamps. Contact: geparatoken@gmail.com"},
+de:{tabPack:"Übergabe-Paket",packIntro:"Fassen Sie die Fotos einer Wohnungs-, Auto- oder Sachübergabe in einem Beweispaket zusammen. Bei Kautions- und Schadensstreit zeigt es, dass die Fotos an diesem Tag entstanden und seitdem unverändert sind.",dropPack:"Fotos wählen oder mit dem Handy aufnehmen",dropPackSub:"Fotos bleiben auf Ihrem Handy; nur Fingerabdrücke werden erfasst.",packNote:"Notiz (optional, z. B. \"Wohnung 5 Übergabe, 1. Nov.\")",packMake:"Beweispaket erstellen",packFiles:"Dateien gewählt",packDone:"Paket fertig. Beide Dateien mit den Fotos aufbewahren und mit der Gegenseite teilen.",packDl1:"Paketliste herunterladen (.json)",packDl2:"Paketbeweis herunterladen (.ots)",chkPackOk:"Dieses Foto ist im Beweispaket",chkPackNo:"Dieses Foto ist NICHT im Paket oder wurde verändert",chkPackOts:"Der Paketbeweis (.ots) gehört zu dieser Paketliste.",h1:"Beweisen Sie, dass die Datei an diesem Tag bei Ihnen war",lead:"Kostenlos. Ohne Konto. Ihre Datei verlässt Ihren Computer nicht; nur ihr digitaler Fingerabdruck geht an öffentliche Zeitstempel-Server und wird binnen weniger Stunden in der Bitcoin-Blockchain verankert.",
+tabGet:"Beweis erstellen",tabCheck:"Prüfen",dropGet:"Dateien hier ablegen oder klicken",dropSub:"Fotos, Videos, Verträge, Werke, Arbeiten… jede Datei. Mehrere möglich.",
+dropCheck:"Datei und ggf. ihren .ots-Beweis ablegen",dropCheckSub:"Beide können zusammen gewählt werden.",
+fp:"Fingerabdruck",working:"Fingerabdruck wird berechnet…",sending:"Wird an Zeitstempel-Server gesendet…",done:"Beweis fertig. Laden Sie die Beweisdatei herunter und bewahren Sie sie beim Original auf.",fail:"Server nicht erreichbar. Verbindung prüfen und erneut versuchen.",
+dl:"Beweisdatei herunterladen (.ots)",print:"Beweisblatt drucken",date:"Erfasst",cals:"Server haben angenommen",
+chkFile:"Datei",chkOtsOk:"Dieser .ots-Beweis gehört zu dieser Datei.",chkOtsBad:"Dieser .ots-Beweis gehört NICHT zu dieser Datei. Die Datei wurde möglicherweise verändert.",chkOtsMore:"Die Bitcoin-Bestätigung können Sie unabhängig auf opentimestamps.org prüfen.",
+chkReg:"Im GEPARA-Sachverständigenregister erfasst",chkRegNo:"Kein Eintrag im GEPARA-Sachverständigenregister.",chkNoOts:"Sie haben keinen .ots-Beweis gewählt. Falls vorhanden, wählen Sie ihn mit aus.",chkErr:"Blockchain nicht erreichbar, bitte später erneut versuchen.",
+howH:"So funktioniert es",s1h:"Datei wählen",s1p:"Die Datei bleibt auf Ihrem Computer. Ihr Browser berechnet ihren eindeutigen Fingerabdruck.",s2h:"Fingerabdruck wird erfasst",s2p:"Nur der Fingerabdruck geht an unabhängige Zeitstempel-Server und wird in Bitcoin verankert.",s3h:"Beweis aufbewahren",s3p:"Bewahren Sie die .ots-Datei beim Original auf. Jeder kann sie bei Bedarf prüfen.",
+faqH:"Fragen",q1:"Wird meine Datei hochgeladen?",a1:"Nein. Nur ein 64-stelliger Fingerabdruck wird gesendet; daraus lässt sich der Inhalt nicht wiederherstellen.",
+q2:"Was zeigt der Beweis?",a2:"Dass die Datei zum Zeitpunkt der Verankerung existierte und sich seitdem nicht verändert hat. Wem sie gehört, beweist er allein nicht.",
+q3:"Gilt das vor Gericht?",a3:"Es ist keine notarielle Beglaubigung und kein qualifizierter Zeitstempel. In vielen Ländern kann er als Beweismittel vorgelegt werden; die Würdigung obliegt dem Gericht.",
+q4:"Und wenn ich die Beweisdatei verliere?",a4:"Sie können die Datei erneut erfassen, der neue Beweis zeigt dann das neue Datum.",
+q5:"Kostet es etwas?",a5:"Nein. Erstellen und Prüfen ist kostenlos. Die Verankerung erfolgt über die Open-Source-Server von OpenTimestamps.",
+foot:"Dateibeweis ist ein kostenloser Dienst des GEPARA-Projekts. Keine Rechtsberatung. Verankerung in Bitcoin über OpenTimestamps. Kontakt: geparatoken@gmail.com"}};
+
+let L='tr';
+const $=id=>document.getElementById(id);
+function t(k){return (T[L]&&T[L][k])||T.tr[k]||k}
+function applyLang(l){L=T[l]?l:'tr';document.documentElement.lang=L;
+  document.querySelectorAll('[data-i]').forEach(e=>e.textContent=t(e.dataset.i));
+  document.querySelectorAll('.langs button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.l===L));
+  document.querySelectorAll('[data-dyn]').forEach(e=>e.textContent=t(e.dataset.dyn));}
+document.querySelectorAll('.langs button').forEach(b=>b.onclick=()=>{applyLang(b.dataset.l);try{localStorage.setItem('dk-lang',L)}catch(e){}});
+let start='tr';try{start=localStorage.getItem('dk-lang')||(navigator.language||'tr').slice(0,2)}catch(e){}
+applyLang(start);
+
+function tab(w){[['al','al'],['paket','p'],['kontrol','k']].forEach(([id,k])=>{$('t-'+id).setAttribute('aria-selected',w===k);$('p-'+id).hidden=w!==k})}
+$('t-al').onclick=()=>tab('al');$('t-paket').onclick=()=>tab('p');$('t-kontrol').onclick=()=>tab('k');
+
+const hex=b=>[...b].map(x=>x.toString(16).padStart(2,'0')).join('');
+async function sha(buf){return new Uint8Array(await crypto.subtle.digest('SHA-256',buf))}
+const MAGIC=new Uint8Array([0x00,0x4f,0x70,0x65,0x6e,0x54,0x69,0x6d,0x65,0x73,0x74,0x61,0x6d,0x70,0x73,0x00,0x00,0x50,0x72,0x6f,0x6f,0x66,0x00,0xbf,0x89,0xe2,0xe8,0x84,0xe8,0x92,0x94]);
+const CALS=['https://a.pool.opentimestamps.org','https://b.pool.opentimestamps.org','https://a.pool.eternitywall.com'];
+function cat(arrs){const n=arrs.reduce((s,a)=>s+a.length,0),o=new Uint8Array(n);let p=0;for(const a of arrs){o.set(a,p);p+=a.length}return o}
+async function stamp(d){
+  const res=await Promise.all(CALS.map(u=>fetch(u+'/digest',{method:'POST',body:d,headers:{'Accept':'application/vnd.opentimestamps.v1','Content-Type':'application/x-www-form-urlencoded'}})
+    .then(r=>r.ok?r.arrayBuffer():null).then(b=>b?new Uint8Array(b):null).catch(()=>null)));
+  const ok=res.filter(Boolean);if(!ok.length)return null;
+  const parts=[MAGIC,new Uint8Array([0x01,0x08]),d];
+  ok.forEach((r,i)=>{if(i<ok.length-1)parts.push(new Uint8Array([0xff]));parts.push(r)});
+  return {ots:cat(parts),n:ok.length};
+}
+function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
+function line(cls,key){const p=document.createElement('div');p.className='st '+cls;p.dataset.dyn=key;p.textContent=t(key);return p}
+
+async function getProofs(files){
+  for(const f of files){
+    const box=document.createElement('div');box.className='item';
+    box.innerHTML=`<h3>${esc(f.name)}</h3><div class="hash"></div>`;
+    const st=line('wait','working');box.appendChild(st);$('l-al').prepend(box);
+    const d=await sha(await f.arrayBuffer());
+    box.querySelector('.hash').textContent=t('fp')+': '+hex(d);
+    st.dataset.dyn='sending';st.textContent=t('sending');
+    const r=await stamp(d);
+    if(!r){st.className='st bad';st.dataset.dyn='fail';st.textContent=t('fail');continue}
+    const now=new Date();
+    st.className='st ok';st.dataset.dyn='done';st.textContent=t('done');
+    const meta=document.createElement('div');meta.className='note';meta.textContent=`${t('date')}: ${now.toLocaleString(L)} · ${r.n}/3 ${t('cals')}`;box.appendChild(meta);
+    const row=document.createElement('div');row.className='row';
+    const a=document.createElement('a');a.className='btn';a.textContent=t('dl');a.dataset.dyn='dl';
+    a.href=URL.createObjectURL(new Blob([r.ots],{type:'application/octet-stream'}));a.download=f.name+'.ots';
+    a.addEventListener('click',async ev=>{const dl=window.claude&&window.claude.use?await window.claude.use('downloads').catch(()=>null):null;if(dl){ev.preventDefault();try{await dl.save({filename:f.name+'.ots',data:r.ots})}catch(e){}}});
+    const pr=document.createElement('button');pr.type='button';pr.className='btn ghost';pr.dataset.dyn='print';pr.textContent=t('print');
+    pr.onclick=()=>{document.querySelectorAll('#l-al .item').forEach(x=>x.style.display=x===box?'':'none');tab('al');window.print();document.querySelectorAll('#l-al .item').forEach(x=>x.style.display='')};
+    row.append(a,pr);box.appendChild(row);
+  }
+}
+
+const RPCS=['https://polygon-bor-rpc.publicnode.com','https://polygon.drpc.org','https://polygon-rpc.com'];
+const REGS=['0x101036a06cecb95c580515ec027ee20f8e917215','0xc6a4c5ec25f624729ccbdb0fe002e49b38be204b'];
+async function rpc(to,data){for(const u of RPCS){try{const r=await fetch(u,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'eth_call',params:[{to,data},'latest']})});const j=await r.json();if(j.result)return j.result}catch(e){}}return null}
+async function gepara(h){let reached=false;for(const reg of REGS){const r=await rpc(reg,'0x35e74bbd'+h);if(r===null)continue;reached=true;if(r.length>=194&&BigInt('0x'+r.slice(2,66))===1n){const ts=Number(BigInt('0x'+r.slice(130,194)));return {found:true,date:new Date(ts*1000)}}}return {found:false,reached}}
+
+async function check(files){
+  const out=$('l-k');out.innerHTML='';
+  const ots=files.filter(f=>f.name.toLowerCase().endsWith('.ots')), plain=files.filter(f=>!f.name.toLowerCase().endsWith('.ots'));
+  const otsDigests=[];for(const o of ots){const b=new Uint8Array(await o.arrayBuffer());let okM=b.length>MAGIC.length+34&&MAGIC.every((x,i)=>b[i]===x);if(okM&&b[MAGIC.length+1]===0x08)otsDigests.push({name:o.name,d:hex(b.slice(MAGIC.length+2,MAGIC.length+34))})}
+  const mans=[];for(const f of plain.filter(f=>f.name.toLowerCase().endsWith('.json'))){try{const b=new Uint8Array(await f.arrayBuffer());const m=JSON.parse(new TextDecoder().decode(b));if(m.type==='gepara-proof-pack'){const h=hex(await sha(b));mans.push({m,h,name:f.name})}}catch(e){}}
+  for(const M of mans){const box=document.createElement('div');box.className='item';box.style.marginTop='14px';box.innerHTML=`<h3>${esc(M.name)}</h3><div class="hash">${t('fp')}: ${M.h}</div><div class="note">${esc(M.m.note||'')} · ${esc(M.m.created||'')}</div>`;
+    const r=document.createElement('div');if(otsDigests.find(o=>o.d===M.h)){r.className='res ok';r.innerHTML=`<b>✓ ${esc(t('chkPackOts'))}</b>${esc(t('chkOtsMore'))} <a href="https://opentimestamps.org" target="_blank" rel="noopener">opentimestamps.org</a>`}else if(otsDigests.length){r.className='res bad';r.innerHTML=`<b>✗ ${esc(t('chkOtsBad'))}</b>`}else{r.className='res info';r.textContent=t('chkNoOts')}
+    box.appendChild(r);out.appendChild(box)}
+  for(const f of plain.filter(f=>!(mans.length&&mans.some(M=>M.name===f.name)))){
+    if(mans.length){const h=hex(await sha(await f.arrayBuffer()));const inPack=mans.some(M=>(M.m.files||[]).some(x=>x.sha256===h));
+      const box=document.createElement('div');box.className='item';box.style.marginTop='14px';box.innerHTML=`<h3>${esc(f.name)}</h3><div class="hash">${t('fp')}: ${h}</div>`;
+      const r=document.createElement('div');r.className='res '+(inPack?'ok':'bad');r.innerHTML=`<b>${inPack?'✓ '+esc(t('chkPackOk')):'✗ '+esc(t('chkPackNo'))}</b>`;box.appendChild(r);out.appendChild(box);continue}
+    const box=document.createElement('div');box.className='item';box.style.marginTop='14px';
+    const h=hex(await sha(await f.arrayBuffer()));
+    box.innerHTML=`<h3>${esc(f.name)}</h3><div class="hash">${t('fp')}: ${h}</div>`;
+    const m=otsDigests.find(o=>o.d===h);
+    const r1=document.createElement('div');
+    if(m){r1.className='res ok';r1.innerHTML=`<b>✓ ${esc(t('chkOtsOk'))}</b>${esc(t('chkOtsMore'))} <a href="https://opentimestamps.org" target="_blank" rel="noopener">opentimestamps.org</a>`}
+    else if(otsDigests.length){r1.className='res bad';r1.innerHTML=`<b>✗ ${esc(t('chkOtsBad'))}</b>`}
+    else{r1.className='res info';r1.textContent=t('chkNoOts')}
+    box.appendChild(r1);
+    const r2=document.createElement('div');r2.className='res info';r2.textContent='…';box.appendChild(r2);out.appendChild(box);
+    const g=await gepara(h);
+    if(g.found){r2.className='res ok';r2.innerHTML=`<b>✓ ${esc(t('chkReg'))}</b>${esc(g.date.toLocaleString(L))}`}
+    else r2.textContent=g.reached?t('chkRegNo'):t('chkErr');
+  }
+}
+
+
+async function offer(a,name,bytes,type){a.href=URL.createObjectURL(new Blob([bytes],{type}));a.download=name;
+  a.addEventListener('click',async ev=>{const dl=window.claude&&window.claude.use?await window.claude.use('downloads').catch(()=>null):null;if(dl){ev.preventDefault();try{await dl.save({filename:name,data:bytes})}catch(e){}}});}
+let paket=[];
+function packCount(){$('p-say').textContent=paket.length?paket.length+' '+t('packFiles'):'';$('p-yap').disabled=!paket.length}
+function addPack(files){paket=paket.concat(files);packCount()}
+$('p-yap').onclick=async()=>{
+  const files=paket;paket=[];packCount();$('p-yap').disabled=true;
+  const box=document.createElement('div');box.className='item';const st=line('wait','working');box.appendChild(st);$('l-p').prepend(box);
+  const list=[];for(const f of files){list.push({name:f.name,size:f.size,lastModified:new Date(f.lastModified).toISOString(),sha256:hex(await sha(await f.arrayBuffer()))})}
+  const man={type:'gepara-proof-pack',version:1,created:new Date().toISOString(),note:$('p-not').value.trim(),files:list};
+  const bytes=new TextEncoder().encode(JSON.stringify(man,null,2));const d=await sha(bytes);
+  box.insertAdjacentHTML('afterbegin',`<h3>${esc(man.note||('Pack · '+list.length))}</h3><div class="hash">${t('fp')}: ${hex(d)}</div>`);
+  st.dataset.dyn='sending';st.textContent=t('sending');
+  const r=await stamp(d);
+  if(!r){st.className='st bad';st.dataset.dyn='fail';st.textContent=t('fail');return}
+  st.className='st ok';st.dataset.dyn='packDone';st.textContent=t('packDone');
+  const base='kanit-paketi-'+man.created.slice(0,10);
+  const row=document.createElement('div');row.className='row';
+  const a1=document.createElement('a');a1.className='btn';a1.dataset.dyn='packDl1';a1.textContent=t('packDl1');offer(a1,base+'.json',bytes,'application/json');
+  const a2=document.createElement('a');a2.className='btn';a2.dataset.dyn='packDl2';a2.textContent=t('packDl2');offer(a2,base+'.json.ots',r.ots,'application/octet-stream');
+  row.append(a1,a2);box.appendChild(row);
+  const ul=document.createElement('div');ul.className='note';ul.textContent=list.map(x=>x.name).join(' · ');box.appendChild(ul);
+};
+function wire(drop,input,fn){input.onchange=e=>{fn([...e.target.files]);input.value=''};
+  ['dragenter','dragover'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('on')}));
+  ['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('on')}));
+  drop.addEventListener('drop',e=>fn([...e.dataTransfer.files]));}
+wire($('d-al'),$('f-al'),getProofs);wire($('d-p'),$('f-p'),addPack);wire($('d-k'),$('f-k'),check);
+</script>
+</body>
+</html>

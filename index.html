@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>GEPARA</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="GEPARA: Bilirkişi raporlarının gerçek olup olmadığını herkes ücretsiz kontrol edebilir.">
+<link rel="icon" type="image/png" href="logo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: seal-and-ledger. Navy masthead band with the seal, then ivory "ledger" sections ruled like an official register. */
+:root{
+  --bg:#F5F1E6; --paper:#FBF9F3; --ink:#152238; --muted:#4F5B6C; --rule:#D8D0BC;
+  --navy:#12284A; --gold:#A8812C; --gold-soft:#C9A24A; --on-navy:#F5EFE0;
+  --ok:#2C6B3F; --ok-soft:#E3EFE5; --bad:#A3392D; --bad-soft:#F6E4E1;
+  --f-display:"Cinzel","Trajan Pro",Georgia,serif;
+  --f-body:"Source Sans 3","Segoe UI",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0C1626; --paper:#122036; --ink:#E9E4D6; --muted:#A7B0BE; --rule:#2A3A55;
+  --navy:#0A1424; --gold:#D4AF57; --gold-soft:#C9A24A; --on-navy:#F5EFE0;
+  --ok:#7CC48E; --ok-soft:#173022; --bad:#E58B7F; --bad-soft:#38201D; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0C1626; --paper:#122036; --ink:#E9E4D6; --muted:#A7B0BE; --rule:#2A3A55;
+  --navy:#0A1424; --gold:#D4AF57; --gold-soft:#C9A24A; --on-navy:#F5EFE0;
+  --ok:#7CC48E; --ok-soft:#173022; --bad:#E58B7F; --bad-soft:#38201D; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:17px/1.6 var(--f-body)}
+a{color:var(--gold)} a:focus-visible,button:focus-visible,label:focus-visible{outline:2px solid var(--gold-soft);outline-offset:3px}
+.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);font-weight:700;text-wrap:balance;margin:0;letter-spacing:.02em}
+h2{font-size:clamp(1.5rem,3vw,2rem)}
+h3{font-size:1.05rem;letter-spacing:.04em}
+p{margin:0;max-width:65ch}
+.eyebrow{font:600 .78rem/1 var(--f-body);letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+
+/* masthead */
+.mast{background:var(--navy);color:var(--on-navy)}
+.mast .wrap{padding-block:18px 56px;display:grid;gap:40px}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px;color:var(--on-navy);text-decoration:none;font:700 1.3rem/1 var(--f-display);letter-spacing:.14em}
+.brand img{width:40px;height:40px}
+.langs{display:flex;gap:4px;border:1px solid rgba(201,162,74,.5);border-radius:999px;padding:3px}
+.langs button{font:600 .8rem/1 var(--f-body);letter-spacing:.08em;background:none;border:0;color:var(--on-navy);padding:8px 12px;border-radius:999px;cursor:pointer;min-height:36px}
+.langs button[aria-pressed="true"]{background:var(--gold-soft);color:#12284A}
+.hero{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:40px;align-items:center}
+.hero h1{font-size:clamp(2rem,5vw,3.4rem);line-height:1.12}
+.hero p{color:#D8D3C5;font-size:1.12rem;margin-top:18px}
+.hero .seal{justify-self:center;width:min(280px,70vw);filter:drop-shadow(0 18px 40px rgba(0,0,0,.35))}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 20px;border-radius:6px;font:600 1rem/1 var(--f-body);text-decoration:none;cursor:pointer;border:1px solid var(--gold-soft)}
+.btn.primary{background:var(--gold-soft);color:#12284A}
+.btn.ghost{color:var(--on-navy);background:transparent}
+@media (max-width:720px){.hero{grid-template-columns:1fr}.hero .seal{order:-1;width:160px}}
+
+section{padding-block:64px;border-bottom:1px solid var(--rule)}
+section .wrap{display:grid;gap:28px}
+.head{display:grid;gap:10px}
+.head p{color:var(--muted)}
+
+/* steps: a real sequence */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;counter-reset:s}
+.steps li{counter-increment:s;padding-top:18px;border-top:2px solid var(--gold);display:grid;gap:8px;align-content:start}
+.steps li::before{content:counter(s,upper-roman);font:700 1.6rem/1 var(--f-display);color:var(--gold)}
+.steps p{color:var(--muted)}
+.steps4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:900px){.steps4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:720px){.steps,.steps4{grid-template-columns:1fr}}
+.addrbox{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:18px 20px;display:grid;gap:10px}
+.addrbox > span{font-weight:700}
+
+/* verifier */
+.verify{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:24px;display:grid;gap:16px}
+.drop{display:grid;place-items:center;text-align:center;gap:6px;padding:34px 16px;border:2px dashed var(--rule);border-radius:8px;cursor:pointer}
+.drop.over{border-color:var(--gold)}
+.drop b{font-size:1.05rem}.drop span{color:var(--muted);font-size:.92rem}
+input[type=file]{position:absolute;width:1px;height:1px;opacity:0}
+.verdict{font-weight:700;padding:12px 14px;border-radius:6px}
+.verdict.ok{background:var(--ok-soft);color:var(--ok)}
+.verdict.bad{background:var(--bad-soft);color:var(--bad)}
+.verdict.wait{color:var(--muted)}
+dl{margin:0;display:grid;grid-template-columns:max-content minmax(0,1fr);gap:6px 16px}
+dt{color:var(--muted)} dd{margin:0;font:400 .88rem/1.5 var(--f-mono);word-break:break-all}
+
+/* ledger table */
+.ledger{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.ledger th,.ledger td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+.ledger th{font:600 .8rem/1.3 var(--f-body);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);width:34%}
+.scroll{overflow-x:auto}
+.addr{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.addr code{font:400 .86rem/1.4 var(--f-mono);word-break:break-all}
+.copy{font:600 .78rem/1 var(--f-body);border:1px solid var(--rule);background:var(--paper);color:var(--ink);border-radius:4px;padding:6px 10px;cursor:pointer;min-height:32px}
+.dist{display:grid;gap:10px}
+.distbar{display:flex;height:14px;border-radius:3px;overflow:hidden;border:1px solid var(--rule)}
+.distbar span:nth-child(1){background:var(--navy);flex:70}
+.distbar span:nth-child(2){background:var(--gold-soft);flex:20}
+.distbar span:nth-child(3){background:#7A8DA8;flex:10}
+.legend{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:.92rem;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:baseline}
+
+.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
+.cols > div{display:grid;gap:10px;align-content:start}
+.cols p{color:var(--muted)}
+@media (max-width:720px){.cols{grid-template-columns:1fr}}
+.uses{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.uses li{display:flex;gap:14px;align-items:baseline;padding-bottom:12px;border-bottom:1px solid var(--rule)}
+.tag{flex:none;font:600 .72rem/1 var(--f-body);letter-spacing:.12em;text-transform:uppercase;padding:5px 8px;border-radius:3px;border:1px solid var(--rule);color:var(--muted)}
+.tag.live{background:var(--ok-soft);color:var(--ok);border-color:transparent}
+
+.note{font-size:.92rem;color:var(--muted)}
+footer .wrap{padding-block:40px;display:grid;gap:14px;color:var(--muted);font-size:.92rem}
+@media (prefers-reduced-motion:no-preference){.btn,.copy{transition:filter .15s}.btn:hover,.copy:hover{filter:brightness(1.08)}}
+.stats{background:var(--navy);color:var(--on-navy);border-bottom:0}
+.stats .eyebrow{color:var(--gold-soft)}
+.statgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.stat{display:grid;gap:4px;padding:18px 0;border-top:1px solid rgba(201,162,74,.45)}
+.stat b{font:700 clamp(1.8rem,4vw,2.6rem)/1.1 var(--f-display);color:var(--gold-soft);font-variant-numeric:tabular-nums}
+.stat span{color:#D8D3C5}
+.stats .note{color:#B9B4A6}
+@media (max-width:720px){.statgrid{grid-template-columns:1fr}}
+.faq{display:grid;gap:0;border-top:1px solid var(--rule)}
+.faq details{border-bottom:1px solid var(--rule);padding:14px 0}
+.faq summary{cursor:pointer;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq summary::after{content:"+";color:var(--gold);font-weight:700}
+.faq details[open] summary::after{content:"–"}
+.faq p{color:var(--muted);margin-top:10px}
+</style>
+</head>
+<body>
+
+
+<header class="mast">
+  <div class="wrap">
+    <div class="bar">
+      <a class="brand" href="#top" id="top"><img src="logo.svg" alt="">GEPARA</a>
+      <div class="langs" role="group" aria-label="Language">
+        <button type="button" id="l-tr" data-l="tr">TR</button>
+        <button type="button" id="l-en" data-l="en">EN</button>
+        <button type="button" id="l-de" data-l="de">DE</button>
+      </div>
+    </div>
+    <div class="hero">
+      <div>
+        <p class="eyebrow" data-i="eyebrow"></p>
+        <h1 data-i="h1" style="margin-top:14px"></h1>
+        <p data-i="lead"></p>
+        <div class="cta">
+          <a class="btn primary" href="#verify" data-i="ctaVerify"></a>
+        </div>
+      </div>
+      <img class="seal" src="logo.svg" alt="GEPARA seal">
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="stats" class="stats"><div class="wrap">
+    <div class="head"><p class="eyebrow" data-i="stEy"></p><h2 data-i="stH"></h2></div>
+    <div class="statgrid">
+      <div class="stat"><b id="st-kayit">…</b><span data-i="st1"></span></div>
+      <div class="stat"><b id="st-yak">…</b><span data-i="st2"></span></div>
+      <div class="stat"><b id="st-kazi">…</b><span data-i="st3"></span></div>
+    </div>
+    <p class="note" data-i="stNote"></p>
+  </div></section>
+
+  <section id="how"><div class="wrap">
+    <div class="head"><p class="eyebrow" data-i="howEy"></p><h2 data-i="howH"></h2></div>
+    <ol class="steps">
+      <li><h3 data-i="s1h"></h3><p data-i="s1p"></p></li>
+      <li><h3 data-i="s2h"></h3><p data-i="s2p"></p></li>
+      <li><h3 data-i="s3h"></h3><p data-i="s3p"></p></li>
+    </ol>
+  </div></section>
+
+  <section id="verify"><div class="wrap">
+    <div class="head"><p class="eyebrow" data-i="verEy"></p><h2 data-i="verH"></h2><p data-i="verP"></p></div>
+    <div class="verify">
+      <label class="drop" id="drop" for="file" tabindex="0"><b data-i="dropB"></b><span data-i="dropS"></span></label>
+      <input type="file" id="file">
+      <div id="sonuc" hidden>
+        <div class="verdict wait" id="verdict"></div>
+        <dl style="margin-top:14px">
+          <dt data-i="dFile"></dt><dd id="dosya"></dd>
+          <dt data-i="dHash"></dt><dd id="iz"></dd>
+          <dt data-i="dBy"></dt><dd id="kaydeden">–</dd>
+          <dt data-i="dTime"></dt><dd id="zaman">–</dd>
+          <dt data-i="dDesc"></dt><dd id="aciklama">–</dd>
+        </dl>
+      </div>
+    </div>
+  </div></section>
+
+  <section id="token"><div class="wrap">
+    <div class="head"><p class="eyebrow" data-i="tokEy"></p><h2 data-i="tokH"></h2></div>
+    <div class="scroll"><table class="ledger">
+      <tr><th data-i="tName"></th><td>GEPARA (GEPARA)</td></tr>
+      <tr><th data-i="tNet"></th><td><span data-i="tNetV"></span> (chain ID 137) · ERC-20</td></tr>
+      <tr><th data-i="tSupply"></th><td data-i="tSupplyV"></td></tr>
+      <tr><th data-i="tToken"></th><td><div class="addr"><code>0xd88e494b914e6b70cee7f1f8ae92383bbb22c2e9</code><button class="copy" type="button" data-c="0xd88e494b914e6b70cee7f1f8ae92383bbb22c2e9" data-i="copy"></button></div></td></tr>
+      <tr><th data-i="tReg"></th><td><div class="addr"><code>0xc6a4c5ec25f624729ccbdb0fe002e49b38be204b</code><button class="copy" type="button" data-c="0xc6a4c5ec25f624729ccbdb0fe002e49b38be204b" data-i="copy"></button></div></td></tr>
+      <tr><th data-i="tReg2"></th><td><div class="addr"><code>0x101036a06cecb95c580515ec027ee20f8e917215</code><button class="copy" type="button" data-c="0x101036a06cecb95c580515ec027ee20f8e917215" data-i="copy"></button></div></td></tr>
+      <tr><th data-i="tMine"></th><td><div class="addr"><code>0x1fd839e7b37c6b253f0254c96afda00e6d8c8599</code><button class="copy" type="button" data-c="0x1fd839e7b37c6b253f0254c96afda00e6d8c8599" data-i="copy"></button></div></td></tr>
+      <tr><th data-i="tPool"></th><td><div class="addr"><code>0xb85c4ab0053af6a660a65f59a7a5ede50579d27c</code><button class="copy" type="button" data-c="0xb85c4ab0053af6a660a65f59a7a5ede50579d27c" data-i="copy"></button></div><div style="margin-top:6px"><a href="https://dexscreener.com/polygon/0xb85c4ab0053af6a660a65f59a7a5ede50579d27c" target="_blank" rel="noopener">DEX Screener</a> · <a href="https://polygonscan.com/address/0xd88e494b914e6b70cee7f1f8ae92383bbb22c2e9#code" target="_blank" rel="noopener" data-i="srcLink"></a></div></td></tr>
+    </table></div>
+    <div class="dist">
+      <h3 data-i="distH"></h3>
+      <div class="distbar" role="img" data-i-aria="distAria"><span></span><span></span><span></span></div>
+      <div class="legend">
+        <span><i style="background:var(--navy)"></i><span data-i="dist1"></span></span>
+        <span><i style="background:var(--gold-soft)"></i><span data-i="dist2"></span></span>
+        <span><i style="background:#7A8DA8"></i><span data-i="dist3"></span></span>
+      </div>
+    </div>
+  </div></section>
+
+  <section id="mining"><div class="wrap">
+    <div class="cols">
+      <div><p class="eyebrow" data-i="minEy"></p><h2 data-i="minH"></h2><p data-i="minP1"></p><p data-i="minP2"></p></div>
+      <div><p class="eyebrow" data-i="useEy"></p><h2 data-i="useH"></h2>
+        <ul class="uses">
+          <li><span class="tag live" data-i="live"></span><span data-i="u1"></span></li>
+          <li><span class="tag" data-i="planned"></span><span data-i="u2"></span></li>
+          <li><span class="tag" data-i="planned"></span><span data-i="u3"></span></li>
+          <li><span class="tag" data-i="planned"></span><span data-i="u4"></span></li>
+        </ul>
+      </div>
+    </div>
+  </div></section>
+  <section id="faq"><div class="wrap">
+    <div class="head"><p class="eyebrow" data-i="faqEy"></p><h2 data-i="faqH"></h2></div>
+    <div class="faq">
+      <details><summary data-i="q1"></summary><p data-i="a1"></p></details>
+      <details><summary data-i="q2"></summary><p data-i="a2"></p></details>
+      <details><summary data-i="q3"></summary><p data-i="a3"></p></details>
+      <details><summary data-i="q4"></summary><p data-i="a4"></p></details>
+      <details><summary data-i="q5"></summary><p data-i="a5"></p></details>
+      <details><summary data-i="q6"></summary><p data-i="a6"></p></details>
+    </div>
+  </div></section>
+</main>
+
+<footer><div class="wrap">
+  <p class="note" data-i="risk"></p>
+  <p data-i="contact"></p>
+  <p>© 2026 GEPARA</p>
+</div></footer>
+
+<script>
+const T={
+tr:{eyebrow:"Sahte rapora son",h1:"Bilirkişi raporunun gerçek olup olmadığını herkes kontrol edebilir.",lead:"Elinizde mahkemeye sunulmuş bir raporun kopyası mı var? Dosyayı bu sayfaya bırakın; birkaç saniyede raporun aslıyla aynı mı, yoksa sonradan değiştirilmiş mi öğrenin. Ücretsizdir ve dosyanız hiçbir yere gönderilmez.",ctaVerify:"Raporu kontrol et",ctaBuy:"GEPARA nasıl alınır",
+howEy:"Nasıl çalışır",howH:"Rapora dijital bir mühür basmak gibi",s1h:"Rapor hazırlanır",s1p:"Bilirkişi raporunu yazar ve imzalar.",s2h:"Mühür basılır",s2p:"Raporun taklit edilemeyen dijital izi çıkarılır ve tarihiyle birlikte kalıcı olarak kaydedilir. Raporun kendisi kimseyle paylaşılmaz. Bu kayıt için 1 GEPARA ödenir.",s3h:"Herkes kontrol eder",s3p:"Avukat, hâkim ya da taraflar ellerindeki dosyayı bu sayfaya bırakır. Raporda tek bir harf bile değiştirilmişse sistem bunu hemen gösterir.",
+verEy:"Ücretsiz kontrol",verH:"Raporu kontrol edin",verP:"Dosyanız bilgisayarınızdan çıkmaz. Hesap açmanız veya bir şey ödemeniz gerekmez.",dropB:"Raporu buraya sürükleyin veya tıklayıp seçin",dropS:"PDF, Word, UDF veya başka her tür dosya",dFile:"Dosya",dHash:"Dijital iz",dBy:"Kaydeden",dTime:"Kayıt tarihi",dDesc:"Açıklama",
+vWait:"Kontrol ediliyor…",vOk:"✓ Bu rapor aslıdır. Kayıtlı raporla birebir aynı.",vBad:"✗ Kayıt bulunamadı. Rapor değiştirilmiş ya da hiç kaydedilmemiş olabilir.",vNet:"İnternete bağlanılamadı. Bağlantınızı kontrol edip tekrar deneyin.",
+buyEy:"GEPARA nasıl alınır",buyH:"4 adımda GEPARA edinin",buyP:"GEPARA, raporların kaydında kullanılan dijital paradır. Kazı yapmadan da satın alabilirsiniz.",
+b1h:"Cüzdan kurun",b1p:"Telefonunuza veya bilgisayarınıza ücretsiz MetaMask cüzdanını kurun. Size verilen 12 kelimeyi kâğıda yazıp saklayın ve kimseyle paylaşmayın.",
+b2h:"POL alın",b2p:"Türkiye'deki bir kripto borsasından (örneğin BtcTurk) POL satın alın ve cüzdanınıza gönderin. Gönderirken ağ olarak mutlaka \"Polygon\" seçin.",
+b3h:"GEPARA ile değiştirin",b3p:"QuickSwap sitesine girip cüzdanınızı bağlayın. Alacağınız token olarak aşağıdaki GEPARA adresini yapıştırın ve POL karşılığında GEPARA alın.",
+b4h:"Cüzdanda görün",b4p:"MetaMask'te \"Token içe aktar\" deyip aynı adresi yapıştırın. GEPARA bakiyeniz görünür.",
+addrLabel:"GEPARA'nın resmi adresi (yalnızca bunu kullanın):",buyWarn:"Aynı adla sahte tokenler çıkabilir; her zaman bu adresi kontrol edin. GEPARA'nın fiyatı inip çıkabilir. Kaybetmeyi göze alamayacağınız parayla almayın.",
+tokEy:"Bilgiler",tokH:"GEPARA hakkında temel bilgiler",tName:"Adı",tNet:"Çalıştığı ağ",tNetV:"Polygon",tSupply:"Toplam miktar",tSupplyV:"1.000.000 GEPARA. Bu sayı hiçbir zaman artmaz. Her rapor kaydında ödenen ücretin yarısı yok edilir, yani toplam miktar zamanla azalır.",tToken:"GEPARA adresi",tReg:"Rapor kayıt sistemi",tMine:"Kazı sistemi",tPool:"Alım satım havuzu (QuickSwap)",srcLink:"Herkese açık kod",copy:"Kopyala",copied:"Kopyalandı",
+distH:"GEPARA'lar nerede?",distAria:"%70 proje kasası, %20 kazı ödülleri, %10 alım satım havuzu",dist1:"%70 proje kasası (700.000)",dist2:"%20 kazı yapanlara ödül (200.000)",dist3:"%10 alım satım havuzu (100.000)",
+minEy:"Kazı (madencilik)",minH:"Bilgisayarınızla GEPARA kazanın",minP1:"200.000 GEPARA, bilgisayarıyla veya ekran kartıyla bulmaca çözenlere ödül olarak ayrıldı. Bu ödülleri proje sahibi dahil hiç kimse başka bir yolla alamaz.",minP2:"Çözülen her bulmaca 1 GEPARA kazandırır. Kaç kişi kazarsa kazsın saatte yaklaşık 1 GEPARA dağıtılır. Her ödül için küçük bir ağ ücreti (POL) ödenir.",
+useEy:"Nerede kullanılır",useH:"GEPARA'nın kullanım alanları",live:"Çalışıyor",planned:"Yakında",u1:"Bilirkişi raporlarının kaydı ve kontrolü",u2:"İnşaat tespit ve değerleme raporları",u3:"Eğitim ve danışmanlık belgeleri",u4:"Araç ekspertizi, garanti belgesi gibi diğer belgeler",
+risk:"GEPARA bir yatırım aracı değildir; raporların kaydında kullanılan dijital bir paradır. Bu site yatırım tavsiyesi vermez ve kazanç vaat etmez. Kripto paraların değeri hızla düşebilir, hatta sıfırlanabilir.",stEy:"Canlı veriler",stH:"Blokzincirden anlık rakamlar",st1:"Kayıtlı belge",st2:"Yakılan GEPARA",st3:"Kazıyla dağıtılan GEPARA",stNote:"Bu rakamlar her açılışta doğrudan Polygon blokzincirinden okunur; kimse elle değiştiremez.",tReg2:"Toplu kayıt sistemi",faqEy:"Sık sorulanlar",faqH:"Merak edilenler",q1:"Raporum internete yükleniyor mu?",a1:"Hayır. Raporun kendisi hiçbir yere gönderilmez. Bilgisayarınızda raporun dijital izi çıkarılır; blokzincire yalnızca bu iz ve kayıt tarihi yazılır. İzden raporun içeriği geri elde edilemez.",q2:"Raporda bir harf değişse ne olur?",a2:"Dijital iz tamamen değişir ve kontrol sayfası \"kayıt bulunamadı\" der. Bu yüzden sonradan değiştirilmiş bir kopya hemen anlaşılır.",q3:"Kontrol etmek için bir şey ödemem gerekir mi?",a3:"Hayır. Kontrol herkes için ücretsizdir; hesap açmanız veya cüzdan kurmanız gerekmez.",q4:"Raporları kim kaydedebilir?",a4:"Raporu hazırlayan bilirkişi kaydeder. Kayıt ücreti 1 GEPARA'dır; yarısı yakılır, yarısı sistemin işletilmesine gider.",q5:"Neden blokzincir?",a5:"Blokzincire yazılan kayıt silinemez ve geriye dönük değiştirilemez. Kayıt tarihi de kalıcıdır. Böylece bir raporun belirli bir tarihte var olduğu ve o günden beri değişmediği herkes tarafından kanıtlanabilir.",q6:"GEPARA bir yatırım aracı mı?",a6:"Hayır. GEPARA, rapor kaydı için kullanılan dijital bir paradır. Değeri inip çıkabilir ve kazanç garantisi yoktur.",contact:"İletişim: geparatoken@gmail.com"},
+en:{eyebrow:"An end to forged reports",h1:"Anyone can check whether an expert report is genuine.",lead:"Do you have a copy of a report submitted to a court? Drop the file on this page and find out in seconds whether it matches the original or was changed afterwards. It is free and your file is never sent anywhere.",ctaVerify:"Check a report",ctaBuy:"How to get GEPARA",
+howEy:"How it works",howH:"Like stamping a digital seal on a report",s1h:"The report is written",s1p:"The expert writes and signs the report.",s2h:"The seal is stamped",s2p:"A unique digital fingerprint of the report is recorded permanently with its date. The report itself is never shared. Recording it costs 1 GEPARA.",s3h:"Anyone can check",s3p:"Lawyers, judges or the parties drop their copy on this page. If even one letter was changed, the page shows it immediately.",
+verEy:"Free check",verH:"Check a report",verP:"Your file never leaves your computer. No account and no payment needed.",dropB:"Drop the report here or click to choose",dropS:"PDF, Word, UDF or any other file",dFile:"File",dHash:"Digital fingerprint",dBy:"Recorded by",dTime:"Recorded on",dDesc:"Description",
+vWait:"Checking…",vOk:"✓ This report is genuine. It matches the recorded report exactly.",vBad:"✗ No record found. The report may have been changed or was never recorded.",vNet:"Could not connect. Check your internet connection and try again.",
+buyEy:"How to get GEPARA",buyH:"Get GEPARA in 4 steps",buyP:"GEPARA is the digital currency used to record reports. You can buy it without mining.",
+b1h:"Install a wallet",b1p:"Install the free MetaMask wallet on your phone or computer. Write down the 12 words it gives you, keep them safe and never share them.",
+b2h:"Buy POL",b2p:"Buy POL on a crypto exchange and send it to your wallet. When sending, always choose the \"Polygon\" network.",
+b3h:"Swap for GEPARA",b3p:"Open QuickSwap and connect your wallet. Paste the GEPARA address below as the token to receive and swap POL for GEPARA.",
+b4h:"See it in your wallet",b4p:"In MetaMask choose \"Import tokens\" and paste the same address. Your GEPARA balance appears.",
+addrLabel:"Official GEPARA address (use only this one):",buyWarn:"Fake tokens with the same name can appear; always check this address. The price of GEPARA can go up and down. Do not use money you cannot afford to lose.",
+tokEy:"Facts",tokH:"GEPARA in brief",tName:"Name",tNet:"Network",tNetV:"Polygon",tSupply:"Total amount",tSupplyV:"1,000,000 GEPARA. This number never grows. Half of every recording fee is destroyed, so the total shrinks over time.",tToken:"GEPARA address",tReg:"Report registry",tMine:"Mining system",tPool:"Trading pool (QuickSwap)",srcLink:"Public code",copy:"Copy",copied:"Copied",
+distH:"Where are the GEPARA?",distAria:"70% project treasury, 20% mining rewards, 10% trading pool",dist1:"70% project treasury (700,000)",dist2:"20% rewards for miners (200,000)",dist3:"10% trading pool (100,000)",
+minEy:"Mining",minH:"Earn GEPARA with your computer",minP1:"200,000 GEPARA are set aside as rewards for people who solve puzzles with their computer or graphics card. No one, including the project owner, can take these rewards any other way.",minP2:"Each solved puzzle earns 1 GEPARA. However many people mine, about 1 GEPARA is paid out per hour. Each reward needs a small network fee in POL.",
+useEy:"Where it is used",useH:"What GEPARA is for",live:"Working",planned:"Coming",u1:"Recording and checking expert reports",u2:"Construction inspection and valuation reports",u3:"Training and consulting certificates",u4:"Other documents such as vehicle inspections and warranties",
+risk:"GEPARA is not an investment product; it is a digital currency used to record reports. This site gives no investment advice and promises no profit. The value of crypto currencies can fall quickly or drop to zero.",stEy:"Live figures",stH:"Read directly from the blockchain",st1:"Documents recorded",st2:"GEPARA burned",st3:"GEPARA paid to miners",stNote:"These figures are read from the Polygon blockchain each time the page opens. No one can change them by hand.",tReg2:"Batch registry",faqEy:"Questions",faqH:"Frequently asked",q1:"Is my report uploaded to the internet?",a1:"No. The report itself is never sent anywhere. Its digital fingerprint is computed on your computer, and only that fingerprint and the date are written to the blockchain. The content cannot be recovered from the fingerprint.",q2:"What if one letter in the report changes?",a2:"The fingerprint changes completely and the check page says \"no record found\". A copy that was edited afterwards is spotted at once.",q3:"Do I pay to check a report?",a3:"No. Checking is free for everyone. You need no account and no wallet.",q4:"Who can record reports?",a4:"The expert who wrote the report records it. The fee is 1 GEPARA: half is burned, half funds the system.",q5:"Why a blockchain?",a5:"A record on the blockchain cannot be deleted or changed later, and its date is permanent. Anyone can prove that a report existed on a given date and has not changed since.",q6:"Is GEPARA an investment?",a6:"No. GEPARA is a digital currency used to record reports. Its value can rise and fall and there is no guaranteed return.",contact:"Contact: geparatoken@gmail.com"},
+de:{eyebrow:"Schluss mit gefälschten Gutachten",h1:"Jeder kann prüfen, ob ein Gutachten echt ist.",lead:"Sie haben die Kopie eines Gutachtens, das bei Gericht eingereicht wurde? Legen Sie die Datei auf dieser Seite ab und erfahren Sie in Sekunden, ob sie dem Original entspricht oder nachträglich verändert wurde. Kostenlos, und Ihre Datei wird nirgendwohin gesendet.",ctaVerify:"Gutachten prüfen",ctaBuy:"So erhalten Sie GEPARA",
+howEy:"So funktioniert es",howH:"Wie ein digitales Siegel auf dem Gutachten",s1h:"Das Gutachten entsteht",s1p:"Der Sachverständige schreibt und unterschreibt das Gutachten.",s2h:"Das Siegel wird gesetzt",s2p:"Ein einzigartiger digitaler Fingerabdruck des Gutachtens wird mit Datum dauerhaft gespeichert. Das Gutachten selbst wird nicht geteilt. Die Speicherung kostet 1 GEPARA.",s3h:"Jeder kann prüfen",s3p:"Anwälte, Richter oder Parteien legen ihre Kopie auf dieser Seite ab. Wurde auch nur ein Buchstabe geändert, zeigt die Seite es sofort.",
+verEy:"Kostenlose Prüfung",verH:"Gutachten prüfen",verP:"Ihre Datei verlässt Ihren Computer nicht. Kein Konto und keine Zahlung nötig.",dropB:"Gutachten hierher ziehen oder klicken",dropS:"PDF, Word, UDF oder jede andere Datei",dFile:"Datei",dHash:"Digitaler Fingerabdruck",dBy:"Gespeichert von",dTime:"Gespeichert am",dDesc:"Beschreibung",
+vWait:"Wird geprüft…",vOk:"✓ Dieses Gutachten ist echt. Es stimmt genau mit dem gespeicherten überein.",vBad:"✗ Kein Eintrag gefunden. Das Gutachten wurde möglicherweise verändert oder nie gespeichert.",vNet:"Keine Verbindung. Bitte Internetverbindung prüfen und erneut versuchen.",
+buyEy:"So erhalten Sie GEPARA",buyH:"GEPARA in 4 Schritten",buyP:"GEPARA ist die digitale Währung zur Speicherung von Gutachten. Sie können sie auch ohne Mining kaufen.",
+b1h:"Wallet installieren",b1p:"Installieren Sie die kostenlose MetaMask-Wallet auf Handy oder Computer. Notieren Sie die 12 Wörter, bewahren Sie sie sicher auf und geben Sie sie niemandem.",
+b2h:"POL kaufen",b2p:"Kaufen Sie POL an einer Kryptobörse und senden Sie es an Ihre Wallet. Wählen Sie beim Senden immer das Netzwerk \"Polygon\".",
+b3h:"In GEPARA tauschen",b3p:"Öffnen Sie QuickSwap und verbinden Sie Ihre Wallet. Fügen Sie die GEPARA-Adresse unten als Ziel-Token ein und tauschen Sie POL gegen GEPARA.",
+b4h:"In der Wallet sehen",b4p:"Wählen Sie in MetaMask \"Token importieren\" und fügen Sie dieselbe Adresse ein. Ihr GEPARA-Guthaben erscheint.",
+addrLabel:"Offizielle GEPARA-Adresse (nur diese verwenden):",buyWarn:"Es können gefälschte Token mit gleichem Namen auftauchen; prüfen Sie immer diese Adresse. Der Preis von GEPARA kann steigen und fallen. Setzen Sie kein Geld ein, dessen Verlust Sie sich nicht leisten können.",
+tokEy:"Fakten",tokH:"GEPARA kurz erklärt",tName:"Name",tNet:"Netzwerk",tNetV:"Polygon",tSupply:"Gesamtmenge",tSupplyV:"1.000.000 GEPARA. Diese Zahl wächst nie. Die Hälfte jeder Speichergebühr wird vernichtet, die Gesamtmenge sinkt also mit der Zeit.",tToken:"GEPARA-Adresse",tReg:"Gutachten-Register",tMine:"Mining-System",tPool:"Handelspool (QuickSwap)",srcLink:"Öffentlicher Code",copy:"Kopieren",copied:"Kopiert",
+distH:"Wo liegen die GEPARA?",distAria:"70 % Projektkasse, 20 % Mining-Belohnungen, 10 % Handelspool",dist1:"70 % Projektkasse (700.000)",dist2:"20 % Belohnung für Miner (200.000)",dist3:"10 % Handelspool (100.000)",
+minEy:"Mining",minH:"GEPARA mit dem eigenen Computer verdienen",minP1:"200.000 GEPARA sind als Belohnung für Menschen reserviert, die mit Computer oder Grafikkarte Rätsel lösen. Niemand, auch nicht der Projektinhaber, kann diese Belohnungen anders erhalten.",minP2:"Jedes gelöste Rätsel bringt 1 GEPARA. Egal wie viele mitmachen, pro Stunde wird etwa 1 GEPARA ausgezahlt. Für jede Belohnung fällt eine kleine Netzwerkgebühr in POL an.",
+useEy:"Einsatz",useH:"Wofür GEPARA da ist",live:"Läuft",planned:"Bald",u1:"Speicherung und Prüfung von Gutachten",u2:"Bau-Befund- und Wertgutachten",u3:"Schulungs- und Beratungszertifikate",u4:"Weitere Dokumente wie Fahrzeuggutachten und Garantien",
+risk:"GEPARA ist kein Anlageprodukt, sondern eine digitale Währung zur Speicherung von Gutachten. Diese Seite gibt keine Anlageberatung und verspricht keinen Gewinn. Der Wert von Kryptowährungen kann schnell fallen oder auf null sinken.",stEy:"Live-Daten",stH:"Direkt aus der Blockchain",st1:"Gespeicherte Dokumente",st2:"Verbrannte GEPARA",st3:"An Miner ausgezahlte GEPARA",stNote:"Diese Zahlen werden bei jedem Aufruf direkt aus der Polygon-Blockchain gelesen. Niemand kann sie von Hand ändern.",tReg2:"Sammelregister",faqEy:"Fragen",faqH:"Häufig gefragt",q1:"Wird mein Gutachten ins Internet hochgeladen?",a1:"Nein. Das Gutachten selbst wird nirgendwohin gesendet. Der digitale Fingerabdruck wird auf Ihrem Computer berechnet; nur dieser und das Datum werden in die Blockchain geschrieben. Aus dem Fingerabdruck lässt sich der Inhalt nicht wiederherstellen.",q2:"Was passiert, wenn sich ein Buchstabe ändert?",a2:"Der Fingerabdruck ändert sich vollständig und die Prüfseite meldet \"kein Eintrag gefunden\". Eine nachträglich bearbeitete Kopie fällt sofort auf.",q3:"Kostet die Prüfung etwas?",a3:"Nein. Die Prüfung ist für alle kostenlos. Sie brauchen weder Konto noch Wallet.",q4:"Wer kann Gutachten speichern?",a4:"Der Sachverständige, der das Gutachten erstellt hat. Die Gebühr beträgt 1 GEPARA: die Hälfte wird verbrannt, die Hälfte finanziert das System.",q5:"Warum eine Blockchain?",a5:"Ein Eintrag in der Blockchain kann nicht gelöscht oder nachträglich geändert werden, und sein Datum ist dauerhaft. So kann jeder nachweisen, dass ein Gutachten an einem bestimmten Tag existierte und seitdem unverändert ist.",q6:"Ist GEPARA eine Geldanlage?",a6:"Nein. GEPARA ist eine digitale Währung zur Speicherung von Gutachten. Ihr Wert kann steigen und fallen; es gibt keine garantierte Rendite.",contact:"Kontakt: geparatoken@gmail.com"}};
+let L='en';
+function setLang(l){L=T[l]?l:'en';document.documentElement.lang=L;
+  document.querySelectorAll('[data-i]').forEach(e=>{const v=T[L][e.dataset.i];if(v!==undefined)e.textContent=v;});
+  document.querySelectorAll('[data-i-aria]').forEach(e=>e.setAttribute('aria-label',T[L][e.dataset.iAria]));
+  document.querySelectorAll('.langs button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.l===L));
+  try{localStorage.setItem('gepara-lang',L)}catch(e){}
+  if(location.hash!=='#'+L&&['#tr','#en','#de',''].includes(location.hash))history.replaceState(null,'','#'+L);}
+document.querySelectorAll('.langs button').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.l)));
+(function(){let l=(location.hash||'').slice(1);if(!T[l]){try{l=localStorage.getItem('gepara-lang')}catch(e){l=null}}
+  if(!T[l]){const n=(navigator.language||'en').slice(0,2);l=T[n]?n:'en';}setLang(l);})();
+window.addEventListener('hashchange',()=>{const l=location.hash.slice(1);if(T[l])setLang(l);});
+
+document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',()=>{
+  const done=()=>{b.textContent=T[L].copied;setTimeout(()=>b.textContent=T[L].copy,1400)};
+  navigator.clipboard.writeText(b.dataset.c).then(done).catch(()=>{const c=b.previousElementSibling;const r=document.createRange();r.selectNodeContents(c);const s=getSelection();s.removeAllRanges();s.addRange(r);});
+}));
+
+const KAYITLAR=['0x101036a06cecb95c580515ec027ee20f8e917215','0xc6a4c5ec25f624729ccbdb0fe002e49b38be204b'];
+const RPCS=['https://polygon-bor-rpc.publicnode.com','https://polygon.drpc.org','https://polygon-rpc.com'];
+const $=id=>document.getElementById(id);
+async function sha256Hex(buf){const h=await crypto.subtle.digest('SHA-256',buf);return '0x'+[...new Uint8Array(h)].map(b=>b.toString(16).padStart(2,'0')).join('');}
+async function rpcCall(data,to){let last;for(const url of RPCS){try{const r=await fetch(url,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'eth_call',params:[{to,data},'latest']})});const j=await r.json();if(j.result)return j.result;last=new Error('empty');}catch(e){last=e}}throw last;}
+function decode(hex){const w=i=>hex.slice(2+i*64,2+(i+1)*64);const ok=BigInt('0x'+w(0))===1n;const by='0x'+w(1).slice(24);const t=Number(BigInt('0x'+w(2)));const off=Number(BigInt('0x'+w(3)))/32;const len=Number(BigInt('0x'+w(off)));const bytes=hex.slice(2+(off+1)*64,2+(off+1)*64+len*2);const d=new TextDecoder().decode(new Uint8Array(bytes.match(/../g)?.map(h=>parseInt(h,16))||[]));return{ok,by,t,d};}
+async function check(file){$('sonuc').hidden=false;const v=$('verdict');v.className='verdict wait';v.textContent=T[L].vWait;
+  ['kaydeden','zaman','aciklama'].forEach(id=>$(id).textContent='–');
+  $('dosya').textContent=file.name+' ('+(file.size<1024?file.size+' B':Math.round(file.size/1024).toLocaleString(L)+' KB')+')';
+  try{const iz=await sha256Hex(await file.arrayBuffer());$('iz').textContent=iz;let r={ok:false};for(const k of KAYITLAR){r=decode(await rpcCall('0x35e74bbd'+iz.slice(2),k));if(r.ok)break;}
+    if(r.ok){v.className='verdict ok';v.textContent=T[L].vOk;$('kaydeden').textContent=r.by;$('zaman').textContent=new Date(r.t*1000).toLocaleString(L);$('aciklama').textContent=r.d||'–';}
+    else{v.className='verdict bad';v.textContent=T[L].vBad;}
+  }catch(e){v.className='verdict bad';v.textContent=T[L].vNet;}}
+$('file').addEventListener('change',e=>e.target.files[0]&&check(e.target.files[0]));
+const drop=$('drop');
+drop.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();$('file').click();}});
+['dragenter','dragover'].forEach(t=>drop.addEventListener(t,e=>{e.preventDefault();drop.classList.add('over')}));
+['dragleave','drop'].forEach(t=>drop.addEventListener(t,e=>{e.preventDefault();drop.classList.remove('over')}));
+drop.addEventListener('drop',e=>e.dataTransfer.files[0]&&check(e.dataTransfer.files[0]));
+
+(async function stats(){
+  const TOK='0xd88e494b914e6b70cee7f1f8ae92383bbb22c2e9',MAD='0x1fd839e7b37c6b253f0254c96afda00e6d8c8599';
+  const n=(h)=>Number(BigInt(h)/10n**15n)/1000;
+  const fmt=(x)=>x.toLocaleString(L,{maximumFractionDigits:0});
+  try{
+    const [kay,arz,maden]=await Promise.all([rpcCall('0x5ad5d154',KAYITLAR[0]),rpcCall('0x18160ddd',TOK),rpcCall('0x70a08231000000000000000000000000'+MAD.slice(2),TOK)]);
+    $('st-kayit').textContent=fmt(Number(BigInt(kay)));
+    $('st-yak').textContent=fmt(1000000-n(arz));
+    $('st-kazi').textContent=fmt(200000-n(maden));
+  }catch(e){['st-kayit','st-yak','st-kazi'].forEach(id=>$(id).textContent='–');}
+})();
+</script>
+
+</body>
+</html>
