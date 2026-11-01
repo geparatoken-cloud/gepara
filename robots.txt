@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://geparatoken-cloud.github.io/gepara/sitemap.xml
