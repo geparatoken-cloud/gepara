@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GEPARA Şeffaflık</title>
+<meta name="description" content="GEPARA ve Dosya Kanıtı: nasıl çalışır, hangi kayıtlar var, neyi vaat eder, neyi etmez. Her şey herkes tarafından bağımsız olarak kontrol edilebilir.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<style>
+:root{--bg:#F5F1E6;--paper:#FBF9F3;--ink:#152238;--muted:#4F5B6C;--rule:#D8D0BC;--navy:#12284A;--gold:#A8812C;--gold-soft:#C9A24A;--on-navy:#F5EFE0}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0E1726;--paper:#142035;--ink:#EDE7D8;--muted:#A9B2C0;--rule:#2A3955;--navy:#0A1424;--gold:#D3AE5C}}
+:root[data-theme="dark"]{--bg:#0E1726;--paper:#142035;--ink:#EDE7D8;--muted:#A9B2C0;--rule:#2A3955;--navy:#0A1424;--gold:#D3AE5C}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 "Source Sans 3",system-ui,sans-serif}
+.wrap{max-width:820px;margin:0 auto;padding:0 16px}
+header{background:var(--navy);color:var(--on-navy);padding:28px 0 36px}
+header a.b{font:700 1.1rem Cinzel,serif;letter-spacing:.08em;color:var(--on-navy);text-decoration:none}
+header h1{font:700 clamp(1.6rem,4.5vw,2.3rem)/1.2 Cinzel,serif;margin:18px 0 8px}
+header p{margin:0;color:#D9D3C4}
+.lang{float:right;background:none;border:1px solid #ffffff55;color:var(--on-navy);border-radius:6px;padding:5px 10px;font:inherit;font-size:.9rem;cursor:pointer}
+h2{font:700 1.3rem Cinzel,serif;margin:34px 0 10px}
+.card{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:18px;margin:12px 0}
+table{width:100%;border-collapse:collapse;font-size:.95rem}
+td,th{text-align:left;padding:8px 6px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{width:40%;color:var(--muted);font-weight:600}
+code{font:13px ui-monospace,Menlo,Consolas,monospace;word-break:break-all}
+a{color:var(--gold)}
+ul{padding-left:20px}li{margin:4px 0}
+.no li::marker{content:"✕  ";color:#A3392D}.yes li::marker{content:"✓  ";color:#2C6B3F}
+footer{border-top:1px solid var(--rule);margin-top:40px;padding:22px 0 40px;color:var(--muted);font-size:.9rem}
+[data-l="en"]{display:none}html[lang="en"] [data-l="tr"]{display:none}html[lang="en"] [data-l="en"]{display:revert}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <button class="lang" id="lg">English</button>
+  <a class="b" href="./">GEPARA</a>
+  <h1><span data-l="tr">Şeffaflık</span><span data-l="en">Transparency</span></h1>
+  <p data-l="tr">Bize güvenmenizi istemiyoruz. Buradaki her bilgiyi kendiniz kontrol edebilirsiniz.</p>
+  <p data-l="en">We do not ask you to trust us. You can check everything on this page yourself.</p>
+</div></header>
+<main class="wrap">
+
+<h2><span data-l="tr">Canlı kayıtlar</span><span data-l="en">Live records</span></h2>
+<div class="card"><table>
+<tr><th data-l="tr">Blokzincire kaydedilmiş belge</th><th data-l="en">Documents recorded on chain</th><td id="n-kayit">…</td></tr>
+<tr><th data-l="tr">GEPARA toplam arzı</th><th data-l="en">GEPARA total supply</th><td id="n-arz">…</td></tr>
+<tr><th data-l="tr">Son okuma</th><th data-l="en">Last read</th><td id="n-zaman">…</td></tr>
+</table>
+<p style="font-size:.9rem;color:var(--muted);margin:10px 0 0" data-l="tr">Bu sayılar sayfa açıldığında doğrudan Polygon blokzincirinden okunur; biz değiştiremeyiz.</p>
+<p style="font-size:.9rem;color:var(--muted);margin:10px 0 0" data-l="en">These numbers are read directly from the Polygon blockchain when the page opens; we cannot change them.</p>
+</div>
+
+<h2><span data-l="tr">Ne vaat ediyoruz, ne etmiyoruz</span><span data-l="en">What we promise and what we do not</span></h2>
+<div class="card">
+<ul class="yes" data-l="tr">
+<li>Dosya Kanıtı ücretsizdir; hesap, kart veya kişisel bilgi istemez.</li>
+<li>Dosyanız cihazınızdan çıkmaz; yalnızca geri çevrilemeyen parmak izi (SHA-256) gönderilir.</li>
+<li>Kanıtlar Bitcoin blokzincirine işlenir ve bizden bağımsız olarak doğrulanabilir.</li>
+<li>Kodun tamamı açıktır ve herkes inceleyebilir.</li>
+</ul>
+<ul class="yes" data-l="en">
+<li>File Proof is free; no account, card or personal data.</li>
+<li>Your file never leaves your device; only an irreversible fingerprint (SHA-256) is sent.</li>
+<li>Proofs are anchored in the Bitcoin blockchain and can be verified without us.</li>
+<li>All code is public and open to review.</li>
+</ul>
+<ul class="no" data-l="tr">
+<li>GEPARA bir yatırım aracı değildir; değer, getiri veya fiyat vaadi yoktur.</li>
+<li>GEPARA satmıyoruz ve kimseyi satın almaya yönlendirmiyoruz.</li>
+<li>Dosya Kanıtı noter onayı veya nitelikli elektronik zaman damgası değildir; delil değeri mahkemece takdir edilir.</li>
+<li>Dosyanın kime ait olduğunu tek başına kanıtlamaz; o tarihte var olduğunu ve değişmediğini gösterir.</li>
+</ul>
+<ul class="no" data-l="en">
+<li>GEPARA is not an investment; there is no promise of value, return or price.</li>
+<li>We do not sell GEPARA and do not encourage anyone to buy it.</li>
+<li>File Proof is not notarisation or a qualified electronic timestamp; courts decide its weight as evidence.</li>
+<li>It does not prove who owns a file on its own; it shows the file existed on that date and has not changed.</li>
+</ul>
+</div>
+
+<h2><span data-l="tr">Kendiniz doğrulayın</span><span data-l="en">Verify it yourself</span></h2>
+<div class="card">
+<ol data-l="tr">
+<li>Dosya Kanıtı'ndan aldığınız <b>.ots</b> dosyasını ve orijinal dosyayı saklayın.</li>
+<li>Birkaç saat sonra <a href="https://opentimestamps.org" rel="noopener">opentimestamps.org</a> adresine ikisini birlikte bırakın.</li>
+<li>Site, kaydın hangi Bitcoin bloğunda ve hangi tarihte yer aldığını gösterir. Bu işlemde GEPARA'ya hiç ihtiyaç yoktur.</li>
+</ol>
+<ol data-l="en">
+<li>Keep the <b>.ots</b> file from File Proof together with your original file.</li>
+<li>After a few hours, drop both at <a href="https://opentimestamps.org" rel="noopener">opentimestamps.org</a>.</li>
+<li>It shows which Bitcoin block and date contain the record. GEPARA is not needed for this at all.</li>
+</ol>
+</div>
+
+<h2><span data-l="tr">Akıllı sözleşmeler (Polygon)</span><span data-l="en">Smart contracts (Polygon)</span></h2>
+<div class="card"><table>
+<tr><th>GEPARA token</th><td><a href="https://polygonscan.com/token/0xd88e494b914e6b70cee7f1f8ae92383bbb22c2e9"><code>0xd88e494b914e6b70cee7f1f8ae92383bbb22c2e9</code></a></td></tr>
+<tr><th data-l="tr">Belge kayıt (V2)</th><th data-l="en">Document registry (V2)</th><td><a href="https://polygonscan.com/address/0x101036a06cecb95c580515ec027ee20f8e917215#code"><code>0x101036a06cecb95c580515ec027ee20f8e917215</code></a></td></tr>
+<tr><th data-l="tr">Belge kayıt (V1)</th><th data-l="en">Document registry (V1)</th><td><a href="https://polygonscan.com/address/0xc6a4c5ec25f624729ccbdb0fe002e49b38be204b#code"><code>0xc6a4c5ec25f624729ccbdb0fe002e49b38be204b</code></a></td></tr>
+</table>
+<p style="font-size:.9rem;color:var(--muted);margin:10px 0 0" data-l="tr">Kayıt sözleşmelerine yalnızca belgelerin parmak izi yazılır; belgelerin içeriği zincirde yer almaz.</p>
+<p style="font-size:.9rem;color:var(--muted);margin:10px 0 0" data-l="en">Only document fingerprints are written to the registry contracts; contents are never stored on chain.</p>
+</div>
+
+<h2><span data-l="tr">Açık kaynak ve iletişim</span><span data-l="en">Open source and contact</span></h2>
+<div class="card">
+<p style="margin:0 0 6px"><span data-l="tr">Sitenin tüm kodu:</span><span data-l="en">All site code:</span> <a href="https://github.com/geparatoken-cloud/gepara">github.com/geparatoken-cloud/gepara</a></p>
+<p style="margin:0"><span data-l="tr">Soru, hata bildirimi, öneri:</span><span data-l="en">Questions, bug reports, ideas:</span> <a href="mailto:geparatoken@gmail.com">geparatoken@gmail.com</a></p>
+</div>
+
+<p><a href="dosya-kaniti.html"><b data-l="tr">→ Dosya Kanıtı'nı ücretsiz kullan</b><b data-l="en">→ Use File Proof for free</b></a></p>
+</main>
+<footer><div class="wrap"><span data-l="tr">Hukuki veya mali tavsiye değildir.</span><span data-l="en">Not legal or financial advice.</span></div></footer>
+<script>
+const h=document.documentElement,b=document.getElementById('lg');
+function setL(l){h.lang=l;b.textContent=l==='tr'?'English':'Türkçe';try{localStorage.setItem('dk-lang',l)}catch(e){}}
+let s='tr';try{s=localStorage.getItem('dk-lang')||(navigator.language||'tr').slice(0,2)}catch(e){}
+setL(s==='tr'?'tr':'en');b.onclick=()=>setL(h.lang==='tr'?'en':'tr');
+const R=['https://polygon-bor-rpc.publicnode.com','https://polygon.drpc.org'];
+async function call(to,data){for(const u of R){try{const r=await fetch(u,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'eth_call',params:[{to,data},'latest']})});const j=await r.json();if(j.result)return BigInt(j.result)}catch(e){}}return null}
+(async()=>{const k=await call('0x101036a06cecb95c580515ec027ee20f8e917215','0x5ad5d154');const a=await call('0xd88e494b914e6b70cee7f1f8ae92383bbb22c2e9','0x18160ddd');
+const f=n=>Number(n).toLocaleString(h.lang);
+document.getElementById('n-kayit').textContent=k!==null?f(k):'—';
+document.getElementById('n-arz').textContent=a!==null?f(a/10n**18n)+' GEPARA':'—';
+document.getElementById('n-zaman').textContent=new Date().toLocaleString(h.lang);})();
+</script>
+</body>
+</html>
