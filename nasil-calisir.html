@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nasıl Çalışır — Dosya Kanıtı</title>
+<meta name="description" content="Dosya Kanıtı adım adım: dosyanız cihazınızdan çıkmadan parmak izi nasıl çıkarılır, Bitcoin'e nasıl işlenir, kimseye güvenmeden nasıl doğrulanır, neyi kanıtlar ve neyi kanıtlamaz.">
+<link rel="icon" href="logo.svg"><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#12284A"><link rel="apple-touch-icon" href="icon-180.png">
+<meta property="og:type" content="article"><meta property="og:title" content="Dosya Kanıtı nasıl çalışır?"><meta property="og:description" content="Dosyanız cihazınızdan çıkmaz. Parmak izi Bitcoin'e işlenir. Kimseye güvenmeden doğrulanır."><meta property="og:url" content="https://geparatoken-cloud.github.io/gepara/nasil-calisir.html"><meta property="og:image" content="https://geparatoken-cloud.github.io/gepara/avatar.jpg"><meta name="twitter:card" content="summary"><meta name="twitter:site" content="@tokengepara">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="site.css">
+<style>
+.lead{font-size:1.15rem;font-weight:600;margin-top:26px}
+svg.flow{width:100%;height:auto;display:block;margin:10px 0}
+svg.flow text{font-family:"Source Sans 3",sans-serif;fill:var(--ink)}
+svg.flow .bx{fill:var(--paper);stroke:var(--gold);stroke-width:2}
+svg.flow .dev{fill:none;stroke:var(--muted);stroke-dasharray:6 5;stroke-width:1.5}
+svg.flow .ar{stroke:var(--gold);stroke-width:2.5;fill:none;marker-end:url(#ah)}
+svg.flow .t{font-weight:700;font-size:15px}svg.flow .s{font-size:12.5px;fill:var(--muted)}
+.steps{counter-reset:s;list-style:none;padding:0}
+.steps>li{counter-increment:s;position:relative;padding:0 0 0 52px;margin:18px 0}
+.steps>li:before{content:counter(s);position:absolute;left:0;top:0;width:36px;height:36px;border-radius:50%;border:2px solid var(--gold);color:var(--gold);font:700 18px/32px Cinzel,serif;text-align:center}
+.hash{font:13px ui-monospace,Menlo,Consolas,monospace;background:var(--bg);border:1px solid var(--rule);border-radius:6px;padding:8px 10px;word-break:break-all;margin:6px 0}
+table{width:100%;border-collapse:collapse;font-size:.95rem}
+td,th{text-align:left;padding:9px 8px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{color:var(--muted)}
+.yes{color:var(--ok);font-weight:700}.no{color:#A3392D;font-weight:700}
+.mflow{display:none}@media (max-width:620px){svg.flow{display:none}.mflow{display:flex;flex-direction:column;align-items:stretch;gap:6px}.mflow div{border:2px solid #C9A24A;border-radius:10px;padding:10px 12px;background:var(--paper)}.mflow div small{color:var(--muted);font-size:.85rem}html[lang="en"] .mflow small[data-l="en"],html[lang="tr"] .mflow small[data-l="tr"],.mflow small:not([data-l]){display:block}.mflow i{font-style:normal;text-align:center;color:#C9A24A;font-size:1.3rem;line-height:1}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+<button class="lang" id="lg">English</button>
+<a class="b" href="./"><img src="logo.svg" alt="" width="34" height="34">GETOKEN · GEPARA</a>
+<h1><span data-l="tr">Nasıl çalışır?</span><span data-l="en">How it works</span></h1>
+<p data-l="tr">Teknik bilgi gerekmez. Bu sayfa, kanıtın nasıl oluştuğunu ve neden kimseye (bize de) güvenmeden doğrulanabildiğini sade bir dille anlatır.</p>
+<p data-l="en">No technical knowledge needed. This page explains in plain words how a proof is made and why it can be checked without trusting anyone, including us.</p>
+<nav class="sub"><a href="dosya-kaniti.html" data-l="tr">Kanıt al</a><a href="dosya-kaniti.html" data-l="en">Get proof</a><a href="kullanim.html" data-l="tr">Kullanım alanları</a><a href="kullanim.html" data-l="en">Uses</a><a class="on" href="nasil-calisir.html" data-l="tr">Nasıl çalışır</a><a class="on" href="nasil-calisir.html" data-l="en">How it works</a><a href="sss.html" data-l="tr">Sık sorulanlar</a><a href="sss.html" data-l="en">FAQ</a><a href="defter.html" data-l="tr">Açık Defter</a><a href="defter.html" data-l="en">Open Ledger</a></nav>
+</div></header>
+<main class="wrap">
+<p class="lead" data-l="tr">Kısaca: Dosyanız cihazınızda kalır. Tarayıcınız dosyadan 64 karakterlik bir parmak izi çıkarır. Bu parmak izi Bitcoin blokzincirine işlenir ve size bir kanıt dosyası (.ots) verilir. Dosya ile kanıt dosyası bir araya geldiğinde, dosyanın o tarihte var olduğu ve o günden beri değişmediği herkes tarafından doğrulanır.</p>
+<p class="lead" data-l="en">In short: your file stays on your device. Your browser computes a 64-character fingerprint of it. That fingerprint is anchored in the Bitcoin blockchain and you get a proof file (.ots). Put the file and the proof file together and anyone can verify that the file existed on that date and has not changed since.</p>
+
+<div class="card">
+<svg class="flow" viewBox="0 0 860 250" role="img" aria-label="Dosya cihazda kalır, parmak izi zaman sunucularına, oradan Bitcoin'e gider; kanıt dosyası size döner">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#C9A24A"/></marker></defs>
+<rect class="dev" x="8" y="20" width="330" height="210" rx="14"/>
+<text class="s" x="22" y="42" data-l="tr">SİZİN CİHAZINIZ</text><text class="s" x="22" y="42" data-l="en">YOUR DEVICE</text>
+<rect class="bx" x="28" y="62" width="120" height="70" rx="10"/><text class="t" x="88" y="92" text-anchor="middle">📄</text><text class="t" x="88" y="118" text-anchor="middle" data-l="tr">Dosyanız</text><text class="t" x="88" y="118" text-anchor="middle" data-l="en">Your file</text>
+<path class="ar" d="M148 97H192"/>
+<rect class="bx" x="196" y="62" width="128" height="70" rx="10"/><text class="t" x="260" y="92" text-anchor="middle">🔑</text><text class="t" x="260" y="118" text-anchor="middle" data-l="tr">Parmak izi</text><text class="t" x="260" y="118" text-anchor="middle" data-l="en">Fingerprint</text>
+<text class="s" x="28" y="160" data-l="tr">Dosya hiçbir yere gönderilmez.</text><text class="s" x="28" y="160" data-l="en">The file is never sent anywhere.</text>
+<text class="s" x="28" y="180" data-l="tr">Parmak izinden dosya geri elde edilemez.</text><text class="s" x="28" y="180" data-l="en">The file cannot be rebuilt from it.</text>
+<path class="ar" d="M324 97H420"/>
+<text class="s" x="372" y="88" text-anchor="middle" data-l="tr">yalnızca iz</text><text class="s" x="372" y="88" text-anchor="middle" data-l="en">only the print</text>
+<rect class="bx" x="424" y="62" width="180" height="70" rx="10"/><text class="t" x="514" y="92" text-anchor="middle" data-l="tr">Zaman sunucuları</text><text class="t" x="514" y="92" text-anchor="middle" data-l="en">Timestamp servers</text><text class="s" x="514" y="114" text-anchor="middle">OpenTimestamps</text>
+<path class="ar" d="M604 97H676"/>
+<rect class="bx" x="680" y="62" width="168" height="70" rx="10"/><text class="t" x="764" y="92" text-anchor="middle">₿ Bitcoin</text><text class="s" x="764" y="114" text-anchor="middle" data-l="tr">silinemez kayıt</text><text class="s" x="764" y="114" text-anchor="middle" data-l="en">permanent record</text>
+<path class="ar" d="M514 132V196H330"/>
+<rect class="bx" x="196" y="170" width="128" height="50" rx="10"/><text class="t" x="260" y="200" text-anchor="middle" data-l="tr">Kanıt (.ots)</text><text class="t" x="260" y="200" text-anchor="middle" data-l="en">Proof (.ots)</text>
+</svg>
+<div class="mflow">
+<div><b data-l="tr">📄 Dosyanız</b><b data-l="en">📄 Your file</b><small data-l="tr">Cihazınızda kalır, hiçbir yere gönderilmez.</small><small data-l="en">Stays on your device, never sent anywhere.</small></div><i>↓</i>
+<div><b data-l="tr">🔑 Parmak izi (64 karakter)</b><b data-l="en">🔑 Fingerprint (64 characters)</b><small data-l="tr">Cihazınızda hesaplanır; dosya geri elde edilemez.</small><small data-l="en">Computed on your device; the file cannot be rebuilt from it.</small></div><i>↓</i>
+<div><b data-l="tr">🌐 Zaman sunucuları</b><b data-l="en">🌐 Timestamp servers</b><small>OpenTimestamps</small></div><i>↓</i>
+<div><b>₿ Bitcoin</b><small data-l="tr">Silinemez, değiştirilemez kayıt</small><small data-l="en">A record no one can erase or alter</small></div><i>↓</i>
+<div><b data-l="tr">📎 Kanıt dosyası (.ots) size kalır</b><b data-l="en">📎 The proof file (.ots) stays with you</b></div>
+</div>
+</div>
+
+<h2><span data-l="tr">Adım adım</span><span data-l="en">Step by step</span></h2>
+<ol class="steps" data-l="tr">
+<li><h3>Parmak izi çıkarılır</h3><p>Tarayıcınız dosyanın SHA-256 parmak izini hesaplar. Bu, dosyanın içeriğinden üretilen 64 karakterlik bir koddur. Aynı dosya her zaman aynı izi verir; tek bir harf, tek bir piksel değişirse iz tamamen değişir:</p><div class="hash">“Merhaba” → 7fdc9f4717c5fe66…<br>“merhaba” → 4c6bcdd55f3153e1…</div><p>İz tek yönlüdür: izden dosyanın içeriği bulunamaz. Bu yüzden gizli belgeler için de güvenlidir.</p></li>
+<li><h3>İz, zaman sunucularına gönderilir</h3><p>Yalnızca bu 64 karakter, açık kaynaklı ve 2016'dan beri çalışan OpenTimestamps sunucularına gönderilir. Birden fazla bağımsız sunucu kullanılır; biri çalışmasa diğerleri kaydı alır. Adınız, e-postanız, konumunuz gönderilmez.</p></li>
+<li><h3>Bitcoin'e işlenir</h3><p>Sunucular dünyanın her yerinden gelen binlerce izi tek bir özet halinde birleştirir ve bu özeti bir Bitcoin işlemine yazar. Bu genellikle birkaç saat sürer. Bitcoin'e yazılan bir kayıt silinemez, değiştirilemez ve tarihi geriye alınamaz.</p></li>
+<li><h3>Kanıt dosyası size kalır</h3><p>İndirdiğiniz .ots dosyası, sizin izinizden Bitcoin'deki o kayda giden matematiksel yolu taşır. Orijinal dosyayla birlikte saklayın. Asıl dosyayı yeniden kaydetmeyin, kırpmayın, sıkıştırmayın: değişirse iz tutmaz.</p></li>
+<li><h3>Gerektiğinde herkes doğrular</h3><p>Dosya ve .ots dosyası birlikte <b>Kontrol et</b> sekmesine ya da <a href="https://opentimestamps.org" rel="noopener">opentimestamps.org</a> adresine bırakılır. Sonuç, kaydın hangi Bitcoin bloğunda ve hangi tarihte olduğunu gösterir. Bu kontrol için bize, bu siteye veya herhangi bir şirkete ihtiyaç yoktur.</p></li>
+</ol>
+<ol class="steps" data-l="en">
+<li><h3>A fingerprint is computed</h3><p>Your browser computes the file's SHA-256 fingerprint: a 64-character code derived from its content. The same file always gives the same print; change one letter or one pixel and the print changes completely:</p><div class="hash">“Hello” → 185f8db32271fe25…<br>“hello” → 2cf24dba5fb0a30e…</div><p>The print is one-way: the content cannot be recovered from it, so it is safe for confidential files too.</p></li>
+<li><h3>The print goes to timestamp servers</h3><p>Only these 64 characters are sent to open-source OpenTimestamps servers, running since 2016. Several independent servers are used; if one is down, the others take the record. No name, email or location is sent.</p></li>
+<li><h3>It is anchored in Bitcoin</h3><p>The servers combine thousands of prints from all over the world into one summary and write it into a Bitcoin transaction, usually within a few hours. A record in Bitcoin cannot be deleted, altered or back-dated.</p></li>
+<li><h3>The proof file stays with you</h3><p>The .ots file you download carries the mathematical path from your print to that record in Bitcoin. Keep it next to the original. Do not re-save, crop or compress the original: if it changes, the print no longer matches.</p></li>
+<li><h3>Anyone can verify, any time</h3><p>Drop the file and the .ots together on the <b>Check</b> tab or at <a href="https://opentimestamps.org" rel="noopener">opentimestamps.org</a>. The result shows the Bitcoin block and date of the record. No need for us, this site or any company.</p></li>
+</ol>
+
+<h2><span data-l="tr">İlk saatler: "bekliyor" durumu</span><span data-l="en">The first hours: "pending"</span></h2>
+<div class="card">
+<p data-l="tr" style="margin:0">Kanıt dosyası hemen inse de Bitcoin onayı genellikle birkaç saat içinde gelir. Bu sürede kontrol "bekliyor" gösterebilir; bu normaldir. Ertesi gün dosyayı ve .ots'u <a href="https://opentimestamps.org" rel="noopener">opentimestamps.org</a> adresinde kontrol ettiğinizde Bitcoin bloğu ve tarih görünür. Önemli işlerde bu kontrolü bir kez yapıp ekran görüntüsünü de saklayın.</p>
+<p data-l="en" style="margin:0">The proof file downloads at once, but the Bitcoin confirmation usually comes within a few hours. Until then a check may say "pending"; that is normal. The next day, check the file and the .ots at <a href="https://opentimestamps.org" rel="noopener">opentimestamps.org</a> and you will see the Bitcoin block and date. For important matters, do this once and keep a screenshot too.</p>
+</div>
+
+<h2><span data-l="tr">Neyi kanıtlar, neyi kanıtlamaz?</span><span data-l="en">What it proves, and what it does not</span></h2>
+<div class="card" style="overflow-x:auto"><table>
+<tr><th data-l="tr">Durum</th><th data-l="en">Question</th><th></th></tr>
+<tr><td data-l="tr">Dosya en geç o tarihte vardı</td><td data-l="en">The file existed no later than that date</td><td class="yes">✓</td></tr>
+<tr><td data-l="tr">O günden beri tek bir bit bile değişmedi</td><td data-l="en">Not a single bit has changed since</td><td class="yes">✓</td></tr>
+<tr><td data-l="tr">Kayıt silinemez, tarihi geriye alınamaz</td><td data-l="en">The record cannot be deleted or back-dated</td><td class="yes">✓</td></tr>
+<tr><td data-l="tr">Fotoğraftaki görüntü gerçek ve doğru</td><td data-l="en">What the photo shows is real and accurate</td><td class="no">✕</td></tr>
+<tr><td data-l="tr">Dosyanın sahibi kimdir</td><td data-l="en">Who owns the file</td><td class="no">✕</td></tr>
+<tr><td data-l="tr">Dosya o tarihten önce yoktu</td><td data-l="en">The file did not exist before that date</td><td class="no">✕</td></tr>
+</table>
+<p class="note" data-l="tr">Sahiplik için dosyayı ilk kaydeden olduğunuzu, karşı tarafa kanıtı zamanında gönderdiğinizi ve diğer delilleri (yazışma, tutanak, tanık) birlikte sunun.</p>
+<p class="note" data-l="en">For ownership, combine it with being the first to record, having sent the proof to the other side in time, and other evidence (messages, signed forms, witnesses).</p>
+</div>
+
+<h2><span data-l="tr">Neden bize güvenmeniz gerekmez?</span><span data-l="en">Why you do not need to trust us</span></h2>
+<ul data-l="tr">
+<li><b>Dosyanızı hiç görmeyiz.</b> İşlem tarayıcınızda yapılır; sunucumuz yoktur.</li>
+<li><b>Kaydı biz tutmayız.</b> Kayıt Bitcoin'dedir; biz dahil kimse silemez ya da değiştiremez.</li>
+<li><b>Site kapansa bile çalışır.</b> .ots dosyası açık bir standarttır; opentimestamps.org ve açık kaynak araçlarla doğrulanır.</li>
+<li><b>Kod açıktır.</b> Sitenin tamamı <a href="https://github.com/geparatoken-cloud/gepara" rel="noopener">GitHub</a>'da herkesin incelemesine açıktır.</li>
+<li><b>Ücretsizdir ve öyle kalır.</b> Temel kanıt alma ve kontrol için hiçbir zaman ücret istenmez.</li>
+</ul>
+<ul data-l="en">
+<li><b>We never see your file.</b> Everything runs in your browser; we have no server.</li>
+<li><b>We do not hold the record.</b> It is in Bitcoin; no one, including us, can delete or change it.</li>
+<li><b>It works even if this site closes.</b> The .ots file is an open standard, verifiable at opentimestamps.org and with open-source tools.</li>
+<li><b>The code is open.</b> The whole site is on <a href="https://github.com/geparatoken-cloud/gepara" rel="noopener">GitHub</a> for anyone to review.</li>
+<li><b>It is free and will stay free.</b> Basic proof and checking will never be charged for.</li>
+</ul>
+
+<h2><span data-l="tr">Hukuki değeri</span><span data-l="en">Legal value</span></h2>
+<div class="card">
+<p data-l="tr" style="margin-top:0">Blokzincir zaman damgası bir <b>delildir</b>; noter onayı veya nitelikli elektronik zaman damgası yerine geçmez. Değerlendirmesi mahkemeye aittir. Örnek olarak Avrupa Birliği'nin eIDAS Tüzüğü (madde 41), elektronik zaman damgasının yalnızca elektronik olduğu ya da nitelikli olmadığı gerekçesiyle delil olarak reddedilemeyeceğini öngörür. Çin'de internet mahkemeleri 2018'den beri blokzinciriyle kaydedilmiş delili kabul etmektedir. Türkiye'de mahkemeler delilleri serbestçe takdir eder.</p>
+<p data-l="tr" style="margin-bottom:0">Önemli bir iş için önerimiz: kanıtı alın, karşı tarafa zamanında gönderin, yazılı tutanak ve imzayla birlikte kullanın, gerekirse bir avukata danışın.</p>
+<p data-l="en" style="margin-top:0">A blockchain timestamp is <b>evidence</b>; it is not a notarisation or a qualified electronic timestamp, and a court decides its weight. For example, the EU eIDAS Regulation (Article 41) says an electronic timestamp shall not be denied legal effect as evidence solely because it is electronic or not qualified. Internet courts in China have accepted blockchain-recorded evidence since 2018.</p>
+<p data-l="en" style="margin-bottom:0">For important matters: take the proof, send it to the other side in time, use it together with a signed written record, and consult a lawyer if needed.</p>
+</div>
+
+<h2><span data-l="tr">Dosya Kanıtı ile GEPARA kayıt sistemi farkı</span><span data-l="en">File Proof vs. the GEPARA registry</span></h2>
+<div class="card">
+<p data-l="tr" style="margin:0"><b>Dosya Kanıtı</b> herkes içindir, ücretsizdir ve isimsizdir: yalnızca dosyanın o tarihte var olduğunu gösterir. <b>GEPARA kayıt sistemi</b> ise bilirkişi ve uzmanlar içindir: raporun parmak izini, kaydeden uzmanın cüzdanı ve bir açıklamayla birlikte Polygon ağına yazar; herkes ücretsiz doğrular. Tüm kayıtlar <a href="defter.html">Açık Defter</a>'de görünür.</p>
+<p data-l="en" style="margin:0"><b>File Proof</b> is for everyone, free and anonymous: it shows the file existed on that date. The <b>GEPARA registry</b> is for experts: it writes a report's fingerprint to Polygon together with the recording expert's wallet and a label; anyone verifies for free. Every record is visible in the <a href="defter.html">Open Ledger</a>.</p>
+</div>
+<p style="text-align:center;margin-top:28px"><a class="btn gold" href="dosya-kaniti.html"><span data-l="tr">📷 Ücretsiz kanıt al</span><span data-l="en">📷 Get free proof</span></a> <a class="btn" href="sss.html"><span data-l="tr">Sık sorulan sorular</span><span data-l="en">FAQ</span></a></p>
+</main>
+<footer><div class="wrap">
+<p><a href="defter.html">Açık Defter · Open Ledger</a> · <a href="seffaflik.html"><span data-l="tr">Şeffaflık</span><span data-l="en">Transparency</span></a> · <a href="https://x.com/tokengepara" rel="noopener">X</a> · <a href="https://www.instagram.com/geparatoken/" rel="noopener">Instagram</a> · <a href="https://www.facebook.com/profile.php?id=61596130500525" rel="noopener">Facebook</a> · <a href="https://github.com/geparatoken-cloud/gepara" rel="noopener">GitHub</a> · <a href="mailto:geparatoken@gmail.com">geparatoken@gmail.com</a></p>
+<p class="sig">GETOKEN</p><p data-l="tr">Hukuki tavsiye değildir.</p><p data-l="en">Not legal advice.</p>
+</div></footer>
+<script src="site.js"></script>
+</body>
+</html>
