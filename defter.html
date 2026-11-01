@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GEPARA Açık Defter</title>
+<link rel="icon" href="logo.svg">
+<meta name="description" content="GEPARA'nın gerçekte ne yaptığının açık kaydı: blokzincire işlenmiş belgeler, doğrulanmış sözleşmeler, tarih tarih yapılanlar. Her satır herkes tarafından kontrol edilebilir.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Açık Defter — GETOKEN">
+<meta property="og:description" content="Vaat değil, kayıt. Her satırın arkasında herkesin açıp bakabileceği bir blokzincir işlemi var.">
+<meta property="og:url" content="https://geparatoken-cloud.github.io/gepara/defter.html">
+<meta property="og:image" content="https://geparatoken-cloud.github.io/gepara/avatar.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@tokengepara">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"GETOKEN","alternateName":["GEPARA","Dosya Kanıtı"],"url":"https://geparatoken-cloud.github.io/gepara/","logo":"https://geparatoken-cloud.github.io/gepara/avatar.jpg","email":"geparatoken@gmail.com","sameAs":["https://x.com/tokengepara","https://www.instagram.com/geparatoken/","https://www.facebook.com/profile.php?id=61596130500525","https://github.com/geparatoken-cloud/gepara"]}</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<style>
+:root{--bg:#F5F1E6;--paper:#FBF9F3;--ink:#152238;--muted:#4F5B6C;--rule:#D8D0BC;--navy:#12284A;--gold:#A8812C;--on-navy:#F5EFE0;--ok:#2C6B3F}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0E1726;--paper:#142035;--ink:#EDE7D8;--muted:#A9B2C0;--rule:#2A3955;--navy:#0A1424;--gold:#D3AE5C;--ok:#7CC48F}}
+:root[data-theme="dark"]{--bg:#0E1726;--paper:#142035;--ink:#EDE7D8;--muted:#A9B2C0;--rule:#2A3955;--navy:#0A1424;--gold:#D3AE5C;--ok:#7CC48F}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 "Source Sans 3",system-ui,sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:0 16px}
+header{background:var(--navy);color:var(--on-navy);padding:28px 0 36px}
+header a.b{font:700 1.1rem Cinzel,serif;letter-spacing:.08em;color:var(--on-navy);text-decoration:none;display:inline-flex;align-items:center;gap:10px}
+header h1{font:700 clamp(1.6rem,4.5vw,2.4rem)/1.2 Cinzel,serif;margin:18px 0 8px}
+header p{margin:0;color:#D9D3C4;max-width:640px}
+.lang{float:right;background:none;border:1px solid #ffffff55;color:var(--on-navy);border-radius:6px;padding:5px 10px;font:inherit;font-size:.9rem;cursor:pointer}
+h2{font:700 1.3rem Cinzel,serif;margin:36px 0 10px}
+.card{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:18px;margin:12px 0}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:-22px}
+.stat{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:14px}
+.stat b{display:block;font:700 1.7rem Cinzel,serif;color:var(--gold);line-height:1.2}
+.stat span{font-size:.88rem;color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:.95rem}
+td,th{text-align:left;padding:8px 6px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{color:var(--muted);font-weight:600}
+td.n{text-align:right;font-variant-numeric:tabular-nums}
+.tl{list-style:none;padding:0;margin:0}
+.tl li{display:grid;grid-template-columns:150px 1fr;gap:12px;padding:9px 0;border-bottom:1px solid var(--rule)}
+.tl time{color:var(--muted);font-size:.9rem;font-variant-numeric:tabular-nums}
+@media (max-width:560px){.tl li{grid-template-columns:1fr;gap:0}}
+code{font:13px ui-monospace,Menlo,Consolas,monospace;word-break:break-all}
+a{color:var(--gold)}
+.ok{color:var(--ok);font-weight:700}
+.note{font-size:.9rem;color:var(--muted)}
+ol li,ul li{margin:6px 0}
+.scroll{overflow-x:auto}
+footer{border-top:1px solid var(--rule);margin-top:44px;padding:22px 0 40px;color:var(--muted);font-size:.9rem}
+footer a{color:inherit}
+.sig{font:700 .85rem Cinzel,serif;letter-spacing:.3em;color:var(--gold)}
+[data-l="en"]{display:none}html[lang="en"] [data-l="tr"]{display:none}html[lang="en"] [data-l="en"]{display:revert}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <button class="lang" id="lg">English</button>
+  <a class="b" href="./"><img src="logo.svg" alt="" width="34" height="34">GETOKEN · GEPARA</a>
+  <h1><span data-l="tr">Açık Defter</span><span data-l="en">Open Ledger</span></h1>
+  <p data-l="tr">Vaat değil, kayıt. Bu sayfadaki her satırın arkasında, herkesin açıp bakabileceği bir blokzincir işlemi var. Sayılar sayfa açılırken doğrudan blokzincirden okunur.</p>
+  <p data-l="en">Records, not promises. Every line on this page is backed by a blockchain transaction anyone can open. The numbers are read directly from the chain when the page loads.</p>
+</div></header>
+<main class="wrap">
+<div class="stats">
+  <div class="stat"><b id="s-kayit">2.622</b><span data-l="tr">blokzincire işlenmiş belge</span><span data-l="en">documents recorded on chain</span></div>
+  <div class="stat"><b id="s-islem">20</b><span data-l="tr">kayıt işlemi</span><span data-l="en">recording transactions</span></div>
+  <div class="stat"><b id="s-yak">1.311</b><span data-l="tr">kayıt ücreti olarak yakılan GEPARA</span><span data-l="en">GEPARA burned as recording fees</span></div>
+  <div class="stat"><b>3 / 3</b><span data-l="tr">kaynak kodu doğrulanmış sözleşme</span><span data-l="en">contracts with verified source</span></div>
+</div>
+<p class="note" id="s-durum">Blokzincirden okunuyor…</p>
+
+<h2><span data-l="tr">Ne kaydedildi?</span><span data-l="en">What was recorded?</span></h2>
+<div class="card">
+<p data-l="tr" style="margin-top:0">Sistemin ilk gerçek kullanımı, kurucunun kendi mesleki arşividir: 2017–2026 yılları arasında mahkemelere sunulmuş bilirkişi raporları ve ekleri. Belgelerin kendisi gizlidir ve hiçbir yerde yayımlanmaz; blokzincire yalnızca her belgenin dijital parmak izi (SHA-256) yazıldı. Bir belgenin elinizdeki kopyası tek bir harfi bile değişmişse parmak izi tutmaz.</p>
+<p data-l="en" style="margin-top:0">The system's first real use is the founder's own professional archive: court-appointed expert reports and their annexes from 2017–2026. The documents themselves are confidential and never published; only each document's digital fingerprint (SHA-256) was written to the chain. If a copy differs by even one character, the fingerprint will not match.</p>
+<div class="scroll"><table id="t-yil">
+<thead><tr><th data-l="tr">Belge yılı</th><th data-l="en">Document year</th><th data-l="tr" style="text-align:right">Rapor</th><th data-l="en" style="text-align:right">Reports</th><th data-l="tr" style="text-align:right">Ek / belge</th><th data-l="en" style="text-align:right">Annexes</th><th style="text-align:right">Σ</th></tr></thead>
+<tbody></tbody></table></div>
+<p class="note" data-l="tr">Dürüst not: Kayıt tarihi 1 Kasım 2026'dır. Bu kayıt, belgelerin o tarihte bu haliyle var olduğunu kanıtlar; daha eski bir tarihte yazıldıklarını tek başına kanıtlamaz. "Belge yılı", kaydı yapanın belirttiği yıldır.</p>
+<p class="note" data-l="en">Honest note: the recording date is 1 November 2026. The record proves the documents existed in this exact form on that date; on its own it does not prove they were written earlier. "Document year" is the year stated by the registrant.</p>
+</div>
+
+<h2><span data-l="tr">Tüm kayıt işlemleri</span><span data-l="en">All recording transactions</span></h2>
+<div class="card scroll"><table id="t-tx"><thead><tr><th>#</th><th data-l="tr">Açıklama</th><th data-l="en">Label</th><th style="text-align:right" data-l="tr">Adet</th><th style="text-align:right" data-l="en">Count</th><th data-l="tr">İşlem</th><th data-l="en">Transaction</th></tr></thead><tbody><tr><td colspan="4" class="note">…</td></tr></tbody></table></div>
+
+<h2><span data-l="tr">Kendiniz doğrulayın (2 dakika)</span><span data-l="en">Verify it yourself (2 minutes)</span></h2>
+<div class="card">
+<ol data-l="tr" style="margin:0;padding-left:20px">
+<li>Yukarıdaki işlem bağlantılarından birini açın. Polygonscan'de işlemin tarihini, gönderen cüzdanı ve "TopluKayit" kaydını göreceksiniz.</li>
+<li><a href="https://polygonscan.com/address/0x101036a06cecb95c580515ec027ee20f8e917215#code" target="_blank" rel="noopener">Kayıt sözleşmesinin kaynak kodunu</a> açın. Yeşil onay işareti, yayımlanan kodun zincirdeki programla birebir aynı olduğunu gösterir.</li>
+<li>Aynı sayfada <a href="https://polygonscan.com/address/0x101036a06cecb95c580515ec027ee20f8e917215#readContract" target="_blank" rel="noopener">Read Contract</a> sekmesinden <code>toplamKayit</code> değerini okuyun. Bu sayfadaki sayıyla aynı olmalı.</li>
+<li>Kendi dosyanızı denemek için <a href="dosya-kaniti.html">Dosya Kanıtı</a> aracını kullanın: ücretsiz, üyeliksiz, dosyanız cihazınızdan çıkmaz.</li>
+</ol>
+<ol data-l="en" style="margin:0;padding-left:20px">
+<li>Open any transaction link above. On Polygonscan you will see its date, the sending wallet and the "TopluKayit" (batch record) event.</li>
+<li>Open the <a href="https://polygonscan.com/address/0x101036a06cecb95c580515ec027ee20f8e917215#code" target="_blank" rel="noopener">registry contract's source code</a>. The green check means the published code matches the program on chain exactly.</li>
+<li>On the same page, under <a href="https://polygonscan.com/address/0x101036a06cecb95c580515ec027ee20f8e917215#readContract" target="_blank" rel="noopener">Read Contract</a>, read <code>toplamKayit</code>. It must equal the number on this page.</li>
+<li>To try it with your own file, use <a href="dosya-kaniti.html">File Proof</a>: free, no account, your file never leaves your device.</li>
+</ol>
+</div>
+
+<h2><span data-l="tr">Sözleşmeler</span><span data-l="en">Contracts</span></h2>
+<div class="card scroll"><table>
+<tr><th data-l="tr">GEPARA token (sabit arz, yeni basım yok)</th><th data-l="en">GEPARA token (fixed supply, no minting)</th><td><a href="https://polygonscan.com/address/0xd88e494b914e6b70cee7f1f8ae92383bbb22c2e9#code" target="_blank" rel="noopener"><code>0xd88e…c2e9</code></a> <span class="ok">✓</span></td></tr>
+<tr><th data-l="tr">Rapor kayıt sözleşmesi, sürüm 1</th><th data-l="en">Report registry, version 1</th><td><a href="https://polygonscan.com/address/0xc6a4c5ec25f624729ccbdb0fe002e49b38be204b#code" target="_blank" rel="noopener"><code>0xc6a4…204b</code></a> <span class="ok">✓</span></td></tr>
+<tr><th data-l="tr">Toplu kayıt sözleşmesi, sürüm 2</th><th data-l="en">Batch registry, version 2</th><td><a href="https://polygonscan.com/address/0x101036a06cecb95c580515ec027ee20f8e917215#code" target="_blank" rel="noopener"><code>0x1010…7215</code></a> <span class="ok">✓</span></td></tr>
+</table>
+<p class="note" data-l="tr" style="margin-bottom:0">✓ = kaynak kodu Polygonscan'de doğrulanmış. Doğrulama herkes için ücretsizdir; kayıt sırasında ödenen GEPARA'nın yarısı kalıcı olarak yakılır.</p>
+<p class="note" data-l="en" style="margin-bottom:0">✓ = source code verified on Polygonscan. Verification is free for everyone; half of the GEPARA paid for each record is permanently burned.</p>
+</div>
+
+<h2><span data-l="tr">Tarih tarih yapılanlar</span><span data-l="en">What was built, and when</span></h2>
+<div class="card"><ul class="tl">
+<li><time>31.10.2026 19:44</time><span data-l="tr">GEPARA token Polygon ağında oluşturuldu (1.000.000 adet, sabit arz).</span><span data-l="en">GEPARA token created on Polygon (1,000,000, fixed supply).</span></li>
+<li><time>31.10.2026 19:45</time><span data-l="tr">Rapor kayıt sözleşmesi (sürüm 1) yayımlandı, kaynak kodu doğrulandı.</span><span data-l="en">Report registry (v1) deployed, source verified.</span></li>
+<li><time>01.11.2026 15:40</time><span data-l="tr">Toplu kayıt sözleşmesi (sürüm 2) yayımlandı: tek işlemde 500 belgeye kadar.</span><span data-l="en">Batch registry (v2) deployed: up to 500 documents per transaction.</span></li>
+<li><time>01.11.2026 15:47–16:29</time><span data-l="tr">10 yıllık bilirkişi arşivinden 2.622 belgenin parmak izi 20 işlemde kaydedildi.</span><span data-l="en">Fingerprints of 2,622 documents from a 10-year expert archive recorded in 20 transactions.</span></li>
+<li><time>01.11.2026</time><span data-l="tr">Ücretsiz Dosya Kanıtı aracı 10 dilde yayına alındı (Bitcoin zaman damgası, OpenTimestamps).</span><span data-l="en">Free File Proof tool launched in 10 languages (Bitcoin timestamps via OpenTimestamps).</span></li>
+<li><time>01.11.2026</time><span data-l="tr">Kira depozitosu, araç hasarı ve eser sahipliği için Türkçe ve İngilizce rehberler yayımlandı; Şeffaflık sayfası açıldı.</span><span data-l="en">Guides for rental deposits, car damage and authorship published in Turkish and English; Transparency page opened.</span></li>
+</ul></div>
+
+<h2><span data-l="tr">Henüz olmayanlar (açıkça)</span><span data-l="en">What does not exist yet (openly)</span></h2>
+<div class="card">
+<ul data-l="tr" style="margin:0">
+<li>Şu ana kadarki kayıtların tamamı kurucunun kendi cüzdanından yapıldı; dış kullanıcıların kayıtları bu sayfada ayrıca gösterilecek.</li>
+<li>Bağımsız bir güvenlik denetimi yapılmadı. Sözleşmeler kısa ve açıktır; herkes inceleyebilir.</li>
+<li>GEPARA bir yatırım aracı olarak sunulmaz; fiyat, getiri veya liste vaadi yoktur.</li>
+</ul>
+<ul data-l="en" style="margin:0">
+<li>All records so far were made from the founder's own wallet; records by outside users will be shown separately on this page.</li>
+<li>No independent security audit has been done. The contracts are short and open; anyone can review them.</li>
+<li>GEPARA is not offered as an investment; there is no promise of price, return or listing.</li>
+</ul>
+</div>
+</main>
+<footer><div class="wrap">
+<p><a href="https://x.com/tokengepara" target="_blank" rel="noopener">X</a> · <a href="https://www.instagram.com/geparatoken/" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.facebook.com/profile.php?id=61596130500525" target="_blank" rel="noopener">Facebook</a> · <a href="https://github.com/geparatoken-cloud/gepara" target="_blank" rel="noopener">GitHub</a> · <a href="seffaflik.html"><span data-l="tr">Şeffaflık</span><span data-l="en">Transparency</span></a> · <a href="mailto:geparatoken@gmail.com">geparatoken@gmail.com</a></p>
+<p class="sig">GETOKEN</p>
+<p data-l="tr">Hukuki veya mali tavsiye değildir.</p><p data-l="en">Not legal or financial advice.</p>
+</div></footer>
+<script>
+const RPC='https://polygon-bor-rpc.publicnode.com',V2='0x101036a06cecb95c580515ec027ee20f8e917215',TK='0xd88e494b914e6b70cee7f1f8ae92383bbb22c2e9',T0='0x4b43da729095f7aaae5de15fa58ae7d8242e3b57d8cc0ee735e63bc03ee9687e',START=0x5c14e00;
+const h=document.documentElement,$=id=>document.getElementById(id);
+let L=localStorage?(()=>{try{return localStorage.getItem('lg')}catch(e){return null}})():null;
+if(L==='en'||(!L&&!/^tr/i.test(navigator.language)))h.lang='en';
+const setBtn=()=>$('lg').textContent=h.lang==='en'?'Türkçe':'English';setBtn();
+$('lg').onclick=()=>{h.lang=h.lang==='en'?'tr':'en';try{localStorage.setItem('lg',h.lang)}catch(e){}setBtn();fmt()};
+const nf=n=>n.toLocaleString(h.lang==='en'?'en-US':'tr-TR');
+async function rpc(m,p){const r=await fetch(RPC,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:m,params:p})});const j=await r.json();if(j.error)throw j.error;return j.result}
+let rows=[],tot=null,burn=null;
+function dec(l){const d=l.data.slice(2),n=parseInt(d.slice(0,64),16),ln=parseInt(d.slice(128,192),16),hx=d.slice(192,192+ln*2),b=new Uint8Array(hx.match(/../g).map(x=>parseInt(x,16)));return{n,desc:new TextDecoder().decode(b),tx:l.transactionHash,g:parseInt(l.topics[2],16)}}
+function fmt(){
+ if(tot!==null)$('s-kayit').textContent=nf(tot);
+ if(burn!==null)$('s-yak').textContent=nf(burn);
+ if(!rows.length)return;
+ $('s-islem').textContent=nf(rows.length);
+ const y={};rows.forEach(r=>{const m=r.desc.match(/(\d{4})\s*$/),k=m?m[1]:'—';y[k]=y[k]||[0,0];y[k][/rapor/i.test(r.desc)?0:1]+=r.n});
+ $('t-yil').tBodies[0].innerHTML=Object.keys(y).sort().map(k=>`<tr><td>${k}</td><td class="n">${nf(y[k][0])}</td><td class="n">${nf(y[k][1])}</td><td class="n"><b>${nf(y[k][0]+y[k][1])}</b></td></tr>`).join('');
+ $('t-tx').tBodies[0].innerHTML=rows.map((r,i)=>`<tr><td>${i+1}</td><td>${r.desc.replace(/[<>&]/g,'')}</td><td class="n">${nf(r.n)}</td><td><a href="https://polygonscan.com/tx/${r.tx}" target="_blank" rel="noopener"><code>${r.tx.slice(0,10)}…${r.tx.slice(-6)}</code></a></td></tr>`).join('');
+}
+(async()=>{
+ try{
+  const [t,s,bn]=await Promise.all([rpc('eth_call',[{to:V2,data:'0x5ad5d154'},'latest']),rpc('eth_call',[{to:TK,data:'0x18160ddd'},'latest']),rpc('eth_blockNumber',[])]);
+  tot=parseInt(t,16);burn=Math.round(1e6-Number(BigInt(s)/10n**14n)/1e4);fmt();
+  const last=parseInt(bn,16),jobs=[];for(let b=START;b<=last;b+=10000)jobs.push(rpc('eth_getLogs',[{address:V2,topics:[T0],fromBlock:'0x'+b.toString(16),toBlock:'0x'+Math.min(b+9999,last).toString(16)}]));
+  const res=[];for(let i=0;i<jobs.length;i+=6){(await Promise.all(jobs.slice(i,i+6))).forEach(a=>res.push(...a))}
+  rows=res.map(dec).sort((a,b)=>a.g-b.g);fmt();
+  $('s-durum').textContent=(h.lang==='en'?'Read live from Polygon: ':'Polygon blokzincirinden canlı okundu: ')+new Date().toLocaleString(h.lang==='en'?'en-GB':'tr-TR');
+ }catch(e){$('s-durum').textContent=h.lang==='en'?'Live read failed; showing the last known figures.':'Canlı okuma şu an yapılamadı; son bilinen değerler gösteriliyor.'}
+})();
+</script>
+</body>
+</html>
