@@ -137,6 +137,8 @@ footer{border-top:1px solid var(--rule);padding:24px 0 40px;color:var(--muted);f
     <div id="l-k"></div>
   </div>
 
+  <div class="panel" id="gk-lic" style="margin-top:14px"></div>
+
   <ul class="trust">
     <li><b data-i="tr1h"></b><span data-i="tr1p"></span></li>
     <li><b data-i="tr2h"></b><span data-i="tr2p"></span></li>
@@ -206,7 +208,7 @@ let start='tr';try{start=localStorage.getItem('dk-lang')||(navigator.language||'
 applyLang(start);
 
 function tab(w){[['al','al'],['paket','p'],['kontrol','k']].forEach(([id,k])=>{$('t-'+id).setAttribute('aria-selected',w===k);$('p-'+id).hidden=w!==k})}
-$('t-al').onclick=()=>tab('al');$('t-paket').onclick=()=>tab('p');$('t-kontrol').onclick=()=>tab('k');
+$('t-al').onclick=()=>tab('al');if(location.hash==='#kontrol')setTimeout(()=>tab('k'),0);$('t-paket').onclick=()=>tab('p');$('t-kontrol').onclick=()=>tab('k');
 
 const hex=b=>[...b].map(x=>x.toString(16).padStart(2,'0')).join('');
 async function sha(buf){return new Uint8Array(await crypto.subtle.digest('SHA-256',buf))}
@@ -228,13 +230,14 @@ async function getProofs(files){
   for(const f of files){
     const box=document.createElement('div');box.className='item';
     box.innerHTML=`<h3>${esc(f.name)}</h3><div class="hash"></div>`;
+    if(window.GK&&!(await GK.allowProof())){box.appendChild(GK.trialBox());$('l-al').prepend(box);continue}
     const st=line('wait','working');box.appendChild(st);$('l-al').prepend(box);
     const d=await sha(await f.arrayBuffer());
     box.querySelector('.hash').textContent=t('fp')+': '+hex(d);
     st.dataset.dyn='sending';st.textContent=t('sending');
     const r=await stamp(d);
     if(!r){st.className='st bad';st.dataset.dyn='fail';st.textContent=t('fail');continue}
-    const now=new Date();
+    const now=new Date();if(window.GK)GK.countProof();
     st.className='st ok';st.dataset.dyn='done';st.textContent=t('done');
     const meta=document.createElement('div');meta.className='note';meta.textContent=`${t('date')}: ${now.toLocaleString(L)} · ${r.n}/3 ${t('cals')}`;box.appendChild(meta);
     const row=document.createElement('div');row.className='row';
@@ -243,7 +246,7 @@ async function getProofs(files){
     a.addEventListener('click',async ev=>{const dl=window.claude&&window.claude.use?await window.claude.use('downloads').catch(()=>null):null;if(dl){ev.preventDefault();try{await dl.save({filename:f.name+'.ots',data:r.ots})}catch(e){}}});
     const pr=document.createElement('button');pr.type='button';pr.className='btn ghost';pr.dataset.dyn='print';pr.textContent=t('print');
     pr.onclick=()=>{document.querySelectorAll('#l-al .item').forEach(x=>x.style.display=x===box?'':'none');tab('al');window.print();document.querySelectorAll('#l-al .item').forEach(x=>x.style.display='')};
-    row.append(a,pr);box.appendChild(row);
+    row.append(a,pr);if(window.GK)row.appendChild(GK.proofButton(box,{file:f,digestHex:hex(d),ots:r.ots,n:r.n,at:now}));box.appendChild(row);
   }
 }
 
@@ -278,6 +281,8 @@ async function check(files){
     if(g.found){r2.className='res ok';r2.innerHTML=`<b>✓ ${esc(t('chkReg'))}</b>${esc(g.date.toLocaleString(L))}`}
     else r2.textContent=g.reached?t('chkRegNo'):t('chkErr');
   }
+  const rows=[...out.querySelectorAll('.item')].map(b=>[b.querySelector('h3').textContent,((b.querySelector('.hash')||{}).textContent||'').split(': ').pop(),[...b.querySelectorAll('.res')].map(x=>x.textContent).join(' — ')]);
+  if(rows.length&&window.GK){const vb=document.createElement('div');vb.className='row';vb.style.marginTop='12px';vb.appendChild(GK.verifyButton(out,{rows}));out.appendChild(vb)}
 }
 
 
@@ -288,7 +293,8 @@ function packCount(){$('p-say').textContent=paket.length?paket.length+' '+t('pac
 function addPack(files){paket=paket.concat(files);packCount()}
 $('p-yap').onclick=async()=>{
   const files=paket;paket=[];packCount();$('p-yap').disabled=true;
-  const box=document.createElement('div');box.className='item';const st=line('wait','working');box.appendChild(st);$('l-p').prepend(box);
+  const box=document.createElement('div');box.className='item';
+  if(window.GK&&!(await GK.allowProof())){box.appendChild(GK.trialBox());$('l-p').prepend(box);return}const st=line('wait','working');box.appendChild(st);$('l-p').prepend(box);
   const list=[];for(const f of files){list.push({name:f.name,size:f.size,lastModified:new Date(f.lastModified).toISOString(),sha256:hex(await sha(await f.arrayBuffer()))})}
   const man={type:'gepara-proof-pack',version:1,created:new Date().toISOString(),note:$('p-not').value.trim(),files:list};
   const bytes=new TextEncoder().encode(JSON.stringify(man,null,2));const d=await sha(bytes);
@@ -296,12 +302,12 @@ $('p-yap').onclick=async()=>{
   st.dataset.dyn='sending';st.textContent=t('sending');
   const r=await stamp(d);
   if(!r){st.className='st bad';st.dataset.dyn='fail';st.textContent=t('fail');return}
-  st.className='st ok';st.dataset.dyn='packDone';st.textContent=t('packDone');
+  st.className='st ok';st.dataset.dyn='packDone';st.textContent=t('packDone');if(window.GK)GK.countProof();
   const base='kanit-paketi-'+man.created.slice(0,10);
   const row=document.createElement('div');row.className='row';
   const a1=document.createElement('a');a1.className='btn';a1.dataset.dyn='packDl1';a1.textContent=t('packDl1');offer(a1,base+'.json',bytes,'application/json');
   const a2=document.createElement('a');a2.className='btn';a2.dataset.dyn='packDl2';a2.textContent=t('packDl2');offer(a2,base+'.json.ots',r.ots,'application/octet-stream');
-  row.append(a1,a2);box.appendChild(row);
+  row.append(a1,a2);if(window.GK)row.appendChild(GK.packButton(box,{man,digestHex:hex(d),ots:r.ots,n:r.n,files}));box.appendChild(row);
   const ul=document.createElement('div');ul.className='note';ul.textContent=list.map(x=>x.name).join(' · ');box.appendChild(ul);
 };
 function wire(drop,input,fn){input.onchange=e=>{fn([...e.target.files]);input.value=''};
@@ -311,6 +317,7 @@ function wire(drop,input,fn){input.onchange=e=>{fn([...e.target.files]);input.va
 wire($('d-al'),$('f-al'),getProofs);$('f-cam').onchange=e=>{getProofs([...e.target.files]);e.target.value=''};
 (async()=>{try{const r=await rpc('0x101036a06cecb95c580515ec027ee20f8e917215','0x5ad5d154');if(r){const n=parseInt(r,16);const el=$('live');el.innerHTML='<b>'+n.toLocaleString(L)+'</b> <span data-dyn="liveTxt">'+t('liveTxt')+'</span>';el.hidden=false}}catch(e){}})();wire($('d-p'),$('f-p'),addPack);wire($('d-k'),$('f-k'),check);
 </script>
+<script src="gk-rapor.js"></script>
 <script src="pwa.js"></script>
 </body>
 </html>
