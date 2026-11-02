@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fiyatlar ve Hizmetler — Dosya Kanıtı</title>
+<meta name="description" content="Dosya Kanıtı fiyatları ve hizmetleri: tarihli tespit, dijital delil inceleme, eğitim, kanıt raporu, kontör, Pro, Büro, Kurumsal ve API. Türkiye ve dünya fiyatları açıkça.">
+<link rel="icon" href="logo.svg"><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#12284A"><link rel="apple-touch-icon" href="icon-180.png">
+<meta property="og:type" content="website"><meta property="og:title" content="Fiyatlar ve Hizmetler — Dosya Kanıtı"><meta property="og:description" content="Açık fiyatlar. Doğrulama her zaman ücretsiz."><meta property="og:url" content="https://geparatoken-cloud.github.io/gepara/fiyatlar.html"><meta property="og:image" content="https://geparatoken-cloud.github.io/gepara/avatar.jpg">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="site.css">
+<style>
+.principle{border-left:4px solid var(--gold)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.grid .card{margin:0;display:flex;flex-direction:column}
+.price{font:700 1.45rem "Source Sans 3",sans-serif;color:var(--ink);margin:6px 0 2px}
+.price small{font-size:.85rem;font-weight:400;color:var(--muted)}
+.tag{display:inline-block;font-size:.75rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:999px;border:1px solid var(--rule);color:var(--muted)}
+.tag.now{border-color:var(--ok);color:var(--ok)}
+.card ul{padding-left:18px;margin:8px 0;flex:1}
+.region{display:inline-flex;border:1px solid var(--rule);border-radius:999px;overflow:hidden;margin:6px 0 4px}
+.region button{background:none;border:0;padding:7px 14px;font:inherit;font-size:.92rem;color:var(--ink);cursor:pointer}
+.region button.on{background:var(--navy);color:var(--on-navy)}
+[data-r="w"]{display:none}body.w [data-r="w"]{display:inline}body.w [data-r="t"]{display:none}
+.who{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.who span{border:1px solid var(--rule);background:var(--paper);border-radius:999px;padding:4px 12px;font-size:.9rem}
+html[lang="tr"] .who[data-l="en"],html[lang="en"] .who[data-l="tr"]{display:none}html[lang="en"] .who[data-l="en"]{display:flex}
+form label{display:block;font-weight:600;margin:10px 0 4px}
+form input,form select,form textarea{width:100%;font:inherit;padding:9px 10px;border:1px solid var(--rule);border-radius:8px;background:var(--bg);color:var(--ink)}
+form textarea{min-height:90px}
+table.t{width:100%;border-collapse:collapse;font-size:.95rem}
+table.t td,table.t th{border-bottom:1px solid var(--rule);padding:8px 6px;text-align:left;vertical-align:top}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+<button class="lang" id="lg">English</button>
+<a class="b" href="./"><img src="logo.svg" alt="" width="34" height="34">GETOKEN · GEPARA</a>
+<h1><span data-l="tr">Fiyatlar ve Hizmetler</span><span data-l="en">Pricing and Services</span></h1>
+<p data-l="tr">Açık fiyat, gizli ücret yok. Kontrol etmek her zaman ücretsiz; hazır rapor, toplu işlem, arşiv ve uzman hizmeti ücretlidir.</p>
+<p data-l="en">Open prices, no hidden fees. Checking a proof is always free; ready reports, bulk work, archive and expert services are paid.</p>
+<nav class="sub"><a href="dosya-kaniti.html" data-l="tr">Kanıt al</a><a href="dosya-kaniti.html" data-l="en">Get proof</a><a href="kullanim.html" data-l="tr">Kullanım alanları</a><a href="kullanim.html" data-l="en">Uses</a><a href="nasil-calisir.html" data-l="tr">Nasıl çalışır</a><a href="nasil-calisir.html" data-l="en">How it works</a><a class="on" href="fiyatlar.html" data-l="tr">Fiyatlar</a><a class="on" href="fiyatlar.html" data-l="en">Pricing</a><a href="sss.html" data-l="tr">Sık sorulanlar</a><a href="sss.html" data-l="en">FAQ</a><a href="defter.html" data-l="tr">Açık Defter</a><a href="defter.html" data-l="en">Open Ledger</a></nav>
+</div></header>
+<main class="wrap">
+
+<div class="card principle">
+<p data-l="tr"><b>Üç kural:</b> 1) Bir kanıtı kontrol etmek herkes için her zaman ücretsizdir; hâkim, avukat ya da karşı taraf para ödemez. 2) Her ay 3 dosyaya kadar ücretsiz deneme yapabilirsiniz. 3) Bugüne kadar alınan bütün kanıtlar süresiz geçerlidir.</p>
+<p data-l="en"><b>Three rules:</b> 1) Checking a proof is always free for everyone; a judge, lawyer or the other party never pays. 2) You can try up to 3 files a month for free. 3) Every proof ever issued stays valid forever.</p>
+</div>
+
+<p data-l="tr" class="note">Fiyat bölgesi:</p><p data-l="en" class="note">Price region:</p>
+<div class="region" role="group"><button id="rt" class="on" type="button"><span data-l="tr">Türkiye (TL, KDV dahil)</span><span data-l="en">Türkiye (TRY, VAT incl.)</span></button><button id="rw" type="button"><span data-l="tr">Dünya (USD)</span><span data-l="en">Worldwide (USD)</span></button></div>
+
+<h2><span data-l="tr">Kimler için</span><span data-l="en">Who it is for</span></h2>
+<div class="who" data-l="tr"><span>Avukatlar ve hukuk büroları</span><span>Sigorta şirketleri ve eksperler</span><span>Emlak ofisleri, ev sahipleri, kiracılar</span><span>Site ve bina yönetimleri</span><span>Müteahhitler, mühendisler, yapı denetim</span><span>Bilirkişiler ve teknik uzmanlar</span><span>Gazeteciler ve sivil toplum</span><span>Tasarımcılar, yazarlar, müzisyenler</span><span>Serbest çalışanlar ve ajanslar</span><span>E-ticaret satıcıları ve kargo</span><span>Araştırmacılar ve laboratuvarlar</span><span>Araç kiralama ve filo şirketleri</span></div>
+<div class="who" data-l="en"><span>Lawyers and law firms</span><span>Insurers and loss adjusters</span><span>Letting agents, landlords, tenants</span><span>Property and building managers</span><span>Contractors, engineers, inspectors</span><span>Expert witnesses and surveyors</span><span>Journalists and NGOs</span><span>Designers, writers, musicians</span><span>Freelancers and agencies</span><span>E-commerce sellers and couriers</span><span>Researchers and labs</span><span>Car rental and fleet companies</span></div>
+
+<h2><span data-l="tr">Uzman hizmetleri</span><span data-l="en">Expert services</span></h2>
+<div class="grid">
+<div class="card"><span class="tag now"><span data-l="tr">Şimdi sipariş</span><span data-l="en">Order now</span></span>
+<h3><span data-l="tr">Yerinde tarihli tespit</span><span data-l="en">On-site dated inspection</span></h3>
+<p class="price"><span data-r="t">3.500 – 7.500 TL</span><span data-r="w"><span data-l="tr">Bursa ve çevresi</span><span data-l="en">Türkiye (Bursa region)</span></span> <small><span data-l="tr">/ iş</span><span data-l="en">/ job</span></small></p>
+<ul data-l="tr"><li>Ev teslimi, komşu inşaatı öncesi, hasar ve eksik iş</li><li>Uzman fotoğraf ve video kaydı, tarihli kanıt paketi</li><li>Kısa teknik tespit raporu (PDF)</li></ul>
+<ul data-l="en"><li>Property handover, before neighbouring works, damage and defects</li><li>Expert photos and video, dated proof pack</li><li>Short technical findings report (PDF)</li></ul></div>
+<div class="card"><span class="tag now"><span data-l="tr">Şimdi sipariş</span><span data-l="en">Order now</span></span>
+<h3><span data-l="tr">Dijital delil inceleme raporu</span><span data-l="en">Digital evidence review</span></h3>
+<p class="price"><span data-r="t">5.000 – 12.500 TL</span><span data-r="w">$300 – $900</span> <small><span data-l="tr">/ rapor</span><span data-l="en">/ report</span></small></p>
+<ul data-l="tr"><li>Sunulan fotoğraf, belge veya zaman kanıtının teknik değerlendirmesi</li><li>Parmak izi, tarih ve değişiklik kontrolü</li><li>Avukatın dosyaya ekleyebileceği yazılı rapor; uzaktan, dünya çapında</li></ul>
+<ul data-l="en"><li>Technical review of a photo, document or timestamp proof</li><li>Fingerprint, date and tampering checks</li><li>Written report a lawyer can file; remote, worldwide</li></ul></div>
+<div class="card"><span class="tag now"><span data-l="tr">Şimdi sipariş</span><span data-l="en">Order now</span></span>
+<h3><span data-l="tr">Seminer ve eğitim</span><span data-l="en">Seminars and training</span></h3>
+<p class="price"><span data-r="t">10.000 – 25.000 TL</span><span data-r="w">$500 – $1,500</span> <small><span data-l="tr">/ oturum</span><span data-l="en">/ session</span></small></p>
+<ul data-l="tr"><li>"Dijital delilin tarihi nasıl kanıtlanır" uygulamalı eğitim</li><li>Baro, meslek odası, firma ekipleri</li><li>Türkiye'de yüz yüze, dünyada çevrim içi</li></ul>
+<ul data-l="en"><li>Hands-on "How to prove when digital evidence existed"</li><li>Bar associations, professional bodies, company teams</li><li>In person in Türkiye, online worldwide</li></ul></div>
+<div class="card"><span class="tag now"><span data-l="tr">Şimdi sipariş</span><span data-l="en">Order now</span></span>
+<h3><span data-l="tr">Kayıtlı çevrim içi eğitim</span><span data-l="en">Recorded online course</span></h3>
+<p class="price"><span data-r="t">790 TL</span><span data-r="w">$49</span> <small><span data-l="tr">/ kişi</span><span data-l="en">/ person</span></small></p>
+<ul data-l="tr"><li>Kendi hızınızda izlenen dersler</li><li>Meslek bazlı örnekler ve kontrol listeleri</li></ul>
+<ul data-l="en"><li>Self-paced lessons</li><li>Profession-specific examples and checklists</li></ul></div>
+</div>
+
+<h2><span data-l="tr">Uygulama paketleri</span><span data-l="en">App packages</span></h2>
+<p class="note" data-l="tr">Kartla ödeme açılana kadar paketler havale/EFT ve fatura ile satılır. Sipariş verenlere erken erişim açılır.</p>
+<p class="note" data-l="en">Until card payment opens, packages are sold by invoice and bank transfer. Buyers get early access.</p>
+<div class="grid">
+<div class="card"><h3><span data-l="tr">Ücretsiz deneme</span><span data-l="en">Free trial</span></h3><p class="price"><span data-r="t">0 TL</span><span data-r="w">$0</span></p><ul data-l="tr"><li>Ayda 3 dosya</li><li>Tek tek kanıt, PDF rapor yok</li><li>Kontrol her zaman ücretsiz</li></ul><ul data-l="en"><li>3 files a month</li><li>Single proofs, no PDF report</li><li>Checking always free</li></ul></div>
+<div class="card"><h3><span data-l="tr">Tek kanıt + PDF rapor</span><span data-l="en">Single proof + PDF report</span></h3><p class="price"><span data-r="t">49 TL</span><span data-r="w">$4</span></p><ul data-l="tr"><li>Mahkemeye eklenebilir düzenli rapor</li><li>QR ile doğrulama bağlantısı</li></ul><ul data-l="en"><li>Clean report ready to file</li><li>QR verification link</li></ul></div>
+<div class="card"><h3><span data-l="tr">Teslim paketi</span><span data-l="en">Handover pack</span></h3><p class="price"><span data-r="t">199 TL</span><span data-r="w">$15</span></p><ul data-l="tr"><li>Bir ev, araç ya da şantiye için sınırsız fotoğraf</li><li>Tek tarihli paket ve fotoğraf listeli rapor</li></ul><ul data-l="en"><li>Unlimited photos for one property, vehicle or site</li><li>One dated pack with an itemised report</li></ul></div>
+<div class="card"><h3><span data-l="tr">Kontör paketleri</span><span data-l="en">Credit packs</span></h3><p class="price"><span data-r="t">299 TL <small>/ 10</small> · 990 TL <small>/ 50</small></span><span data-r="w">$19 <small>/ 10</small> · $59 <small>/ 50</small></span></p><ul data-l="tr"><li>Her kontör: bir kanıt ve PDF rapor</li><li>Süresiz kullanım</li></ul><ul data-l="en"><li>Each credit: one proof and PDF report</li><li>Never expires</li></ul></div>
+<div class="card"><h3>Pro</h3><p class="price"><span data-r="t">149 TL <small>/ ay</small> · 1.290 TL <small>/ yıl</small></span><span data-r="w">$7.99 <small>/ mo</small> · $69 <small>/ yr</small></span></p><ul data-l="tr"><li>Sınırsız kanıt ve PDF rapor</li><li>Proje klasörleri ve arşiv</li><li>Bitcoin onayı hatırlatması</li></ul><ul data-l="en"><li>Unlimited proofs and PDF reports</li><li>Project folders and archive</li><li>Bitcoin confirmation reminders</li></ul></div>
+<div class="card"><h3><span data-l="tr">Büro</span><span data-l="en">Office</span></h3><p class="price"><span data-r="t">990 TL <small>/ ay</small></span><span data-r="w">$39 <small>/ mo</small></span></p><ul data-l="tr"><li>5 kullanıcı</li><li>Kendi logonuzla rapor</li><li>Müvekkil / proje bazlı dosyalama</li></ul><ul data-l="en"><li>5 users</li><li>Reports with your logo</li><li>Filing by client or project</li></ul></div>
+<div class="card"><h3><span data-l="tr">Kurumsal</span><span data-l="en">Enterprise</span></h3><p class="price"><span data-r="t">2.500 TL'den <small>/ ay</small></span><span data-r="w">from $149 <small>/ mo</small></span></p><ul data-l="tr"><li>Şantiye günlük kaydı, toplu teslim</li><li>Sınırsız kullanıcı, eğitim dahil</li><li>Yapı denetim, sigorta, site yönetimi, filo</li></ul><ul data-l="en"><li>Daily site logs, bulk handovers</li><li>Unlimited users, training included</li><li>Inspection, insurance, property, fleet</li></ul></div>
+<div class="card"><h3>API</h3><p class="price"><span data-r="t">2 TL <small>/ işlem</small></span><span data-r="w">$0.10 <small>/ call</small></span></p><ul data-l="tr"><li>Kendi yazılımınıza zaman kanıtı</li><li>Aylık en az <span data-r="t">2.500 TL</span><span data-r="w">$99</span></li></ul><ul data-l="en"><li>Timestamp proofs inside your software</li><li>Minimum <span data-r="t">2,500 TRY</span><span data-r="w">$99</span> a month</li></ul></div>
+<div class="card"><h3><span data-l="tr">Ek işlemler</span><span data-l="en">Add-ons</span></h3><p class="price"><span data-r="t">19 TL · 99 TL</span><span data-r="w">$1.50 · $9</span></p><ul data-l="tr"><li>Polygon'a herkese açık kayıt: <span data-r="t">19 TL</span><span data-r="w">$1.50</span> / kayıt</li><li>Resmî doğrulama raporu (PDF): <span data-r="t">99 TL</span><span data-r="w">$9</span></li></ul><ul data-l="en"><li>Public Polygon record: <span data-r="t">19 TRY</span><span data-r="w">$1.50</span> each</li><li>Formal verification report (PDF): <span data-r="t">99 TRY</span><span data-r="w">$9</span></li></ul></div>
+</div>
+
+<h2 id="siparis"><span data-l="tr">Sipariş ve teklif</span><span data-l="en">Order or request a quote</span></h2>
+<div class="card">
+<form id="of">
+<label for="fn"><span data-l="tr">Ad / kurum</span><span data-l="en">Name / organisation</span></label><input id="fn" required>
+<label for="fc"><span data-l="tr">Ülke ve şehir</span><span data-l="en">Country and city</span></label><input id="fc" required>
+<label for="fp"><span data-l="tr">İlgilendiğiniz</span><span data-l="en">Interested in</span></label>
+<select id="fp"><option>Yerinde tarihli tespit / On-site inspection</option><option>Dijital delil inceleme / Evidence review</option><option>Seminer / Seminar</option><option>Çevrim içi eğitim / Online course</option><option>Tek kanıt + PDF / Single proof</option><option>Teslim paketi / Handover pack</option><option>Kontör / Credits</option><option>Pro</option><option>Büro / Office</option><option>Kurumsal / Enterprise</option><option>API</option></select>
+<label for="fm"><span data-l="tr">Kısa açıklama</span><span data-l="en">Short description</span></label><textarea id="fm"></textarea>
+<p style="margin-top:14px"><button class="btn gold" type="submit"><span data-l="tr">E-postayla gönder</span><span data-l="en">Send by email</span></button></p>
+<p class="note" data-l="tr">Gönder düğmesi e-posta programınızı hazır mesajla açar. Bilgileriniz bu sitede saklanmaz. Yanıt: iş günü içinde.</p>
+<p class="note" data-l="en">The button opens your email app with a ready message. Nothing is stored on this site. Reply within one working day.</p>
+</form>
+</div>
+
+<h2><span data-l="tr">Ödeme</span><span data-l="en">Payment</span></h2>
+<table class="t">
+<tr><th></th><th data-l="tr">Türkiye</th><th data-l="en">Türkiye</th><th data-l="tr">Dünya</th><th data-l="en">Worldwide</th></tr>
+<tr><td data-l="tr">Şimdi</td><td data-l="en">Now</td><td data-l="tr">Havale/EFT, e-arşiv fatura</td><td data-l="en">Bank transfer, e-invoice</td><td data-l="tr">Fatura ve uluslararası havale</td><td data-l="en">Invoice and international transfer</td></tr>
+<tr><td data-l="tr">Yakında</td><td data-l="en">Coming</td><td data-l="tr">Kredi/banka kartı</td><td data-l="en">Credit/debit card</td><td data-l="tr">Kart; yerel vergiler ödeme sırasında hesaplanır</td><td data-l="en">Card; local taxes calculated at checkout</td></tr>
+</table>
+
+<h2><span data-l="tr">Açıkça söyleyelim</span><span data-l="en">Plainly</span></h2>
+<div class="card">
+<p data-l="tr">Kanıtın arkasındaki zaman damgası teknolojisi (OpenTimestamps) açık kaynaklıdır ve kimseye ait değildir. Biz teknolojiye değil; Türkçe ve İngilizce hazır rapora, toplu işleme, arşive, eğitime ve uzman emeğine ücret alıyoruz. Bu bir noter onayı ya da nitelikli elektronik zaman damgası değildir; mahkemede takdiri delil olarak değerlendirilir.</p>
+<p data-l="en">The timestamping technology behind the proof (OpenTimestamps) is open source and owned by no one. We charge for ready reports, bulk work, archiving, training and expert time, not for the technology. This is not a notarisation or a qualified electronic timestamp; courts weigh it as evidence at their discretion.</p>
+<p data-l="tr">Türkiye fiyatlarına KDV dahildir. Dünya fiyatlarına bulunduğunuz ülkenin vergileri eklenebilir. Hizmet bedelleri işin kapsamına göre yazılı teklifle kesinleşir.</p>
+<p data-l="en">Türkiye prices include VAT. Worldwide prices may have your local taxes added. Service fees are confirmed in a written quote based on scope.</p>
+</div>
+<p style="text-align:center;margin-top:28px"><a class="btn gold" href="dosya-kaniti.html"><span data-l="tr">📷 Ücretsiz dene</span><span data-l="en">📷 Try it free</span></a></p>
+</main>
+<footer><div class="wrap">
+<p><a href="defter.html">Açık Defter · Open Ledger</a> · <a href="seffaflik.html"><span data-l="tr">Şeffaflık</span><span data-l="en">Transparency</span></a> · <a href="fiyatlar.html"><span data-l="tr">Fiyatlar</span><span data-l="en">Pricing</span></a> · <a href="https://x.com/tokengepara" rel="noopener">X</a> · <a href="https://www.instagram.com/geparatoken/" rel="noopener">Instagram</a> · <a href="https://www.facebook.com/profile.php?id=61596130500525" rel="noopener">Facebook</a> · <a href="https://github.com/geparatoken-cloud/gepara" rel="noopener">GitHub</a> · <a href="mailto:geparatoken@gmail.com">geparatoken@gmail.com</a></p>
+<p class="sig">GETOKEN</p><p data-l="tr">Hukuki tavsiye değildir.</p><p data-l="en">Not legal advice.</p>
+</div></footer>
+<script src="site.js"></script>
+<script src="pwa.js"></script>
+<script>
+(function(){
+var b=document.body,rt=document.getElementById('rt'),rw=document.getElementById('rw');
+function set(w){b.classList.toggle('w',w);rt.classList.toggle('on',!w);rw.classList.toggle('on',w);try{localStorage.setItem('rg',w?'w':'t')}catch(e){}}
+var s=null;try{s=localStorage.getItem('rg')}catch(e){}
+set(s?s==='w':document.documentElement.lang==='en'&&!/^tr/i.test(navigator.language||''));
+rt.onclick=function(){set(false)};rw.onclick=function(){set(true)};
+document.getElementById('of').onsubmit=function(e){e.preventDefault();
+var g=function(i){return document.getElementById(i).value.trim()};
+var su='Sipariş/Teklif: '+g('fp');
+var bd='Ad / kurum: '+g('fn')+'\nÜlke ve şehir: '+g('fc')+'\nÜrün: '+g('fp')+'\nBölge: '+(b.classList.contains('w')?'Dünya (USD)':'Türkiye (TL)')+'\n\n'+g('fm');
+location.href='mailto:geparatoken@gmail.com?subject='+encodeURIComponent(su)+'&body='+encodeURIComponent(bd)};
+})();
+</script>
+</body>
+</html>
