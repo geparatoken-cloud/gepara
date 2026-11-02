@@ -5,9 +5,9 @@
 <i>One moment. One fingerprint. Proof forever.</i></p>
 
 <p align="center">
-<a href="https://geparatoken-cloud.github.io/gepara/dosya-kaniti.html"><b>Dosya Kanıtı / File Proof</b></a> ·
-<a href="https://geparatoken-cloud.github.io/gepara/defter.html">Açık Defter / Open Ledger</a> ·
-<a href="https://geparatoken-cloud.github.io/gepara/seffaflik.html">Şeffaflık / Transparency</a>
+<a href="https://gepara.com/dosya-kaniti.html"><b>Dosya Kanıtı / File Proof</b></a> ·
+<a href="https://gepara.com/defter.html">Açık Defter / Open Ledger</a> ·
+<a href="https://gepara.com/seffaflik.html">Şeffaflık / Transparency</a>
 </p>
 
 ---
@@ -23,7 +23,7 @@
 
 Kullanım örnekleri: kira depozitosu, araç kiralama hasarı, eser/tasarım sahipliği, teslim tutanağı fotoğrafları, sözleşme taslakları, keşif fotoğrafları.
 
-**GEPARA kayıt sistemi**, uzmanların (ör. bilirkişi raporları) belge parmak izlerini Polygon ağına kaydetmesini ve herkesin bunları ücretsiz doğrulamasını sağlar. İlk gerçek kullanım: 2017–2026 arasına ait **2.622 bilirkişi belgesi**, 20 işlemde kaydedildi. Ayrıntılar ve canlı sayılar: [Açık Defter](https://geparatoken-cloud.github.io/gepara/defter.html).
+**GEPARA kayıt sistemi**, uzmanların (ör. bilirkişi raporları) belge parmak izlerini Polygon ağına kaydetmesini ve herkesin bunları ücretsiz doğrulamasını sağlar. İlk gerçek kullanım: 2017–2026 arasına ait **2.622 bilirkişi belgesi**, 20 işlemde kaydedildi. Ayrıntılar ve canlı sayılar: [Açık Defter](https://gepara.com/defter.html).
 
 ## English
 
@@ -34,7 +34,7 @@ Kullanım örnekleri: kira depozitosu, araç kiralama hasarı, eser/tasarım sah
 - **Anchored in Bitcoin.** The fingerprint goes to public [OpenTimestamps](https://opentimestamps.org) calendars and is anchored in the Bitcoin blockchain within hours. The proof (`.ots`) does not depend on this site; anyone can verify it independently, even if the site disappears.
 - **Handover pack.** Bundles check-in/check-out photos into a single proof.
 
-**GEPARA registry** lets experts (e.g. court-appointed expert reports) record document fingerprints on Polygon, and lets anyone verify them for free. First real use: **2,622 expert documents** from 2017–2026, recorded in 20 transactions. Live figures: [Open Ledger](https://geparatoken-cloud.github.io/gepara/defter.html).
+**GEPARA registry** lets experts (e.g. court-appointed expert reports) record document fingerprints on Polygon, and lets anyone verify them for free. First real use: **2,622 expert documents** from 2017–2026, recorded in 20 transactions. Live figures: [Open Ledger](https://gepara.com/defter.html).
 
 ---
 
@@ -68,6 +68,6 @@ Everything is static HTML + JavaScript. No server, no database, no tracking.
 
 ## Contact
 
-geparatoken@gmail.com · [X](https://x.com/tokengepara) · [Instagram](https://www.instagram.com/geparatoken/) · [Facebook](https://www.facebook.com/profile.php?id=61596130500525)
+info@gepara.com · [X](https://x.com/tokengepara) · [Instagram](https://www.instagram.com/geparatoken/) · [Facebook](https://www.facebook.com/profile.php?id=61596130500525)
 
 License: MIT · **GETOKEN**
