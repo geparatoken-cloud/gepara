@@ -212,6 +212,7 @@ function tab(w){[['al','al'],['paket','p'],['kontrol','k']].forEach(([id,k])=>{$
 $('t-al').onclick=()=>tab('al');if(location.hash==='#kontrol')setTimeout(()=>tab('k'),0);$('t-paket').onclick=()=>tab('p');$('t-kontrol').onclick=()=>tab('k');
 
 const hex=b=>[...b].map(x=>x.toString(16).padStart(2,'0')).join('');
+function gkSay(e){try{if(window.goatcounter&&goatcounter.count)goatcounter.count({path:'islem-'+e,title:e,event:true})}catch(_){}}
 async function sha(buf){return new Uint8Array(await crypto.subtle.digest('SHA-256',buf))}
 const MAGIC=new Uint8Array([0x00,0x4f,0x70,0x65,0x6e,0x54,0x69,0x6d,0x65,0x73,0x74,0x61,0x6d,0x70,0x73,0x00,0x00,0x50,0x72,0x6f,0x6f,0x66,0x00,0xbf,0x89,0xe2,0xe8,0x84,0xe8,0x92,0x94]);
 const CALS=['https://a.pool.opentimestamps.org','https://b.pool.opentimestamps.org','https://a.pool.eternitywall.com'];
@@ -238,7 +239,7 @@ async function getProofs(files){
     st.dataset.dyn='sending';st.textContent=t('sending');
     const r=await stamp(d);
     if(!r){st.className='st bad';st.dataset.dyn='fail';st.textContent=t('fail');continue}
-    const now=new Date();if(window.GK)GK.countProof();
+    const now=new Date();if(window.GK)GK.countProof();gkSay('kanit');
     st.className='st ok';st.dataset.dyn='done';st.textContent=t('done');
     const meta=document.createElement('div');meta.className='note';meta.textContent=`${t('date')}: ${now.toLocaleString(L)} · ${r.n}/3 ${t('cals')}`;box.appendChild(meta);
     const row=document.createElement('div');row.className='row';
@@ -257,7 +258,7 @@ const REGS=['0x101036a06cecb95c580515ec027ee20f8e917215','0xc6a4c5ec25f624729ccb
 async function rpc(to,data){for(const u of RPCS){try{const r=await fetch(u,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'eth_call',params:[{to,data},'latest']})});const j=await r.json();if(j.result)return j.result}catch(e){}}return null}
 async function gepara(h){let reached=false;for(const reg of REGS){const r=await rpc(reg,'0x35e74bbd'+h);if(r===null)continue;reached=true;if(r.length>=194&&BigInt('0x'+r.slice(2,66))===1n){const ts=Number(BigInt('0x'+r.slice(130,194)));return {found:true,date:new Date(ts*1000)}}}return {found:false,reached}}
 
-async function check(files){
+async function check(files){gkSay('kontrol');
   const out=$('l-k');out.innerHTML='';
   const ots=files.filter(f=>f.name.toLowerCase().endsWith('.ots')), plain=files.filter(f=>!f.name.toLowerCase().endsWith('.ots'));
   const otsDigests=[];for(const o of ots){const b=new Uint8Array(await o.arrayBuffer());let okM=b.length>MAGIC.length+34&&MAGIC.every((x,i)=>b[i]===x);if(okM&&b[MAGIC.length+1]===0x08)otsDigests.push({name:o.name,d:hex(b.slice(MAGIC.length+2,MAGIC.length+34))})}
@@ -297,7 +298,7 @@ $('p-yap').onclick=async()=>{
   const files=paket;paket=[];packCount();$('p-yap').disabled=true;
   const box=document.createElement('div');box.className='item';
   if(window.GK&&!(await GK.allowProof())){box.appendChild(GK.trialBox());$('l-p').prepend(box);return}const st=line('wait','working');box.appendChild(st);$('l-p').prepend(box);
-  const list=[];for(const f of files){list.push({name:f.name,size:f.size,lastModified:new Date(f.lastModified).toISOString(),sha256:hex(await sha(await f.arrayBuffer()))})}
+  gkSay('paket');const list=[];for(const f of files){list.push({name:f.name,size:f.size,lastModified:new Date(f.lastModified).toISOString(),sha256:hex(await sha(await f.arrayBuffer()))})}
   const man={type:'gepara-proof-pack',version:1,created:new Date().toISOString(),note:$('p-not').value.trim(),files:list};
   const bytes=new TextEncoder().encode(JSON.stringify(man,null,2));const d=await sha(bytes);
   box.insertAdjacentHTML('afterbegin',`<h3>${esc(man.note||('Pack · '+list.length))}</h3><div class="hash">${t('fp')}: ${hex(d)}</div>`);

@@ -10,3 +10,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
 var dp=null;window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();dp=e;document.querySelectorAll('.install').forEach(function(x){x.hidden=false})});
 document.addEventListener('click',function(e){var t=e.target.closest('.install');if(t&&dp){dp.prompt();dp=null}});
 })();
+
+(function(){function say(e){try{if(window.goatcounter&&goatcounter.count)goatcounter.count({path:'islem-'+e,title:e,event:true})}catch(_){}}window.gkSay=say;
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="mailto:"]');if(a){var pg=(location.pathname.split('/').pop()||'index').replace('.html','');say('eposta-'+pg)}},true);
+window.addEventListener('appinstalled',function(){say('uygulama-kuruldu')});})();
