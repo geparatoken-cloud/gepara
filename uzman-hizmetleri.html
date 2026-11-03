@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Uzman Hizmetleri — Dosya Kanıtı</title>
+<meta name="description" content="Bursa ve Türkiye'de yerinde tarihli tespit, dijital delil inceleme raporu, seminer ve eğitim. İnşaat mühendisi ve bilirkişi Gökhan Ertan.">
+<meta name="robots" content="index,follow">
+<link rel="icon" href="logo.svg"><meta name="theme-color" content="#12284A">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="site.css">
+<style>.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}.price{font-weight:700;font-size:1.2rem}form label{display:block;font-weight:600;margin:10px 0 4px}form input,form select,form textarea{width:100%;font:inherit;padding:9px 10px;border:1px solid var(--rule);border-radius:8px;background:var(--bg);color:var(--ink)}</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+<a class="b" href="./"><img src="logo.svg" alt="" width="34" height="34">GETOKEN · GEPARA</a>
+<h1>Uzman hizmetleri</h1>
+<p>Bu hizmetler yalnızca Türkiye'de, 30 yıllık inşaat mühendisi ve mahkeme bilirkişisi Gökhan Ertan tarafından verilir. Fiyat, işin kapsamına göre yazılı teklifle kesinleşir; ödeme havale/EFT veya kartla alınır, e-arşiv fatura kesilir.</p>
+<nav class="sub"><a href="dosya-kaniti.html">Kanıt al</a><a href="fiyatlar.html">Fiyatlar</a><a href="magaza.html">Mağaza</a><a class="on" href="uzman-hizmetleri.html">Uzman hizmetleri</a><a href="yasal.html">Satış koşulları</a></nav>
+</div></header>
+<main class="wrap">
+<div class="grid">
+<div class="card"><h3>Yerinde tarihli tespit</h3><p class="price">3.500 – 7.500 TL <small>/ iş</small></p><p class="note">Bursa ve çevresi; il dışı yol ve konaklama teklifte ayrıca yazılır.</p><ul><li>Ev teslimi, komşu inşaatı öncesi, hasar ve eksik iş</li><li>Uzman fotoğraf ve video kaydı, tarihli kanıt paketi</li><li>Kısa teknik tespit raporu (PDF)</li></ul></div>
+<div class="card"><h3>Dijital delil inceleme raporu</h3><p class="price">5.000 – 12.500 TL <small>/ rapor</small></p><ul><li>Sunulan fotoğraf, belge veya zaman kanıtının teknik değerlendirmesi</li><li>Parmak izi, tarih ve değişiklik kontrolü</li><li>Avukatın dosyaya ekleyebileceği yazılı rapor</li></ul></div>
+<div class="card"><h3>Seminer ve eğitim</h3><p class="price">10.000 – 25.000 TL <small>/ oturum</small></p><ul><li>"Dijital delilin tarihi nasıl kanıtlanır" uygulamalı eğitim</li><li>Baro, meslek odası, firma ekipleri</li><li>Yüz yüze veya çevrim içi</li></ul></div>
+</div>
+
+<h2 id="teklif">Teklif isteyin</h2>
+<div class="card">
+<form id="of">
+<label for="fn">Ad / kurum</label><input id="fn" required>
+<label for="fc">Şehir</label><input id="fc" required>
+<label for="fp">İlgilendiğiniz hizmet</label>
+<select id="fp"><option>Yerinde tarihli tespit</option><option>Dijital delil inceleme raporu</option><option>Seminer ve eğitim</option></select>
+<label for="fm">Kısa açıklama</label><textarea id="fm" rows="3"></textarea>
+<p style="margin-top:14px"><button class="btn gold" type="submit">E-postayla gönder</button></p>
+<p class="note">Sipariş vermeden önce <a href="yasal.html">ön bilgilendirme formu, satış sözleşmesi, iade koşulları ve KVKK metnini</a> okuyunuz. Gönder düğmesi e-posta programınızı hazır mesajla açar; yanıt iş günü içinde verilir.</p>
+</form>
+</div>
+</main>
+<footer><div class="wrap">
+<p><a href="fiyatlar.html">Fiyatlar</a> · <a href="magaza.html">Mağaza</a> · <a href="yasal.html">Yasal</a> · <a href="mailto:info@gepara.com">info@gepara.com</a></p>
+<p class="sig">GETOKEN</p><p class="note">Gökhan Ertan · Balat Mah. Kardeş Sk. Meteor Dikencik Sitesi J Blok No: 2J İç Kapı No: 1, Nilüfer / Bursa · Nilüfer VD 3710096911</p>
+</div></footer>
+<script>
+document.getElementById('of').onsubmit=function(e){e.preventDefault();var v=function(i){return document.getElementById(i).value.trim()};
+location.href='mailto:info@gepara.com?subject='+encodeURIComponent('Teklif talebi: '+v('fp'))+'&body='+encodeURIComponent('Ad / kurum: '+v('fn')+'\nŞehir: '+v('fc')+'\nHizmet: '+v('fp')+'\n\n'+v('fm'))};
+</script>
+</body>
+</html>
