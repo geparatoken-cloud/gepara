@@ -1,23 +1,56 @@
 {
-  "name": "Dosya Kanıtı — GETOKEN",
-  "short_name": "Dosya Kanıtı",
-  "description": "Fotoğraf ve belgelerin tarihini kanıtlayın. Her ay 3 dosya ücretsiz; dosyanız cihazınızdan çıkmaz.",
+  "name": "GETOKEN — Dosya Kanıtı",
+  "short_name": "GETOKEN",
+  "description": "Fotoğraf, belge ve teslimlerin tarihini kanıtlayın; Bina Defteri ve Karşılıklı Teslim. Her ay 3 dosya ücretsiz; dosyanız cihazınızdan çıkmaz.",
   "lang": "tr",
-  "start_url": "dosya-kaniti.html?app=1",
+  "start_url": "uygulama.html?app=1",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#12284A",
   "theme_color": "#12284A",
-  "categories": ["utilities", "productivity", "security"],
+  "categories": [
+    "utilities",
+    "productivity",
+    "security"
+  ],
   "icons": [
-    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
-    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
-    {"src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ],
   "shortcuts": [
-    {"name": "Kanıt al", "url": "dosya-kaniti.html?app=1"},
-    {"name": "Kullanım alanları", "url": "kullanim.html"},
-    {"name": "Sık sorulanlar", "url": "sss.html"}
-  ]
+    {
+      "name": "Kanıt al",
+      "url": "dosya-kaniti.html?app=1"
+    },
+    {
+      "name": "Teslim paketi",
+      "url": "dosya-kaniti.html?app=1#paket"
+    },
+    {
+      "name": "Kontrol et",
+      "url": "dosya-kaniti.html?app=1#kontrol"
+    },
+    {
+      "name": "Bina Defteri",
+      "url": "bina-defteri.html"
+    }
+  ],
+  "id": "/uygulama.html"
 }

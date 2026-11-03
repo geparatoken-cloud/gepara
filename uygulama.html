@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>GETOKEN — Uygulama</title>
+<meta name="description" content="GETOKEN telefon uygulaması: dosya kanıtı, teslim paketi, kontrol, Bina Defteri, Karşılıklı Teslim ve sektörel kanıt hizmetleri tek ekranda.">
+<link rel="canonical" href="https://gepara.com/uygulama.html">
+<link rel="icon" href="logo.svg"><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#12284A"><link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="GETOKEN"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="site.css">
+<style>
+html[lang="tr"] [data-l="en"],html[lang="en"] [data-l="tr"]{display:none!important}
+body{padding-bottom:env(safe-area-inset-bottom)}
+.app-top{background:var(--navy);color:var(--on-navy);padding:calc(18px + env(safe-area-inset-top)) 16px 22px;border-radius:0 0 22px 22px}
+.app-top .row{display:flex;align-items:center;justify-content:space-between;max-width:620px;margin:0 auto}
+.app-top .b{font:700 1rem Cinzel,serif;letter-spacing:.1em;display:flex;align-items:center;gap:8px}
+.app-top h1{font:700 1.5rem/1.2 Cinzel,serif;margin:14px auto 4px;max-width:620px}
+.app-top p{margin:0 auto;max-width:620px;color:#D9D3C4;font-size:.95rem}
+.app{max-width:620px;margin:0 auto;padding:0 16px}
+.main3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:-14px 0 6px}
+.main3 a{background:#C9A24A;color:#12284A;border-radius:16px;padding:14px 8px;text-align:center;text-decoration:none;font-weight:700;font-size:.92rem;box-shadow:0 6px 16px #12284A33}
+.main3 a i{display:block;font-style:normal;font-size:1.7rem;line-height:1.2}
+h2{font-size:1rem;margin:22px 0 8px;letter-spacing:.06em}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tiles a{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:13px;text-decoration:none;color:var(--ink);display:block;min-height:96px}
+.tiles a i{font-style:normal;font-size:1.5rem;display:block}
+.tiles a b{display:block;font-size:.98rem;line-height:1.25;margin-top:4px}
+.tiles a span{display:block;font-size:.8rem;color:var(--muted);margin-top:2px}
+.tiles a .soon{display:inline-block;margin-top:6px;background:#C9A24A33;color:var(--ink);border-radius:6px;padding:1px 6px;font-size:.7rem;font-weight:700}
+.list a{display:flex;justify-content:space-between;align-items:center;background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:12px 14px;margin:8px 0;color:var(--ink);text-decoration:none;font-weight:600}
+.list a:after{content:"›";color:var(--gold);font-size:1.4rem;line-height:1}
+.inst{background:var(--paper);border:1px dashed var(--gold);border-radius:14px;padding:14px;margin:18px 0}
+.inst button{background:var(--navy);color:var(--on-navy);border:0;border-radius:10px;padding:11px 16px;font:inherit;font-weight:700;width:100%}
+.lang2{background:none;border:1px solid #ffffff55;color:var(--on-navy);border-radius:8px;padding:4px 10px;font:inherit;font-size:.85rem}
+footer{margin-top:24px}
+</style>
+</head>
+<body>
+<div class="app-top">
+<div class="row"><span class="b"><img src="logo.svg" alt="" width="30" height="30">GETOKEN</span><button class="lang2" id="lg">English</button></div>
+<h1><span data-l="tr">Bir an. Bir parmak izi. Sonsuza kadar kanıt.</span><span data-l="en">One moment. One fingerprint. Proof forever.</span></h1>
+<p data-l="tr">Dosyanız telefonunuzdan çıkmaz. Her ay 3 dosya ücretsiz.</p>
+<p data-l="en">Your file never leaves your phone. 3 files a month free.</p>
+</div>
+<main class="app">
+<div class="main3">
+<a href="dosya-kaniti.html?app=1"><i>📷</i><span data-l="tr">Kanıt al</span><span data-l="en">Get proof</span></a>
+<a href="dosya-kaniti.html?app=1#paket"><i>🧾</i><span data-l="tr">Teslim paketi</span><span data-l="en">Handover pack</span></a>
+<a href="dosya-kaniti.html?app=1#kontrol"><i>✅</i><span data-l="tr">Kontrol et</span><span data-l="en">Check</span></a>
+</div>
+
+<h2><span data-l="tr">YENİ HİZMETLER</span><span data-l="en">NEW SERVICES</span></h2>
+<div class="tiles">
+<a href="bina-defteri.html"><i>🏢</i><b data-l="tr">Bina Defteri</b><b data-l="en">Building Logbook</b><span data-l="tr">Binanın değiştirilemez geçmişi</span><span data-l="en">A building's tamper-proof history</span><em class="soon" data-l="tr">ÖN KAYIT</em><em class="soon" data-l="en">PRE-REGISTER</em></a>
+<a href="karsilikli-teslim.html"><i>🤝</i><b data-l="tr">Karşılıklı Teslim</b><b data-l="en">Two-party Handover</b><span data-l="tr">İki tarafın da onayladığı kanıt</span><span data-l="en">Proof both sides confirm</span><em class="soon" data-l="tr">ÖN KAYIT</em><em class="soon" data-l="en">PRE-REGISTER</em></a>
+</div>
+
+<h2><span data-l="tr">SEKTÖRLER</span><span data-l="en">SECTORS</span></h2>
+<div class="tiles">
+<a href="sektorler.html#kentsel"><i>🏗️</i><b data-l="tr">Kentsel dönüşüm</b><b data-l="en">Urban renewal</b><span data-l="tr">Yıkım öncesi durum</span><span data-l="en">Before demolition</span></a>
+<a href="sektorler.html#isg"><i>🦺</i><b data-l="tr">İş güvenliği</b><b data-l="en">Workplace safety</b><span data-l="tr">Eğitim ve denetim kanıtı</span><span data-l="en">Training and inspections</span></a>
+<a href="sektorler.html#onam"><i>🩺</i><b data-l="tr">Hasta onamı</b><b data-l="en">Patient consent</b><span data-l="tr">Klinikler için</span><span data-l="en">For clinics</span></a>
+<a href="sektorler.html#tarim"><i>🌾</i><b data-l="tr">Tarım</b><b data-l="en">Agriculture</b><span data-l="tr">Hasar ve ekim kanıtı</span><span data-l="en">Damage and planting</span></a>
+<a href="sektorler.html#afet"><i>🆘</i><b data-l="tr">Afet kiti</b><b data-l="en">Disaster kit</b><span data-l="tr">Deprem ve sel sonrası</span><span data-l="en">After earthquakes, floods</span></a>
+<a href="sektorler.html#eser"><i>✍️</i><b data-l="tr">İnsan yapımı eser</b><b data-l="en">Human-made work</b><span data-l="tr">Yapay zekâ çağında</span><span data-l="en">In the age of AI</span></a>
+</div>
+
+<h2><span data-l="tr">DAHA FAZLA</span><span data-l="en">MORE</span></h2>
+<div class="list">
+<a href="magaza.html"><span data-l="tr">🛒 Mağaza: PDF rapor, kontör, Pro</span><span data-l="en">🛒 Shop: PDF report, credits, Pro</span></a>
+<a href="uzman-hizmetleri.html" data-l="tr">👷 Uzman hizmetleri (Bursa ve çevresi)</a>
+<a href="kullanim.html"><span data-l="tr">💡 Kullanım alanları</span><span data-l="en">💡 Uses</span></a>
+<a href="sss.html"><span data-l="tr">❓ Sık sorulan sorular</span><span data-l="en">❓ FAQ</span></a>
+<a href="defter.html"><span data-l="tr">📒 Açık Defter</span><span data-l="en">📒 Open Ledger</span></a>
+</div>
+
+<div class="inst" id="kur">
+<p style="margin:0 0 8px"><b data-l="tr">📲 Telefonuna uygulama olarak ekle</b><b data-l="en">📲 Add it to your phone as an app</b></p>
+<button class="install" hidden><span data-l="tr">Uygulamayı yükle</span><span data-l="en">Install the app</span></button>
+<p class="note" data-l="tr">Android: Chrome menüsünden (⋮) "Uygulamayı yükle" veya "Ana ekrana ekle". iPhone: Safari'de Paylaş ⬆️ → "Ana Ekrana Ekle".</p>
+<p class="note" data-l="en">Android: Chrome menu (⋮) → "Install app". iPhone: Safari Share ⬆️ → "Add to Home Screen".</p>
+</div>
+</main>
+<footer><div class="app"><p><a href="./">gepara.com</a> · <a href="yasal.html"><span data-l="tr">Yasal</span><span data-l="en">Legal</span></a> · <a href="mailto:info@gepara.com">info@gepara.com</a></p><p class="sig">GETOKEN</p></div></footer>
+<script src="site.js"></script>
+<script src="pwa.js"></script>
+<script data-goatcounter="https://gepara.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
