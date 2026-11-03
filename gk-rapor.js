@@ -71,7 +71,7 @@ async function renderLic(){var host=document.getElementById('gk-lic');if(!host)r
   var row=el('div','row');var inp=el('input');inp.placeholder=s('licPh');inp.autocomplete='off';inp.spellcheck=false;inp.style.cssText='flex:1;min-width:200px;font:inherit;padding:9px 10px;border:1px solid var(--rule,#ccc);border-radius:8px';
   var sv=el('button','btn',s('licSave'));sv.type='button';sv.onclick=async function(){var v=inp.value.trim().toUpperCase();if(!v)return;ls('gk-lic',v);LICS=null;await renderLic()};
   row.append(inp,sv);if(ls('gk-lic')){var rm=el('button','btn ghost',s('licRemove'));rm.type='button';rm.onclick=function(){try{localStorage.removeItem('gk-lic')}catch(e){}renderLic()};row.appendChild(rm)}
-  host.append(st,row)}
+  host.append(st,row);try{document.dispatchEvent(new Event('gklic'))}catch(e){}}
 
 /* ---------- PDF ---------- */
 async function doc(){await load(LIBS.jspdf);await load(LIBS.qr);var J=window.jspdf.jsPDF;var d=new J({unit:'mm',format:'a4'});
@@ -127,7 +127,7 @@ async function gated(cost,btn,box,fn){if(!(await canSpend(cost))){if(!box.queryS
   var old=btn.textContent;btn.disabled=true;btn.textContent=s('making');try{await fn();await spend(cost);renderLic()}catch(e){console.error(e);alert('PDF: '+e.message)}finally{btn.disabled=false;btn.textContent=old}}
 function button(key,cost,box,fn){var b=el('button','btn ghost','📄 '+s(key));b.type='button';b.onclick=function(){gated(cost,b,box,fn)};return b}
 
-window.GK={allowProof:allowProof,countProof:countProof,trialBox:trialBox,renderLic:renderLic,
+window.GK={lic:licInfo,allowProof:allowProof,countProof:countProof,trialBox:trialBox,renderLic:renderLic,
   proofButton:function(box,o){return button('btnProof',COST.proof,box,function(){return proofPDF(o)})},
   packButton:function(box,o){return button('btnPack',COST.pack,box,function(){return packPDF(o)})},
   verifyButton:function(box,o){return button('btnVer',COST.verify,box,function(){return verifyPDF(o)})}};

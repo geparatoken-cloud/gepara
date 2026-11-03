@@ -138,6 +138,7 @@ footer{border-top:1px solid var(--rule);padding:24px 0 40px;color:var(--muted);f
   </div>
 
   <div class="panel" id="gk-lic" style="margin-top:14px"></div>
+  <div class="panel" id="gk-arsiv" style="margin-top:14px"></div>
 
   <ul class="trust">
     <li><b data-i="tr1h"></b><span data-i="tr1p"></span></li>
@@ -247,6 +248,7 @@ async function getProofs(files){
     const pr=document.createElement('button');pr.type='button';pr.className='btn ghost';pr.dataset.dyn='print';pr.textContent=t('print');
     pr.onclick=()=>{document.querySelectorAll('#l-al .item').forEach(x=>x.style.display=x===box?'':'none');tab('al');window.print();document.querySelectorAll('#l-al .item').forEach(x=>x.style.display='')};
     row.append(a,pr);if(window.GK)row.appendChild(GK.proofButton(box,{file:f,digestHex:hex(d),ots:r.ots,n:r.n,at:now}));box.appendChild(row);
+    if(window.GKPRO)GKPRO.save({name:f.name,hash:hex(d),size:f.size,at:now,n:r.n,ots:r.ots,kind:'tek'});
   }
 }
 
@@ -308,6 +310,7 @@ $('p-yap').onclick=async()=>{
   const a1=document.createElement('a');a1.className='btn';a1.dataset.dyn='packDl1';a1.textContent=t('packDl1');offer(a1,base+'.json',bytes,'application/json');
   const a2=document.createElement('a');a2.className='btn';a2.dataset.dyn='packDl2';a2.textContent=t('packDl2');offer(a2,base+'.json.ots',r.ots,'application/octet-stream');
   row.append(a1,a2);if(window.GK)row.appendChild(GK.packButton(box,{man,digestHex:hex(d),ots:r.ots,n:r.n,files}));box.appendChild(row);
+  if(window.GKPRO)GKPRO.save({name:base+'.json',hash:hex(d),at:new Date(),n:r.n,ots:r.ots,json:bytes,kind:'paket'});
   const ul=document.createElement('div');ul.className='note';ul.textContent=list.map(x=>x.name).join(' · ');box.appendChild(ul);
 };
 function wire(drop,input,fn){input.onchange=e=>{fn([...e.target.files]);input.value=''};
@@ -318,6 +321,7 @@ wire($('d-al'),$('f-al'),getProofs);$('f-cam').onchange=e=>{getProofs([...e.targ
 (async()=>{try{const r=await rpc('0x101036a06cecb95c580515ec027ee20f8e917215','0x5ad5d154');if(r){const n=parseInt(r,16);const el=$('live');el.innerHTML='<b>'+n.toLocaleString(L)+'</b> <span data-dyn="liveTxt">'+t('liveTxt')+'</span>';el.hidden=false}}catch(e){}})();wire($('d-p'),$('f-p'),addPack);wire($('d-k'),$('f-k'),check);
 </script>
 <script src="gk-rapor.js"></script>
+<script src="gk-pro.js"></script>
 <script src="pwa.js"></script>
 </body>
 </html>
