@@ -1,7 +1,7 @@
 {
   "name": "Dosya Kanıtı — GETOKEN",
   "short_name": "Dosya Kanıtı",
-  "description": "Bir dosyanın o tarihte sizde olduğunu ve değişmediğini ücretsiz kanıtlayın. Dosyanız cihazınızdan çıkmaz.",
+  "description": "Fotoğraf ve belgelerin tarihini kanıtlayın. Her ay 3 dosya ücretsiz; dosyanız cihazınızdan çıkmaz.",
   "lang": "tr",
   "start_url": "dosya-kaniti.html?app=1",
   "scope": "./",

@@ -205,7 +205,7 @@ function applyLang(l){L=T[l]?l:'tr';document.documentElement.lang=L;
   $('langsel').value=L;document.documentElement.dir=L==='ar'?'rtl':'ltr';renderGuides();
   document.querySelectorAll('[data-dyn]').forEach(e=>e.textContent=t(e.dataset.dyn));}
 $('langsel').onchange=e=>{applyLang(e.target.value);try{localStorage.setItem('dk-lang',L)}catch(x){}};
-let start='tr';try{start=localStorage.getItem('dk-lang')||(navigator.language||'tr').slice(0,2)}catch(e){}
+let start='tr';try{start=new URLSearchParams(location.search).get('lang')||localStorage.getItem('dk-lang')||(navigator.language||'tr').slice(0,2)}catch(e){}
 applyLang(start);
 
 function tab(w){[['al','al'],['paket','p'],['kontrol','k']].forEach(([id,k])=>{$('t-'+id).setAttribute('aria-selected',w===k);$('p-'+id).hidden=w!==k})}
@@ -323,5 +323,6 @@ wire($('d-al'),$('f-al'),getProofs);$('f-cam').onchange=e=>{getProofs([...e.targ
 <script src="gk-rapor.js"></script>
 <script src="gk-pro.js"></script>
 <script src="pwa.js"></script>
+<script data-goatcounter="https://gepara.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

@@ -120,17 +120,52 @@ footer a{color:inherit}
 <li><time>01.11.2026</time><span data-l="tr">Kira depozitosu, araç hasarı ve eser sahipliği için Türkçe ve İngilizce rehberler yayımlandı; Şeffaflık sayfası açıldı.</span><span data-l="en">Guides for rental deposits, car damage and authorship published in Turkish and English; Transparency page opened.</span></li>
 </ul></div>
 
+<h2 id="arz"><span data-l="tr">Arz dağılımı (canlı)</span><span data-l="en">Supply distribution (live)</span></h2>
+<div class="card">
+<p class="note" data-l="tr">Rakamlar bu sayfa açıldığında doğrudan Polygon ağından okunur. Toplam başlangıç arzı 1.000.000 GEPARA'dır; kayıt ücretlerinin yarısı yakıldığı için toplam arz zamanla azalır.</p>
+<p class="note" data-l="en">Figures are read straight from the Polygon network when this page opens. The initial supply was 1,000,000 GEPARA; half of every record fee is burned, so the total supply shrinks over time.</p>
+<div style="overflow-x:auto"><table class="arz" style="width:100%;border-collapse:collapse">
+<thead><tr><th style="text-align:left"><span data-l="tr">Cüzdan</span><span data-l="en">Wallet</span></th><th style="text-align:left"><span data-l="tr">Kimin</span><span data-l="en">Whose</span></th><th style="text-align:right">GEPARA</th><th style="text-align:right">%</th></tr></thead>
+<tbody>
+<tr data-a="0xb58859a7a638661d195ce24c1b6d5bdc9d468114"><td><a href="https://polygonscan.com/address/0xb58859a7a638661d195ce24c1b6d5bdc9d468114" target="_blank" rel="noopener">0xb588…8114</a></td><td><span data-l="tr">Kurucu (GETOKEN)</span><span data-l="en">Founder (GETOKEN)</span></td><td class="v" style="text-align:right">—</td><td class="p" style="text-align:right">—</td></tr>
+<tr data-a="0x1fd839e7b37c6b253f0254c96afda00e6d8c8599"><td><a href="https://polygonscan.com/address/0x1fd839e7b37c6b253f0254c96afda00e6d8c8599" target="_blank" rel="noopener">0x1fd8…8599</a></td><td><span data-l="tr">Kazı sistemi (sözleşmede kilitli)</span><span data-l="en">Mining system (locked in contract)</span></td><td class="v" style="text-align:right">—</td><td class="p" style="text-align:right">—</td></tr>
+<tr data-a="0xb85c4ab0053af6a660a65f59a7a5ede50579d27c"><td><a href="https://polygonscan.com/address/0xb85c4ab0053af6a660a65f59a7a5ede50579d27c" target="_blank" rel="noopener">0xb85c…d27c</a></td><td><span data-l="tr">Alım satım havuzu (QuickSwap)</span><span data-l="en">Trading pool (QuickSwap)</span></td><td class="v" style="text-align:right">—</td><td class="p" style="text-align:right">—</td></tr>
+<tr data-a="other"><td>—</td><td><span data-l="tr">Diğer tüm cüzdanlar</span><span data-l="en">All other wallets</span></td><td class="v" style="text-align:right">—</td><td class="p" style="text-align:right">—</td></tr>
+<tr data-a="burn"><td>—</td><td><span data-l="tr">Yakılan (kalıcı olarak yok edildi)</span><span data-l="en">Burned (destroyed for good)</span></td><td class="v" style="text-align:right">—</td><td class="p" style="text-align:right">—</td></tr>
+</tbody></table></div>
+<p class="note" data-l="tr">Kurucu cüzdanından yapılan kayıtlar ile dış kullanıcıların kayıtları ayrı gösterilir; şu ana kadarki bütün kayıtlar kurucu cüzdanından yapılmıştır.</p>
+<p class="note" data-l="en">Records from the founder's wallet and records from outside users are shown separately; so far every record has come from the founder's wallet.</p>
+</div>
+<script>
+(function(){
+var RPC='https://polygon-bor-rpc.publicnode.com',TK='0xd88e494b914e6b70cee7f1f8ae92383bbb22c2e9',INIT=1e6;
+function call(data){return fetch(RPC,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'eth_call',params:[{to:TK,data:data},'latest']})}).then(function(r){return r.json()}).then(function(j){if(!j.result)throw new Error('rpc');return Number(BigInt(j.result)/10n**14n)/1e4})}
+var rows=[].slice.call(document.querySelectorAll('table.arz tr[data-a]'));
+var fixed=rows.filter(function(r){return /^0x/.test(r.dataset.a)});
+Promise.all([call('0x18160ddd')].concat(fixed.map(function(r){return call('0x70a08231'+r.dataset.a.slice(2).padStart(64,'0'))}))).then(function(v){
+ var total=v[0],sum=0,vals={};fixed.forEach(function(r,i){vals[r.dataset.a]=v[i+1];sum+=v[i+1]});
+ vals.other=Math.max(0,total-sum);vals.burn=Math.max(0,INIT-total);
+ var lang=document.documentElement.lang==='en'?'en-US':'tr-TR';
+ rows.forEach(function(r){var x=vals[r.dataset.a];r.querySelector('.v').textContent=x.toLocaleString(lang,{maximumFractionDigits:2});r.querySelector('.p').textContent=(x/INIT*100).toLocaleString(lang,{maximumFractionDigits:2})});
+}).catch(function(){rows.forEach(function(r){r.querySelector('.v').textContent='?'})});
+})();
+</script>
+
 <h2><span data-l="tr">Henüz olmayanlar (açıkça)</span><span data-l="en">What does not exist yet (openly)</span></h2>
 <div class="card">
 <ul data-l="tr" style="margin:0">
 <li>Şu ana kadarki kayıtların tamamı kurucunun kendi cüzdanından yapıldı; dış kullanıcıların kayıtları bu sayfada ayrıca gösterilecek.</li>
 <li>Bağımsız bir güvenlik denetimi yapılmadı. Sözleşmeler kısa ve açıktır; herkes inceleyebilir.</li>
 <li>GEPARA bir yatırım aracı olarak sunulmaz; fiyat, getiri veya liste vaadi yoktur.</li>
+<li>CoinGecko veya merkezi borsa listesi yoktur; GEPARA yalnızca küçük bir QuickSwap havuzunda bulunur. Havuzdaki fiyat çok düşük hacimle oluşur ve gerçek bir değer göstergesi değildir.</li>
+<li>Kazı sistemi çalışır durumdadır, ancak Polygon işlem ücretleri nedeniyle kazı şu an kazanç amaçlı değildir.</li>
 </ul>
 <ul data-l="en" style="margin:0">
 <li>All records so far were made from the founder's own wallet; records by outside users will be shown separately on this page.</li>
 <li>No independent security audit has been done. The contracts are short and open; anyone can review them.</li>
 <li>GEPARA is not offered as an investment; there is no promise of price, return or listing.</li>
+<li>There is no CoinGecko or centralised exchange listing; GEPARA sits only in a small QuickSwap pool. The pool price forms on very low volume and is not a real measure of value.</li>
+<li>The mining system works, but because of Polygon network fees mining is not profitable at present.</li>
 </ul>
 </div>
 </main>
@@ -170,5 +205,6 @@ function fmt(){
  }catch(e){$('s-durum').textContent=h.lang==='en'?'Live read failed; showing the last known figures.':'Canlı okuma şu an yapılamadı; son bilinen değerler gösteriliyor.'}
 })();
 </script>
+<script data-goatcounter="https://gepara.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
