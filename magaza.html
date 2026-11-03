@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mağaza — Dosya Kanıtı</title>
+<meta name="description" content="PDF kanıt raporu, teslim paketi, kontör, Pro ve Büro üyelik, doğrulama raporu ve eğitim. Sepete ekleyin, siparişinizi tamamlayın.">
+<link rel="icon" href="logo.svg"><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#12284A"><link rel="apple-touch-icon" href="icon-180.png">
+<meta property="og:type" content="website"><meta property="og:title" content="Mağaza — Dosya Kanıtı"><meta property="og:url" content="https://gepara.com/magaza.html"><meta property="og:image" content="https://gepara.com/avatar.jpg">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="site.css">
+<style>
+.shop{display:grid;grid-template-columns:1fr 340px;gap:18px;align-items:start}
+@media(max-width:820px){.shop{grid-template-columns:1fr}}
+.prods{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.prod{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:16px;display:flex;flex-direction:column}
+.prod h3{margin:0 0 4px}.prod p{margin:4px 0 10px;font-size:.92rem;color:var(--muted);flex:1}
+.pr{font-weight:700;font-size:1.25rem;margin-bottom:10px}
+.prod button{font:inherit;font-weight:700;border:0;border-radius:8px;padding:9px 12px;background:var(--navy);color:var(--on-navy);cursor:pointer}
+.prod button.added{background:var(--ok)}
+.cart{position:sticky;top:12px;background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:16px}
+.cart h2{margin:0 0 8px;font-size:1.1rem}
+.line{display:flex;justify-content:space-between;gap:8px;align-items:center;border-bottom:1px solid var(--rule);padding:8px 0;font-size:.95rem}
+.qty{display:inline-flex;align-items:center;gap:6px}.qty button{width:26px;height:26px;border:1px solid var(--rule);background:var(--bg);color:var(--ink);border-radius:6px;cursor:pointer}
+.tot{display:flex;justify-content:space-between;font-weight:700;font-size:1.1rem;margin:12px 0 4px}
+.region{display:inline-flex;border:1px solid var(--rule);border-radius:999px;overflow:hidden;margin:4px 0 14px}
+.region button{background:none;border:0;padding:7px 14px;font:inherit;font-size:.92rem;color:var(--ink);cursor:pointer}.region button.on{background:var(--navy);color:var(--on-navy)}
+form label{display:block;font-weight:600;margin:10px 0 4px;font-size:.93rem}
+form input,form select,form textarea{width:100%;font:inherit;padding:9px 10px;border:1px solid var(--rule);border-radius:8px;background:var(--bg);color:var(--ink)}
+.chk{display:flex;gap:8px;align-items:flex-start;font-weight:400!important;font-size:.9rem!important}.chk input{width:auto;margin-top:4px}
+.pay{display:grid;gap:8px;margin-top:6px}.pay label{display:flex;gap:8px;align-items:center;border:1px solid var(--rule);border-radius:8px;padding:10px;font-weight:600;margin:0}.pay input{width:auto}
+.pay .soon{opacity:.6}
+.logos{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}.logos span{border:1px solid var(--rule);border-radius:6px;padding:3px 8px;font:700 .78rem system-ui,sans-serif;letter-spacing:.03em;background:#fff;color:#12284A}
+.svc{background:var(--paper);border:1px dashed var(--rule);border-radius:10px;padding:14px;margin-top:14px}
+.empty{color:var(--muted);font-size:.93rem}
+.done{border-left:4px solid var(--ok)}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+<button class="lang" id="lg">English</button>
+<a class="b" href="./"><img src="logo.svg" alt="" width="34" height="34">GETOKEN · GEPARA</a>
+<h1><span data-l="tr">Mağaza</span><span data-l="en">Shop</span></h1>
+<p data-l="tr">Ürünleri sepete ekleyin, bilgilerinizi girin ve siparişinizi tamamlayın. Dijital ürünler ödeme onayından sonra en geç 1 iş günü içinde e-postanıza lisans kodu olarak gönderilir.</p>
+<p data-l="en">Add products to your cart, enter your details and place your order. Digital products are delivered as a licence code to your email within one working day of payment.</p>
+<nav class="sub"><a href="dosya-kaniti.html" data-l="tr">Kanıt al</a><a href="dosya-kaniti.html" data-l="en">Get proof</a><a href="fiyatlar.html" data-l="tr">Fiyatlar</a><a href="fiyatlar.html" data-l="en">Pricing</a><a class="on" href="magaza.html" data-l="tr">Mağaza</a><a class="on" href="magaza.html" data-l="en">Shop</a><a href="yasal.html" data-l="tr">Satış koşulları</a><a href="yasal.html" data-l="en">Terms</a></nav>
+</div></header>
+<main class="wrap">
+<div class="region" role="group"><button id="rt" class="on" type="button">Türkiye · TL (KDV dahil)</button><button id="rw" type="button">Worldwide · USD</button></div>
+<div class="shop">
+<section>
+<div class="prods" id="prods"></div>
+<div class="svc"><b data-l="tr">Uzman hizmetleri</b><b data-l="en">Expert services</b>
+<p data-l="tr" style="margin:6px 0">Yerinde tarihli tespit, dijital delil inceleme raporu, seminer ve Kurumsal üyelik işin kapsamına göre yazılı teklifle fiyatlanır. <a href="fiyatlar.html#siparis">Teklif isteyin →</a></p>
+<p data-l="en" style="margin:6px 0">On-site inspections, digital evidence reviews, seminars and Enterprise plans are priced by written quote. <a href="fiyatlar.html#siparis">Request a quote →</a></p></div>
+</section>
+<aside class="cart" id="cart">
+<h2><span data-l="tr">Sepetiniz</span><span data-l="en">Your cart</span></h2>
+<div id="lines"></div>
+<div class="tot"><span data-l="tr">Toplam</span><span data-l="en">Total</span><span id="total">0</span></div>
+<div class="note" id="vatnote"></div>
+<form id="co" hidden>
+<label for="cn"><span data-l="tr">Ad soyad / şirket ünvanı</span><span data-l="en">Full name / company</span></label><input id="cn" required autocomplete="name">
+<label for="ce"><span data-l="tr">E-posta (lisans kodu buraya gönderilir)</span><span data-l="en">Email (licence code is sent here)</span></label><input id="ce" type="email" required autocomplete="email">
+<label for="cp"><span data-l="tr">Telefon</span><span data-l="en">Phone</span></label><input id="cp" type="tel" autocomplete="tel">
+<label for="ct"><span data-l="tr">TC kimlik no veya vergi no (fatura için)</span><span data-l="en">Tax ID / VAT number (optional)</span></label><input id="ct" inputmode="numeric" autocomplete="off">
+<label for="ca"><span data-l="tr">Fatura adresi</span><span data-l="en">Billing address</span></label><textarea id="ca" rows="2" required autocomplete="street-address"></textarea>
+<label for="cc"><span data-l="tr">Ülke</span><span data-l="en">Country</span></label><input id="cc" value="Türkiye" required autocomplete="country-name">
+<label><span data-l="tr">Ödeme yöntemi</span><span data-l="en">Payment method</span></label>
+<div class="pay">
+<label class="soon"><input type="radio" name="pm" value="kart" disabled><span data-l="tr">Kredi / banka kartı (iyzico) — çok yakında</span><span data-l="en">Credit / debit card — coming soon</span></label>
+<label><input type="radio" name="pm" value="havale" checked><span data-l="tr">Havale / EFT (IBAN sipariş onayıyla gönderilir)</span><span data-l="en">Bank transfer (bank details sent with confirmation)</span></label>
+</div>
+<label class="chk"><input type="checkbox" id="k1" required><span><span data-l="tr"><a href="yasal.html#onbilgi" target="_blank">Ön bilgilendirme formunu</a> okudum.</span><span data-l="en">I have read the <a href="yasal.html" target="_blank">pre-contract information</a>.</span></span></label>
+<label class="chk"><input type="checkbox" id="k2" required><span><span data-l="tr"><a href="yasal.html#sozlesme" target="_blank">Mesafeli satış sözleşmesini</a> ve <a href="yasal.html#iade" target="_blank">iade koşullarını</a> kabul ediyorum.</span><span data-l="en">I accept the <a href="yasal.html" target="_blank">terms of sale and refund policy</a>.</span></span></label>
+<label class="chk"><input type="checkbox" id="k3" required><span><span data-l="tr">Dijital ürünün ödeme onayıyla hemen teslim edilmesini istiyorum; teslim edilen dijital içerikte cayma hakkının kullanılamayacağını biliyorum (kullanılmamış kontörlerde 14 gün iade hakkım saklıdır).</span><span data-l="en">I ask for immediate delivery of the digital product and understand the right of withdrawal ends once it is delivered (unused credits stay refundable for 14 days).</span></span></label>
+<label class="chk"><input type="checkbox" id="k4" required><span><span data-l="tr"><a href="yasal.html#kvkk" target="_blank">KVKK aydınlatma metnini</a> okudum.</span><span data-l="en">I have read the <a href="yasal.html#kvkk" target="_blank">privacy notice</a>.</span></span></label>
+<p style="margin-top:14px"><button class="btn gold" type="submit" style="width:100%"><span data-l="tr">Siparişi tamamla</span><span data-l="en">Place order</span></button></p>
+</form>
+<button class="btn" id="go" type="button" style="width:100%;margin-top:8px" hidden><span data-l="tr">Siparişe devam et</span><span data-l="en">Continue to checkout</span></button>
+<div class="logos"><span>VISA</span><span>Mastercard</span><span>TROY</span><span>iyzico ile Öde</span></div>
+<p class="note" data-l="tr">Kart bilgileri bu sitede saklanmaz; kartlı ödemeler iyzico güvenli ödeme altyapısıyla alınır.</p>
+<p class="note" data-l="en">Card details are never stored on this site.</p>
+</aside>
+</div>
+<div id="ok" class="card done" hidden></div>
+</main>
+<footer><div class="wrap">
+<p><a href="defter.html">Açık Defter · Open Ledger</a> · <a href="fiyatlar.html"><span data-l="tr">Fiyatlar</span><span data-l="en">Pricing</span></a> · <a href="yasal.html"><span data-l="tr">Yasal</span><span data-l="en">Legal</span></a> · <a href="mailto:info@gepara.com">info@gepara.com</a></p>
+<p class="sig">GETOKEN</p><p class="note">Gökhan Ertan · Balat Mah. Kardeş Sk. Meteor Dikencik Sitesi J Blok No: 2J İç Kapı No: 1, Nilüfer / Bursa · Nilüfer VD 3710096911</p>
+</div></footer>
+<script src="site.js"></script>
+<script src="pwa.js"></script>
+<script>
+(function(){
+var P=[
+ ['tek','PDF kanıt raporu (1 kontör)','PDF proof report (1 credit)','Tek dosya için mahkemeye eklenebilir PDF rapor, QR doğrulama bağlantısı.','One court-ready PDF report with QR verification link.',49,4],
+ ['teslim','Teslim paketi raporu','Handover pack report','Bir ev, araç ya da şantiye için sınırsız fotoğraf, tek tarihli paket ve listeli rapor (4 kontör).','Unlimited photos for one property, vehicle or site; one dated pack and itemised report (4 credits).',199,15],
+ ['k10','10\'lu kontör paketi','10-credit pack','Kanıt raporu 1, doğrulama raporu 2, teslim paketi raporu 4 kontör. Süresiz.','Proof report 1, verification report 2, handover report 4 credits. Never expires.',299,19],
+ ['k50','50\'li kontör paketi','50-credit pack','Bürolar ve sık kullananlar için. Süresiz.','For offices and frequent users. Never expires.',990,59],
+ ['pro1','Pro üyelik — 1 ay','Pro — 1 month','Sınırsız kanıt ve PDF rapor, 1 ay.','Unlimited proofs and PDF reports, 1 month.',149,7.99],
+ ['pro12','Pro üyelik — 1 yıl','Pro — 1 year','Sınırsız kanıt ve PDF rapor, 12 ay (yaklaşık 2 ay bedava).','Unlimited proofs and PDF reports, 12 months.',1290,69],
+ ['buro1','Büro üyelik — 1 ay','Office — 1 month','5 kullanıcıya kadar sınırsız kullanım, 1 ay.','Unlimited use for up to 5 users, 1 month.',990,39],
+ ['dogr','Resmî doğrulama raporu','Formal verification report','Bir kanıtın kontrol sonucunu tarihli PDF belgeye çevirir (2 kontör).','Turns a check result into a dated PDF (2 credits).',99,9],
+ ['egitim','Kayıtlı çevrim içi eğitim','Recorded online course','Meslek bazlı örneklerle dijital delilin tarihini kanıtlama eğitimi.','How to prove when digital evidence existed, with profession examples.',790,49],
+ ['kayit','Polygon herkese açık kayıt','Public Polygon record','Parmak izinin Açık Defter\'e herkese açık kaydı (1 kayıt).','A public record of the fingerprint in the Open Ledger (1 record).',19,1.5]
+];
+var K='gk-cart',R='gk-rg';
+function g(k,d){try{var v=JSON.parse(localStorage.getItem(k));return v==null?d:v}catch(e){return d}}
+function s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+var cart=g(K,{}),w=g(R,null);if(w===null)w=document.documentElement.lang==='en';
+var tr=function(){return document.documentElement.lang!=='en'};
+function money(n){return w?'$'+n.toLocaleString('en-US',{minimumFractionDigits:n%1?2:0,maximumFractionDigits:2}):n.toLocaleString('tr-TR')+' TL'}
+function price(p){return w?p[6]:p[5]}
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+function renderProds(){var h=document.getElementById('prods');h.innerHTML='';P.forEach(function(p){var c=el('div','prod');c.id='u-'+p[0];c.appendChild(el('h3',null,tr()?p[1]:p[2]));c.appendChild(el('p',null,tr()?p[3]:p[4]));c.appendChild(el('div','pr',money(price(p))));var b=el('button',null,tr()?'Sepete ekle':'Add to cart');b.type='button';b.onclick=function(){cart[p[0]]=(cart[p[0]]||0)+1;s(K,cart);b.classList.add('added');b.textContent=tr()?'Sepete eklendi ✓':'Added ✓';setTimeout(function(){b.classList.remove('added');b.textContent=tr()?'Sepete ekle':'Add to cart'},1400);renderCart()};c.appendChild(b);h.appendChild(c)})}
+function total(){return P.reduce(function(t,p){return t+(cart[p[0]]||0)*price(p)},0)}
+function renderCart(){var L=document.getElementById('lines');L.innerHTML='';var any=false;P.forEach(function(p){var q=cart[p[0]];if(!q)return;any=true;var r=el('div','line');var n=el('div');n.appendChild(el('div',null,tr()?p[1]:p[2]));var qd=el('span','qty');var m=el('button',null,'−');m.type='button';m.onclick=function(){cart[p[0]]--;if(cart[p[0]]<=0)delete cart[p[0]];s(K,cart);renderCart()};var pl=el('button',null,'+');pl.type='button';pl.onclick=function(){cart[p[0]]++;s(K,cart);renderCart()};qd.append(m,el('span',null,q),pl);n.appendChild(qd);r.append(n,el('b',null,money(q*price(p))));L.appendChild(r)});
+  if(!any)L.appendChild(el('p','empty',tr()?'Sepetiniz boş.':'Your cart is empty.'));
+  var t=total();document.getElementById('total').textContent=money(Math.round(t*100)/100);
+  document.getElementById('vatnote').textContent=w?(tr()?'Ülkenizin vergileri ödeme sırasında eklenebilir.':'Local taxes may be added at checkout.'):(tr()?'Fiyatlara KDV dahildir.':'VAT included.');
+  document.getElementById('go').hidden=!any||!document.getElementById('co').hidden;if(!any)document.getElementById('co').hidden=true}
+function region(x){w=x;s(R,w);document.getElementById('rt').classList.toggle('on',!w);document.getElementById('rw').classList.toggle('on',w);renderProds();renderCart()}
+document.getElementById('rt').onclick=function(){region(false)};document.getElementById('rw').onclick=function(){region(true)};
+document.getElementById('go').onclick=function(){document.getElementById('co').hidden=false;this.hidden=true;document.getElementById('cn').focus()};
+document.addEventListener('langchange',function(){renderProds();renderCart()});
+document.getElementById('co').onsubmit=function(e){e.preventDefault();var no='GK'+new Date().toISOString().slice(2,10).replace(/-/g,'')+'-'+Math.random().toString(36).slice(2,6).toUpperCase();
+  var v=function(i){return document.getElementById(i).value.trim()};
+  var lines=P.filter(function(p){return cart[p[0]]}).map(function(p){return '- '+(tr()?p[1]:p[2])+' × '+cart[p[0]]+' = '+money(cart[p[0]]*price(p))});
+  var body=(tr()?'Sipariş no: ':'Order no: ')+no+'\n\n'+lines.join('\n')+'\n\n'+(tr()?'Toplam: ':'Total: ')+money(Math.round(total()*100)/100)+'\n'+(tr()?'Ödeme: Havale/EFT':'Payment: bank transfer')+'\n\n'+(tr()?'Ad / ünvan: ':'Name: ')+v('cn')+'\nE-posta: '+v('ce')+'\nTelefon: '+v('cp')+'\n'+(tr()?'TC / Vergi no: ':'Tax ID: ')+v('ct')+'\nAdres: '+v('ca')+'\n'+(tr()?'Ülke: ':'Country: ')+v('cc')+'\n\n'+(tr()?'Ön bilgilendirme formunu okudum, mesafeli satış sözleşmesini, iade koşullarını ve dijital içeriğin hemen teslimini kabul ediyorum; KVKK aydınlatma metnini okudum.':'I have read the pre-contract information and accept the terms of sale, refund policy and immediate delivery; I have read the privacy notice.')+'\n'+new Date().toISOString();
+  location.href='mailto:info@gepara.com?subject='+encodeURIComponent((tr()?'Sipariş ':'Order ')+no)+'&body='+encodeURIComponent(body);
+  var ok=document.getElementById('ok');ok.hidden=false;ok.innerHTML='';ok.appendChild(el('h3',null,(tr()?'Siparişiniz hazırlandı: ':'Your order is ready: ')+no));ok.appendChild(el('p',null,tr()?'E-posta programınız sipariş bilgileriyle açıldı; göndererek siparişi bize iletin. Banka (IBAN) bilgileri ve proforma, iş günü içinde e-postanıza gelir. Ödemeniz ulaşınca lisans kodunuz ve faturanız gönderilir.':'Your email app opened with the order details; send it to place the order. Bank details and a pro-forma invoice follow within one working day; your licence code and invoice are sent once payment arrives.'));ok.scrollIntoView({behavior:'smooth'});cart={};s(K,cart);renderCart()};
+region(w);
+var h=location.hash.replace('#u-','');if(h){var x=document.getElementById('u-'+h);if(x)x.scrollIntoView()}
+})();
+</script>
+</body>
+</html>
