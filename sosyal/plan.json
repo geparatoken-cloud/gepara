@@ -1,5 +1,5 @@
 {
- "baslangic": "2026-11-04",
+ "baslangic": "2026-11-03",
  "kural": "gun=(bugun-baslangic).days; konu=sira[gun%10]; tur=gun//10. tur 0: metinler aynen. tur>=1: ayni bilgilerle, farkli bir gercek kullanim ornegiyle yeni metin yaz.",
  "sira": [
   {
