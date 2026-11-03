@@ -1,0 +1,96 @@
+{
+ "baslangic": "2026-11-04",
+ "kural": "gun=(bugun-baslangic).days; konu=sira[gun%10]; tur=gun//10. tur 0: metinler aynen. tur>=1: ayni bilgilerle, farkli bir gercek kullanim ornegiyle yeni metin yaz.",
+ "sira": [
+  {
+   "name": "Dosya Kanıtı",
+   "url": "https://gepara.com/dosya-kaniti.html",
+   "tr": "Bir fotoğrafın ya da belgenin o gün var olduğunu ve sonradan değiştirilmediğini kanıtlamanız gerekebilir: hasar, kira, teslim, iş.\nGETOKEN Dosya Kanıtı: dosyanız telefonunuzdan çıkmaz, yalnızca parmak izi zaman damgasına bağlanır. Her ay 3 dosya ücretsiz, kontrol her zaman ücretsiz 👉",
+   "en": "Need to prove a photo or document existed on a given day and was not changed afterwards? Damage, rent, handover, work.\nGETOKEN File Proof: your file never leaves your phone; only its fingerprint is timestamped. 3 files a month free, checking is always free 👉",
+   "tags": "#DosyaKanıtı #zamandamgası #kanıt #GETOKEN",
+   "key": "dosya",
+   "gorsel": "https://gepara.com/sosyal/dosya.png"
+  },
+  {
+   "name": "Bina Defteri",
+   "url": "https://gepara.com/bina-defteri.html",
+   "tr": "Kolon kesildi mi? Bina ne zaman güçlendirildi? Son depremde ne hasar gördü?\nBina Defteri: binanızın bütün geçmişi tarihli, değiştirilemez ve mühendis incelemeli tek bir defterde. Alıcı, kiracı ve sigortacı ücretsiz kontrol eder.\nÖn kayıt açık 👉",
+   "en": "Was a column cut? When was the building strengthened? What did the last earthquake do?\nBuilding Logbook: your building's whole history in one dated, tamper-proof, engineer-reviewed record. Buyers, tenants and insurers check it for free.\nPre-registration open 👉",
+   "tags": "#BinaDefteri #deprem #kentseldönüşüm #GETOKEN",
+   "key": "bina",
+   "gorsel": "https://gepara.com/sosyal/bina.png"
+  },
+  {
+   "name": "Karşılıklı Onaylı Teslim",
+   "url": "https://gepara.com/karsilikli-teslim.html",
+   "tr": "Kira çıkışında \"o fotoğrafları ben görmedim\" tartışmasına son.\nKarşılıklı Onaylı Teslim: iki taraf da aynı fotoğraf paketini kendi telefonundan onaylar, kanıt ikisinde de kalır. Ev, araç, şantiye, kargo.\nİlk kullanıcılardan olun 👉",
+   "en": "No more \"I never saw those photos\" at move-out.\nTwo-party Handover: both sides confirm the same photo pack on their own phones, and both keep the proof. Homes, cars, construction, parcels.\nBe among the first users 👉",
+   "tags": "#kira #depozito #teslim #GETOKEN",
+   "key": "teslim",
+   "gorsel": "https://gepara.com/sosyal/teslim.png"
+  },
+  {
+   "name": "Telefon uygulaması",
+   "url": "https://gepara.com/uygulama.html",
+   "tr": "GETOKEN artık telefonunuzun ana ekranında. İndirme yok, üyelik yok.\nAndroid: Chrome ⋮ → Uygulamayı yükle. iPhone: Safari Paylaş → Ana Ekrana Ekle.\nKanıt al, teslim paketi hazırla, kontrol et — tek dokunuşla 👉",
+   "en": "GETOKEN is now on your home screen. No download, no sign-up.\nAndroid: Chrome ⋮ → Install app. iPhone: Safari Share → Add to Home Screen.\nGet proof, make a handover pack, check — in one tap 👉",
+   "tags": "#GETOKEN #DosyaKanıtı #uygulama",
+   "key": "uygulama",
+   "gorsel": "https://gepara.com/sosyal/uygulama.png"
+  },
+  {
+   "name": "Kentsel Dönüşüm Kanıt Paketi",
+   "url": "https://gepara.com/sektorler.html#kentsel",
+   "tr": "Bina yıkılmadan önce dairenizde ne vardı? Metrekare, odalar, malzeme, eklentiler…\nKentsel Dönüşüm Kanıt Paketi ile yıkımdan önceki durum tarihli ve değiştirilemez olarak kayda geçer. Yeni dairenin tesliminde tartışma biter.\nÖn kayıt 👉",
+   "en": "What was in your flat before the building came down? Area, rooms, finishes, annexes…\nThe Urban Renewal Evidence Pack records the pre-demolition state, dated and tamper-proof, so the new-flat handover is not a fight.\nPre-register 👉",
+   "tags": "#kentseldönüşüm #hakkaybı #GETOKEN",
+   "key": "kentsel",
+   "gorsel": "https://gepara.com/sosyal/kentsel.png"
+  },
+  {
+   "name": "Afet Kanıt Kiti",
+   "url": "https://gepara.com/sektorler.html#afet",
+   "tr": "Deprem bölgesinde yaşıyorsanız bugünden hazırlanın: evinizin ve eşyanızın kaydını şimdi alın.\nAfet Kanıt Kiti, afetten sonra internet yokken bile hasarı kayda geçirir, bağlantı gelince kanıtlar. Sigorta ve hasar tespitinde \"önce nasıldı\" sorusu cevapsız kalmaz.\nRehber 👉",
+   "en": "If you live in an earthquake zone, prepare today: record your home and belongings now.\nThe Disaster Evidence Kit records damage even with no internet after a disaster and anchors it when a connection returns, so insurance claims are never left asking \"what was it like before?\"\nGuide 👉",
+   "tags": "#deprem #afet #DASK #GETOKEN",
+   "key": "afet",
+   "gorsel": "https://gepara.com/sosyal/afet.png"
+  },
+  {
+   "name": "İş Güvenliği Kanıt Defteri",
+   "url": "https://gepara.com/sektorler.html#isg",
+   "tr": "İş kazasından sonra en zor soru: \"Eğitim gerçekten o tarihte verildi mi?\"\nİş Güvenliği Kanıt Defteri: katılım listesi, eğitim videosu, risk analizi ve denetim fotoğrafı yapıldığı gün bağımsız olarak kayda geçer.\nİSG uzmanları ve OSGB'ler için ön kayıt 👉",
+   "en": "After a workplace accident the hardest question is: \"Was the training really given on that date?\"\nWorkplace Safety Proof Log: attendance lists, training videos, risk assessments and inspection photos are independently recorded on the day.\nPre-register 👉",
+   "tags": "#İSG #işgüvenliği #GETOKEN",
+   "key": "isg",
+   "gorsel": "https://gepara.com/sosyal/isg.png"
+  },
+  {
+   "name": "Tarım Hasar ve Ekim Kanıtı",
+   "url": "https://gepara.com/sektorler.html#tarim",
+   "tr": "Dolu, don, sel… Hasarın o gün, o tarlada olduğunu nasıl kanıtlarsınız?\nTarım Hasar ve Ekim Kanıtı: ekim, ilaçlama, hasat tarihleri ve hasar fotoğrafları çiftçinin elinde, kimseye bağlı olmayan bir kanıtla durur. Şebeke olmayan tarlada da çalışacak.\nÖn kayıt 👉",
+   "en": "Hail, frost, flood… How do you prove the damage happened on that day, in that field?\nFarm Damage and Planting Proof keeps planting, spraying, harvest dates and damage photos as independent evidence in the farmer's hands, even without signal.\nPre-register 👉",
+   "tags": "#tarım #çiftçi #TARSİM #GETOKEN",
+   "key": "tarim",
+   "gorsel": "https://gepara.com/sosyal/tarim.png"
+  },
+  {
+   "name": "Hasta Onam Kanıtı",
+   "url": "https://gepara.com/sektorler.html#onam",
+   "tr": "Hekimler için: onam formunun işlemden ÖNCE imzalandığını kanıtlayabilir misiniz?\nHasta Onam Kanıtı, formu imza anında kayda geçirir. Form ve hasta bilgisi kliniğinizden çıkmaz; yalnızca parmak izi kaydedilir.\nKlinikler için ön kayıt 👉",
+   "en": "For doctors: can you prove the consent form was signed BEFORE the procedure?\nPatient Consent Proof records the form at the moment of signing. The form and patient data never leave your clinic; only a fingerprint is recorded.\nPre-register 👉",
+   "tags": "#hekim #malpraktis #KVKK #GETOKEN",
+   "key": "onam",
+   "gorsel": "https://gepara.com/sosyal/onam.png"
+  },
+  {
+   "name": "İnsan Yapımı Eser Kanıtı",
+   "url": "https://gepara.com/sektorler.html#eser",
+   "tr": "Yapay zekâ çağında herkes soruyor: \"Bunu gerçekten sen mi yaptın?\"\nİnsan Yapımı Eser Kanıtı: eskiz, taslak ve ara aşamaları sırayla kaydedin; zaman çizelgesi eserin adım adım sizin elinizden çıktığını gösterir. Ressam, yazar, müzisyen, öğrenci.\nİlk taslağını bugün kaydet 👉",
+   "en": "In the age of AI everyone asks: \"Did you really make this?\"\nHuman-made Work Proof: record your sketches, drafts and stages in order; the timeline shows the work came from your hands step by step. Artists, writers, musicians, students.\nRecord your first draft today 👉",
+   "tags": "#yapayzeka #telif #sanat #GETOKEN",
+   "key": "eser",
+   "gorsel": "https://gepara.com/sosyal/eser.png"
+  }
+ ]
+}
