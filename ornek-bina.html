@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Örnek Bina Defteri — GETOKEN</title>
+<meta name="description" content="Bina Defteri'nin nasıl görüneceğini gösteren örnek: hayali bir apartmanın tarihli ve değiştirilemez geçmişi.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="logo.svg"><meta name="theme-color" content="#12284A">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="site.css">
+<style>
+html[lang="tr"] [data-l="en"],html[lang="en"] [data-l="tr"]{display:none!important}
+.demo{background:#C9A24A;color:#12284A;font-weight:700;text-align:center;padding:8px 16px;font-size:.95rem}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.facts div{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:10px 12px}
+.facts b{display:block;font-size:.8rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.tl{position:relative;margin:10px 0 0;padding-left:26px}
+.tl:before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--rule)}
+.ev{position:relative;background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:14px 16px;margin:0 0 12px}
+.ev:before{content:"";position:absolute;left:-23px;top:18px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid var(--bg)}
+.ev.warn:before{background:#B5452F}
+.ev .d{font-size:.85rem;color:var(--muted);font-weight:600}
+.ev h3{margin:2px 0 4px}
+.ev p{margin:4px 0}
+.pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.pill{font-size:.78rem;font-weight:700;border-radius:999px;padding:2px 10px;border:1px solid var(--rule)}
+.pill.ok{background:#E3F1E6;color:#1F5A31;border-color:#BFDCC6}
+.pill.eng{background:#12284A;color:#F5EFE0;border-color:#12284A}
+.pill.doc{background:transparent;color:var(--muted)}
+@media (prefers-color-scheme:dark){.pill.ok{background:#1D3A27;color:#9FD7AE;border-color:#2C5A3C}}
+.fp{font:12px ui-monospace,Menlo,Consolas,monospace;color:var(--muted);word-break:break-all;margin-top:6px}
+.qr{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.qr .box{width:110px;height:110px;border:1px dashed var(--rule);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.8rem;text-align:center;padding:6px}
+</style>
+</head>
+<body>
+<div class="demo"><span data-l="tr">ÖRNEKTİR · Bu sayfadaki bina, kişiler ve kayıtlar hayalidir; Bina Defteri'nin nasıl görüneceğini göstermek için hazırlanmıştır.</span><span data-l="en">SAMPLE · The building, people and records on this page are fictional and only show what a Building Logbook looks like.</span></div>
+<header class="top"><div class="wrap">
+<button class="lang" id="lg">English</button>
+<a class="b" href="bina-defteri.html"><img src="logo.svg" alt="" width="34" height="34">GETOKEN · Bina Defteri</a>
+<h1>Örnek Apartmanı</h1>
+<p data-l="tr">Nilüfer / Bursa · 5 katlı betonarme konut · 10 bağımsız bölüm</p>
+<p data-l="en">Nilüfer / Bursa · 5-storey reinforced-concrete residential · 10 units</p>
+</div></header>
+<main class="wrap">
+
+<h2><span data-l="tr">Bina bilgileri</span><span data-l="en">Building data</span></h2>
+<div class="facts">
+<div><b data-l="tr">Yapım yılı</b><b data-l="en">Built</b>2004</div>
+<div><b data-l="tr">Ruhsat</b><b data-l="en">Permit</b>2002</div>
+<div><b data-l="tr">Taşıyıcı sistem</b><b data-l="en">Structure</b><span data-l="tr">Betonarme çerçeve + perde</span><span data-l="en">RC frame + shear walls</span></div>
+<div><b data-l="tr">Kayıt sayısı</b><b data-l="en">Records</b>9</div>
+<div><b data-l="tr">Mühendis incelemesi</b><b data-l="en">Engineer reviews</b>2</div>
+<div><b data-l="tr">Defter açılışı</b><b data-l="en">Logbook opened</b>04.11.2026</div>
+</div>
+
+<h2><span data-l="tr">Zaman çizelgesi</span><span data-l="en">Timeline</span></h2>
+<p class="note" data-l="tr">En yeni kayıt en üstte. Defter 04.11.2026'da açıldı; o tarihten önceki olayların belgeleri açılış günü eklendi. Defter bu belgelerin o günden beri değişmediğini kanıtlar. Bundan sonraki her olay, olduğu gün kaydedilir ve tarihi geriye alınamaz.</p>
+<p class="note" data-l="en">Newest first. The logbook was opened on 04.11.2026; documents for earlier events were added that day, and the logbook proves they have not changed since. From now on every event is recorded on the day it happens and its date can never be moved back.</p>
+<div class="tl">
+
+<div class="ev"><div class="d">04.11.2026</div><h3 data-l="tr">Bina Defteri açıldı, mevcut belgeler yüklendi</h3><h3 data-l="en">Logbook opened, existing documents added</h3><p data-l="tr">Yönetim tarafından proje, ruhsat ve iskân belgelerinin taramaları eklendi.</p><p data-l="en">The management added scans of the design, building permit and occupancy permit.</p><div class="pills"><span class="pill ok">✓ <span data-l="tr">Kanıtlandı</span><span data-l="en">Proven</span></span><span class="pill doc">3 <span data-l="tr">belge</span><span data-l="en">documents</span></span></div><div class="fp">9c1e…a47d · 7b02…e1f3 · 44d8…0c9a</div></div>
+
+<div class="ev"><div class="d">28.10.2026</div><h3 data-l="tr">Yerinde mühendis incelemesi</h3><h3 data-l="en">On-site engineer review</h3><p data-l="tr">Zemin kattaki dükkânda taşıyıcı elemanlar gözle incelendi; kolon ve perde duvarlarda kesme veya kaldırma tespit edilmedi. 42 fotoğraf ve kısa teknik not.</p><p data-l="en">Load-bearing elements in the ground-floor shop were inspected visually; no cut or removed columns or walls were found. 42 photos and a short technical note.</p><div class="pills"><span class="pill eng">⚙ <span data-l="tr">Mühendis incelemeli</span><span data-l="en">Engineer-reviewed</span></span><span class="pill ok">✓ <span data-l="tr">04.11.2026'da eklendi ve kanıtlandı</span><span data-l="en">Added and proven on 04.11.2026</span></span><span class="pill doc">43 <span data-l="tr">dosya</span><span data-l="en">files</span></span></div><div class="fp">e5a0…3b71</div></div>
+
+<div class="ev warn"><div class="d">14.06.2026</div><h3 data-l="tr">Zemin kat dükkân tadilat başvurusu</h3><h3 data-l="en">Ground-floor shop renovation request</h3><p data-l="tr">Kiracı dükkânı genişletmek için iç duvarların kaldırılmasını istedi. Kat malikleri kurulu, taşıyıcı elemanlara dokunulmaması şartıyla kabul etti; karar tutanağı eklendi.</p><p data-l="en">The tenant asked to remove interior walls to enlarge the shop. The owners' meeting agreed on condition that no load-bearing element is touched; the minutes were added.</p><div class="pills"><span class="pill ok">✓ <span data-l="tr">04.11.2026'da eklendi ve kanıtlandı</span><span data-l="en">Added and proven on 04.11.2026</span></span><span class="pill doc">2 <span data-l="tr">belge</span><span data-l="en">documents</span></span></div><div class="fp">1f9b…c552</div></div>
+
+<div class="ev"><div class="d">02.03.2025</div><h3 data-l="tr">Çatı onarımı ve yalıtım</h3><h3 data-l="en">Roof repair and insulation</h3><p data-l="tr">Çatı kaplaması yenilendi; öncesi ve sonrası fotoğrafları, fatura ve garanti belgesi.</p><p data-l="en">Roof covering renewed; before-and-after photos, invoice and warranty.</p><div class="pills"><span class="pill ok">✓ <span data-l="tr">04.11.2026'da eklendi ve kanıtlandı</span><span data-l="en">Added and proven on 04.11.2026</span></span><span class="pill doc">18 <span data-l="tr">dosya</span><span data-l="en">files</span></span></div><div class="fp">a83c…77e0</div></div>
+
+<div class="ev"><div class="d">11.09.2024</div><h3 data-l="tr">Asansör periyodik kontrolü</h3><h3 data-l="en">Lift periodic inspection</h3><p data-l="tr">Yetkili firma raporu: uygun (yeşil etiket).</p><p data-l="en">Authorised inspection report: compliant (green label).</p><div class="pills"><span class="pill ok">✓ <span data-l="tr">04.11.2026'da eklendi ve kanıtlandı</span><span data-l="en">Added and proven on 04.11.2026</span></span><span class="pill doc">1 <span data-l="tr">belge</span><span data-l="en">document</span></span></div><div class="fp">5d27…b908</div></div>
+
+<div class="ev"><div class="d">20.05.2023</div><h3 data-l="tr">Deprem sonrası hasar tespiti</h3><h3 data-l="en">Post-earthquake damage assessment</h3><p data-l="tr">Bölgede hissedilen depremin ardından yapılan inceleme: dolgu duvarlarda kılcal çatlaklar, taşıyıcı sistemde hasar yok. Rapor ve 65 fotoğraf.</p><p data-l="en">Inspection after a felt earthquake in the region: hairline cracks in infill walls, no damage to the structure. Report and 65 photos.</p><div class="pills"><span class="pill eng">⚙ <span data-l="tr">Mühendis incelemeli</span><span data-l="en">Engineer-reviewed</span></span><span class="pill ok">✓ <span data-l="tr">04.11.2026'da eklendi ve kanıtlandı</span><span data-l="en">Added and proven on 04.11.2026</span></span><span class="pill doc">66 <span data-l="tr">dosya</span><span data-l="en">files</span></span></div><div class="fp">0be4…19ac</div></div>
+
+<div class="ev"><div class="d">2004</div><h3 data-l="tr">İskân (yapı kullanma izni)</h3><h3 data-l="en">Occupancy permit</h3><p data-l="tr">Belgenin taraması 04.11.2026'da eklendi. Belgenin kendisi 2004 tarihlidir; defter, taramanın 2026'dan beri değişmediğini kanıtlar.</p><p data-l="en">Scanned and added on 04.11.2026. The document itself dates from 2004; the logbook proves the scan has not changed since 2026.</p><div class="pills"><span class="pill ok">✓ <span data-l="tr">04.11.2026'da eklendi ve kanıtlandı</span><span data-l="en">Added and proven on 04.11.2026</span></span></div></div>
+
+</div>
+
+<h2><span data-l="tr">Paylaşım</span><span data-l="en">Sharing</span></h2>
+<div class="card qr">
+<div class="box"><span data-l="tr">Bina girişine asılacak QR kod</span><span data-l="en">QR code for the building entrance</span></div>
+<div><p data-l="tr"><b>Herkese açık:</b> bina bilgileri, kayıt başlıkları, tarihler ve kanıt durumu.<br><b>Yalnızca izin verilenlere:</b> belgelerin kendisi, fotoğraflar, mühendis notları.</p><p data-l="en"><b>Public:</b> building data, record titles, dates and proof status.<br><b>Only those you allow:</b> the documents, photos and engineer notes.</p></div>
+</div>
+<p style="text-align:center;margin-top:24px"><a class="btn gold" href="bina-defteri.html#on-kayit"><span data-l="tr">Binam için ön kayıt</span><span data-l="en">Pre-register my building</span></a></p>
+</main>
+<footer><div class="wrap"><p><a href="bina-defteri.html">Bina Defteri</a> · <a href="./">GETOKEN</a> · <a href="mailto:info@gepara.com">info@gepara.com</a></p><p class="sig">GETOKEN</p></div></footer>
+<script src="site.js"></script>
+</body>
+</html>
