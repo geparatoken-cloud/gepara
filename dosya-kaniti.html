@@ -294,8 +294,9 @@ async function check(files){gkSay('kontrol');
     if(g.found){r2.className='res ok';r2.innerHTML=`<b>✓ ${esc(t('chkReg'))}</b>${esc(g.date.toLocaleString(L))}`}
     else r2.remove();
   }
-  const rows=[...out.querySelectorAll('.item')].map(b=>[b.querySelector('h3').textContent,((b.querySelector('.hash')||{}).textContent||'').split(': ').pop(),[...b.querySelectorAll('.res')].map(x=>x.textContent).join(' — ')]);
-  if(rows.length&&window.GK){const vb=document.createElement('div');vb.className='row';vb.style.marginTop='12px';vb.appendChild(GK.verifyButton(out,{rows}));out.appendChild(vb)}
+  /* satırlar düğmeye basıldığı anda okunur: Bitcoin kontrolü bitmişse rapora son sonuç girer */
+  const readRows=()=>[...out.querySelectorAll('.item')].map(b=>[b.querySelector('h3').textContent,((b.querySelector('.hash')||{}).textContent||'').split(': ').pop(),[...b.querySelectorAll('.res')].map(x=>x.textContent).join(' — ')]);
+  if(readRows().length&&window.GK){const vb=document.createElement('div');vb.className='row';vb.style.marginTop='12px';vb.appendChild(GK.verifyButton(out,{get rows(){return readRows()}}));out.appendChild(vb)}
 }
 
 
