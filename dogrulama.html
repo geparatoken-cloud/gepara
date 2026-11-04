@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kendiniz Doğrulayın — Dosya Kanıtı | GETOKEN</title>
+<meta name="description" content="Bize güvenmek zorunda değilsiniz. Dosya Kanıtı'nın doğru çalıştığını üç bağımsız yolla, telefondan ya da bilgisayardan kendiniz kontrol edin. Videolu anlatım 10 dilde.">
+<link rel="canonical" href="https://gepara.com/dogrulama.html">
+<link rel="icon" href="logo.svg"><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#12284A"><link rel="apple-touch-icon" href="icon-180.png">
+<meta property="og:type" content="article"><meta property="og:title" content="Bize güvenmek zorunda değilsiniz — kendiniz doğrulayın"><meta property="og:description" content="Kanıtınız Bitcoin'e yazılır; herkes bağımsız olarak kontrol eder. Telefon ve bilgisayar için videolu anlatım."><meta property="og:url" content="https://gepara.com/dogrulama.html"><meta property="og:image" content="https://gepara.com/og-dosya-kaniti.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="site.css">
+<style>
+html[lang="tr"] [data-l="en"],html[lang="en"] [data-l="tr"]{display:none!important}
+.box{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:16px 18px;margin:16px 0}
+.box h3{margin:0 0 6px}
+.way{display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:start}
+.way b.n{width:40px;height:40px;border-radius:50%;border:2px solid var(--gold);color:var(--gold);font:700 20px/36px Cinzel,serif;text-align:center}
+.cmd{font:13px ui-monospace,Menlo,Consolas,monospace;background:var(--bg);border:1px solid var(--rule);border-radius:6px;padding:8px 10px;word-break:break-all;margin:6px 0}
+.vid{display:grid;grid-template-columns:1fr 1.6fr;gap:16px;align-items:start}
+@media (max-width:700px){.vid{grid-template-columns:1fr}}
+.vid figure{margin:0}.vid video{width:100%;border-radius:12px;border:1px solid var(--rule);background:#000}
+#v-tel{max-height:78vh;width:auto;max-width:100%;margin:0 auto;display:block}
+.vid figcaption{font-size:.9rem;color:var(--muted);margin-top:6px}
+.langs{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.langs button{border:1px solid var(--rule);background:var(--paper);border-radius:999px;padding:5px 12px;font:inherit;font-size:.9rem;cursor:pointer;color:var(--ink)}
+.langs button.on{background:var(--navy);color:var(--on-navy);border-color:var(--navy)}
+table{width:100%;border-collapse:collapse;font-size:.95rem}td,th{text-align:left;padding:9px 8px;border-bottom:1px solid var(--rule);vertical-align:top}
+.yes{color:var(--ok);font-weight:700}.no{color:#A3392D;font-weight:700}
+.status{display:grid;gap:8px}.status div{border-left:5px solid var(--gold);padding:8px 12px;background:var(--paper);border-radius:6px}
+.status .g{border-color:#2E7D4F}.status .r{border-color:#A3392D}
+details{border-bottom:1px solid var(--rule);padding:10px 0}summary{font-weight:700;cursor:pointer}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+<button class="lang" id="lg">English</button>
+<a class="b" href="./"><img src="logo.svg" alt="" width="34" height="34">GETOKEN · Dosya Kanıtı</a>
+<h1><span data-l="tr">Bize güvenmek zorunda değilsiniz</span><span data-l="en">You don't have to trust us</span></h1>
+<p data-l="tr">Kanıtınız bizim sunucumuzda değil, Bitcoin blokzincirinde durur. Doğru çalışıp çalışmadığını üç ayrı yolla, kendiniz kontrol edebilirsiniz. GETOKEN kapansa bile kanıtınız geçerliliğini korur.</p>
+<p data-l="en">Your proof does not live on our server; it lives on the Bitcoin blockchain. You can check that it works in three separate ways, yourself. Even if GETOKEN closed, your proof would stay valid.</p>
+<nav class="sub"><a href="dosya-kaniti.html" data-l="tr">Kanıt al</a><a href="dosya-kaniti.html" data-l="en">Get proof</a><a href="dosya-kaniti.html#kontrol" data-l="tr">Kontrol et</a><a href="dosya-kaniti.html#kontrol" data-l="en">Check</a><a href="nasil-calisir.html" data-l="tr">Nasıl çalışır</a><a href="nasil-calisir.html" data-l="en">How it works</a><a class="on" href="dogrulama.html" data-l="tr">Doğrulama</a><a class="on" href="dogrulama.html" data-l="en">Verify</a></nav>
+</div></header>
+<main class="wrap">
+
+<h2 id="video"><span data-l="tr">Videolu anlatım: telefon ve bilgisayar</span><span data-l="en">Video guide: phone and computer</span></h2>
+<p data-l="tr">Kanıt alma ve kontrol etme, baştan sona gerçek ekran kaydıyla. Dili seçin:</p>
+<p data-l="en">Getting and checking a proof, start to finish, on a real screen. Pick a language:</p>
+<div class="langs" id="vl"></div>
+<div class="vid">
+<figure><video id="v-tel" controls playsinline preload="metadata"></video><figcaption data-l="tr">📱 Telefonda</figcaption><figcaption data-l="en">📱 On a phone</figcaption></figure>
+<figure><video id="v-pc" controls playsinline preload="metadata"></video><figcaption data-l="tr">💻 Bilgisayarda</figcaption><figcaption data-l="en">💻 On a computer</figcaption></figure>
+</div>
+
+<h2><span data-l="tr">Kontrolde ne göreceksiniz?</span><span data-l="en">What will a check show?</span></h2>
+<div class="status">
+<div class="g"><b data-l="tr">✓ Bitcoin blokzincirinde doğrulandı</b><b data-l="en">✓ Verified on the Bitcoin blockchain</b><br><span data-l="tr">Dosya en geç gösterilen tarihte vardı ve o günden beri tek bir baytı bile değişmedi. Tarih ve blok numarası, bizim değil, bağımsız Bitcoin blok gezginlerinin (blockstream.info, mempool.space) verisidir.</span><span data-l="en">The file existed no later than the date shown and not a single byte has changed since. The date and block number come from independent Bitcoin block explorers (blockstream.info, mempool.space), not from us.</span></div>
+<div><b data-l="tr">⏳ Kayıt alındı, Bitcoin'e işlenmesi bekleniyor</b><b data-l="en">⏳ Received; waiting to be written into Bitcoin</b><br><span data-l="tr">Yeni alınan kanıtlarda normaldir; genellikle 1–6 saat sürer. Kanıtınız geçerlidir. Birkaç saat sonra aynı dosyalarla tekrar kontrol edin; tamamlanmış .ots dosyasını indirip eskisinin yerine saklayın.</span><span data-l="en">Normal for new proofs; usually 1–6 hours. Your proof is valid. Check again in a few hours with the same files, then download the completed .ots and keep it instead of the old one.</span></div>
+<div class="r"><b data-l="tr">✗ Kanıt bu dosyaya ait DEĞİL</b><b data-l="en">✗ The proof does NOT belong to this file</b><br><span data-l="tr">Dosya değiştirilmiş demektir: tek bir piksel, tek bir harf bile değişse sonuç budur. Kimse fark ettirmeden değiştiremez.</span><span data-l="en">The file has been changed. Even one pixel or one letter gives this result. Nobody can change a file without it showing.</span></div>
+</div>
+
+<h2><span data-l="tr">Üç bağımsız doğrulama yolu</span><span data-l="en">Three independent ways to verify</span></h2>
+
+<div class="box way"><b class="n">1</b><div>
+<h3 data-l="tr">Bu sitede, tek dokunuşla</h3><h3 data-l="en">On this site, in one tap</h3>
+<p data-l="tr"><a href="dosya-kaniti.html#kontrol">Kontrol et</a> sekmesinde orijinal dosyayı ve .ots kanıt dosyasını birlikte seçin. Kontrol sizin tarayıcınızda yapılır: kanıt dosyası açılır, zaman sunucularından gelen kayıt Bitcoin blokunun özetiyle (Merkle kökü) karşılaştırılır. Blok bilgisi iki bağımsız kamu kaynağından okunur, bizim sunucumuzdan değil.</p>
+<p data-l="en">On the <a href="dosya-kaniti.html#kontrol">Check</a> tab, select the original file and its .ots proof together. The check runs in your browser: the proof is opened and compared with the Bitcoin block's summary (Merkle root). Block data is read from two independent public sources, not from our server.</p>
+</div></div>
+
+<div class="box way"><b class="n">2</b><div>
+<h3 data-l="tr">Başka bir sitede: opentimestamps.org</h3><h3 data-l="en">On another site: opentimestamps.org</h3>
+<p data-l="tr">Kanıtlarımız açık OpenTimestamps standardındadır. <a href="https://opentimestamps.org" target="_blank" rel="noopener">opentimestamps.org</a> adresine gidip dosyayı ve .ots dosyasını sürükleyin; site, Bitcoin blok numarasını ve tarihi kendi başına gösterir. Bu sitenin bizimle hiçbir bağı yoktur.</p>
+<p data-l="en">Our proofs use the open OpenTimestamps standard. Go to <a href="https://opentimestamps.org" target="_blank" rel="noopener">opentimestamps.org</a> and drop the file and the .ots file; it shows the Bitcoin block number and date on its own. That site has no connection to us.</p>
+</div></div>
+
+<div class="box way"><b class="n">3</b><div>
+<h3 data-l="tr">Hiçbir siteye güvenmeden</h3><h3 data-l="en">Without trusting any website</h3>
+<p data-l="tr">Önce dosyanın parmak izini kendi bilgisayarınızda hesaplayın ve kanıt belgesindeki 64 karakterlik parmak iziyle karşılaştırın:</p>
+<p data-l="en">First compute the file's fingerprint on your own computer and compare it with the 64-character fingerprint in the proof certificate:</p>
+<div class="cmd">Windows:&nbsp; certutil -hashfile dosya.jpg SHA256</div>
+<div class="cmd">Mac / Linux:&nbsp; shasum -a 256 dosya.jpg</div>
+<p data-l="tr">Ardından açık kaynaklı OpenTimestamps istemcisiyle (<a href="https://github.com/opentimestamps/opentimestamps-client" target="_blank" rel="noopener">github.com/opentimestamps</a>) kendi Bitcoin düğümünüze karşı doğrulayın: <code>ots verify dosya.jpg.ots</code>. Bu yolda ne bize ne de başka bir siteye güvenmeniz gerekir.</p>
+<p data-l="en">Then verify against your own Bitcoin node with the open-source OpenTimestamps client (<a href="https://github.com/opentimestamps/opentimestamps-client" target="_blank" rel="noopener">github.com/opentimestamps</a>): <code>ots verify file.jpg.ots</code>. This way you trust neither us nor any other website.</p>
+</div></div>
+
+<h2><span data-l="tr">Kendiniz deneyin: değiştirilmiş dosya testi</span><span data-l="en">Try it yourself: the altered-file test</span></h2>
+<ol>
+<li data-l="tr">Herhangi bir fotoğrafın kanıtını alın ve .ots dosyasını indirin.</li><li data-l="en">Get a proof for any photo and download the .ots file.</li>
+<li data-l="tr">Fotoğrafın bir kopyasını düzenleyin (kırpın, bir çizgi çizin ya da sadece yeniden kaydedin).</li><li data-l="en">Edit a copy of the photo (crop it, draw a line, or just re-save it).</li>
+<li data-l="tr">Kontrol et'te önce orijinali, sonra kopyayı .ots ile birlikte seçin. Orijinal ✓, kopya ✗ çıkar.</li><li data-l="en">In Check, select the original, then the copy, each with the .ots. The original shows ✓, the copy ✗.</li>
+</ol>
+
+<h2><span data-l="tr">Kanıt neyi gösterir, neyi göstermez?</span><span data-l="en">What a proof shows, and what it does not</span></h2>
+<table>
+<tr><th data-l="tr">Konu</th><th data-l="en">Question</th><th></th></tr>
+<tr><td data-l="tr">Dosya en geç bu tarihte vardı</td><td data-l="en">The file existed no later than this date</td><td class="yes">✓</td></tr>
+<tr><td data-l="tr">O günden beri değiştirilmedi</td><td data-l="en">It has not been changed since</td><td class="yes">✓</td></tr>
+<tr><td data-l="tr">Tarihi kimse (biz dahil) geriye alamaz</td><td data-l="en">Nobody, including us, can backdate it</td><td class="yes">✓</td></tr>
+<tr><td data-l="tr">Fotoğrafı kimin çektiği</td><td data-l="en">Who took the photo</td><td class="no">✗</td></tr>
+<tr><td data-l="tr">Fotoğraftaki olayın gerçek olduğu</td><td data-l="en">That what the photo shows is true</td><td class="no">✗</td></tr>
+<tr><td data-l="tr">Dosyanın bu tarihten önce var olmadığı</td><td data-l="en">That the file did not exist before this date</td><td class="no">✗</td></tr>
+</table>
+<p class="note" data-l="tr">Dosya Kanıtı noter onayı ya da yasal nitelikli zaman damgası değildir. Birçok ülkede delil olarak sunulabilir; değerlendirmesi mahkemeye aittir.</p>
+<p class="note" data-l="en">File Proof is not a notarisation or a qualified legal timestamp. In many countries it can be submitted as evidence; how it is weighed is up to the court.</p>
+
+<h2><span data-l="tr">Akla gelen sorular</span><span data-l="en">Common questions</span></h2>
+<details><summary><span data-l="tr">Tarihi siz değiştirebilir misiniz?</span><span data-l="en">Can you change the date?</span></summary><p data-l="tr">Hayır. Tarih, kaydın girdiği Bitcoin blokundan gelir. Bitcoin blokları dünya genelinde binlerce bilgisayarda tutulur; geçmiş bir blok değiştirilemez.</p><p data-l="en">No. The date comes from the Bitcoin block that holds the record. Bitcoin blocks are kept on thousands of computers worldwide; a past block cannot be changed.</p></details>
+<details><summary><span data-l="tr">Telefonumun saati yanlışsa ne olur?</span><span data-l="en">What if my phone's clock is wrong?</span></summary><p data-l="tr">Hiçbir şey değişmez. Kanıtın tarihi telefonunuzdan değil, Bitcoin blokundan alınır.</p><p data-l="en">Nothing changes. The proof's date comes from the Bitcoin block, not from your phone.</p></details>
+<details><summary><span data-l="tr">GETOKEN kapanırsa kanıtım ne olur?</span><span data-l="en">What if GETOKEN shuts down?</span></summary><p data-l="tr">Kanıtınız geçerli kalır. Dosya ve .ots dosyası elinizde olduğu sürece opentimestamps.org veya açık kaynaklı istemciyle her zaman doğrulanabilir.</p><p data-l="en">Your proof stays valid. As long as you keep the file and the .ots file, it can always be verified at opentimestamps.org or with the open-source client.</p></details>
+<details><summary><span data-l="tr">Dosyamı görüyor musunuz?</span><span data-l="en">Do you see my file?</span></summary><p data-l="tr">Hayır. Dosya cihazınızdan çıkmaz; yalnızca 64 karakterlik parmak izi gönderilir. Parmak izinden dosyanın içeriği elde edilemez.</p><p data-l="en">No. The file never leaves your device; only a 64-character fingerprint is sent. The content cannot be recovered from the fingerprint.</p></details>
+<details><summary><span data-l="tr">.ots dosyasını kaybedersem?</span><span data-l="en">What if I lose the .ots file?</span></summary><p data-l="tr">Aynı dosyayı tekrar kaydedebilirsiniz ama yeni kanıt yeni tarihi gösterir. Bu yüzden .ots dosyasını orijinal dosyanın yanında saklayın; tamamlanmış hâlini indirmeyi unutmayın.</p><p data-l="en">You can stamp the same file again, but the new proof shows the new date. Keep the .ots next to the original, and download its completed version.</p></details>
+<details><summary><span data-l="tr">Dosyayı WhatsApp ile göndersem kanıt bozulur mu?</span><span data-l="en">If I send the file via WhatsApp, does the proof break?</span></summary><p data-l="tr">WhatsApp ve bazı uygulamalar fotoğrafı sıkıştırıp yeni bir dosya oluşturur; yeni dosya kanıtla eşleşmez. Orijinal dosyayı saklayın; göndermeniz gerekirse "belge/dosya olarak" gönderin.</p><p data-l="en">WhatsApp and some apps compress photos and create a new file, which will not match the proof. Keep the original; if you must send it, send it "as a document/file".</p></details>
+
+<p style="margin-top:24px"><a class="btn" href="dosya-kaniti.html" data-l="tr">Ücretsiz kanıt al</a><a class="btn" href="dosya-kaniti.html" data-l="en">Get a free proof</a> <a class="btn alt" href="dosya-kaniti.html#kontrol" data-l="tr">Kontrol et</a><a class="btn alt" href="dosya-kaniti.html#kontrol" data-l="en">Check</a></p>
+</main>
+<footer><div class="wrap"><p><a href="./">gepara.com</a> · <a href="seffaflik.html"><span data-l="tr">Şeffaflık</span><span data-l="en">Transparency</span></a> · <a href="yasal.html"><span data-l="tr">Yasal</span><span data-l="en">Legal</span></a> · <a href="mailto:info@gepara.com">info@gepara.com</a></p><p class="sig">GETOKEN</p></div></footer>
+<script src="site.js"></script>
+<script>
+(function(){
+var L=[['tr','Türkçe'],['en','English'],['de','Deutsch'],['es','Español'],['fr','Français'],['pt','Português'],['ru','Русский'],['ar','العربية'],['id','Indonesia'],['zh','中文']];
+var box=document.getElementById('vl'),vt=document.getElementById('v-tel'),vp=document.getElementById('v-pc');
+function set(l){[].forEach.call(box.children,function(b){b.classList.toggle('on',b.dataset.v===l)});
+  vt.src='videolar/telefon-'+l+'.mp4';vt.poster='videolar/telefon-'+l+'.jpg';vp.src='videolar/bilgisayar-'+l+'.mp4';vp.poster='videolar/bilgisayar-'+l+'.jpg';
+  try{localStorage.setItem('gk-vl',l)}catch(e){}}
+L.forEach(function(x){var b=document.createElement('button');b.textContent=x[1];b.dataset.v=x[0];b.onclick=function(){set(x[0])};box.appendChild(b)});
+var q=(location.search.match(/[?&]lang=([a-z]{2})/)||[])[1],s=null;try{s=localStorage.getItem('gk-vl')}catch(e){}
+var nav=(navigator.language||'tr').slice(0,2);var ok=function(l){return L.some(function(x){return x[0]===l})};
+set(ok(q)?q:ok(s)?s:ok(nav)?nav:document.documentElement.lang||'tr');
+})();
+</script>
+<script data-goatcounter="https://gepara.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
