@@ -1,0 +1,223 @@
+<title>TremorProof Bina Ön Kontrol</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: field inspection sheet — question cards left, sticky live result panel right; stacks on phones */
+:root{
+  --bg:#F2F4F6; --paper:#FFFFFF; --ink:#16263B; --muted:#5A6676; --rule:#D3D9E0;
+  --accent:#C98A1B; --accent-ink:#5E3F06;
+  --ok:#2E7D4F; --warn:#C8731E; --crit:#B3261E; --sel:#E7EDF5;
+  --f-display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --f-body:"Source Sans 3","Segoe UI",Roboto,Arial,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0E151F; --paper:#16202D; --ink:#E6ECF3; --muted:#9AA7B7; --rule:#2B3747;
+  --accent:#E3A73C; --accent-ink:#F5D79E; --ok:#5DBB86; --warn:#E89A4C; --crit:#EF6A62; --sel:#22324A; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E151F; --paper:#16202D; --ink:#E6ECF3; --muted:#9AA7B7; --rule:#2B3747;
+  --accent:#E3A73C; --accent-ink:#F5D79E; --ok:#5DBB86; --warn:#E89A4C; --crit:#EF6A62; --sel:#22324A; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5}
+.wrap{max-width:1120px;margin:0 auto;padding-block:20px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;justify-content:space-between;border-bottom:2px solid var(--ink);padding-bottom:14px;margin-bottom:22px}
+.brand{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;color:var(--accent);text-transform:uppercase}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(30px,5vw,46px);line-height:1;margin:4px 0 6px;text-wrap:balance}
+.lede{margin:0;color:var(--muted);max-width:62ch}
+.lang{display:flex;gap:4px}
+.lang button,.btn{font:600 14px var(--f-body);border:1px solid var(--rule);background:var(--paper);color:var(--ink);padding:7px 12px;border-radius:6px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn:focus-visible,.lang button:focus-visible,.opt input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:24px;align-items:start}
+@media (max-width:860px){.grid{grid-template-columns:1fr}}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.q{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:16px 18px;margin-bottom:12px}
+.qh{display:flex;gap:12px;align-items:baseline}
+.qn{font-family:var(--f-mono);font-size:13px;color:var(--muted);min-width:2.2em}
+.qt{font-weight:700;font-size:17px}
+.qd{color:var(--muted);font-size:14px;margin:4px 0 10px 3.1em}
+.opts{display:flex;flex-direction:column;gap:6px;margin-left:3.1em}
+@media (max-width:520px){.qd,.opts{margin-left:0}}
+.opt{position:relative;display:block;cursor:pointer}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt span{display:block;border:1px solid var(--rule);border-radius:6px;padding:8px 12px;font-size:15px}
+.opt input:checked+span{background:var(--sel);border-color:var(--ink);font-weight:600}
+.opt:hover span{border-color:var(--muted)}
+aside{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px)}
+@media (max-width:860px){aside{position:static}}
+.panel{background:var(--paper);border:2px solid var(--ink);border-radius:8px;padding:18px}
+.plabel{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.verdict{font-family:var(--f-display);font-size:34px;font-weight:700;line-height:1.05;margin:6px 0 4px}
+.meter{height:12px;border-radius:6px;background:linear-gradient(90deg,var(--ok),var(--warn),var(--crit));position:relative;margin:14px 0 6px}
+.pin{position:absolute;top:-5px;width:4px;height:22px;background:var(--ink);border-radius:2px;transform:translateX(-2px);transition:left .4s}
+@media (prefers-reduced-motion:reduce){.pin{transition:none}}
+.scale{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
+.prog{font-family:var(--f-mono);font-size:13px;color:var(--muted);margin-top:10px;font-variant-numeric:tabular-nums}
+.find{list-style:none;padding:0;margin:14px 0 0;display:flex;flex-direction:column;gap:8px}
+.find li{border-left:4px solid var(--warn);padding:4px 0 4px 10px;font-size:14px}
+.find li.crit{border-color:var(--crit)}
+.find b{display:block;font-size:14px}
+.next{margin-top:14px;padding-top:12px;border-top:1px solid var(--rule);font-size:14px}
+.next h3{font-family:var(--f-display);font-size:20px;margin:0 0 6px}
+.cta{margin-top:14px;background:var(--ink);color:var(--paper);border-radius:8px;padding:14px 16px;font-size:14px}
+.cta b{color:var(--accent)}
+.disc{margin-top:14px;font-size:12px;color:var(--muted)}
+.chip{display:inline-block;font:600 12px var(--f-mono);padding:2px 8px;border-radius:999px;color:var(--paper)}
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <div class="brand">TremorProof</div>
+      <h1 id="t-title"></h1>
+      <p class="lede" id="t-lede"></p>
+    </div>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" id="l-tr" aria-pressed="true">TR</button>
+      <button type="button" id="l-en" aria-pressed="false">EN</button>
+    </div>
+  </header>
+
+  <div class="grid">
+    <main>
+      <div class="tools">
+        <button type="button" class="btn" id="b-sample"></button>
+        <button type="button" class="btn" id="b-reset"></button>
+      </div>
+      <form id="qs" onsubmit="return false"></form>
+    </main>
+    <aside>
+      <div class="panel" aria-live="polite">
+        <div class="plabel" id="t-result"></div>
+        <div class="verdict" id="verdict"></div>
+        <div id="vsub" style="font-size:14px;color:var(--muted)"></div>
+        <div class="meter"><div class="pin" id="pin" style="left:0%"></div></div>
+        <div class="scale"><span id="s1"></span><span id="s2"></span><span id="s3"></span></div>
+        <div class="prog" id="prog"></div>
+        <ul class="find" id="find"></ul>
+        <div class="next" id="next"></div>
+      </div>
+      <div class="cta" id="cta"></div>
+      <p class="disc" id="disc"></p>
+    </aside>
+  </div>
+</div>
+
+<script>
+const L = {
+tr:{title:"Bina Ön Kontrol",lede:"Ev almadan veya kiralamadan önce 14 soruyla binanın deprem açısından ne kadar dikkat istediğini görün. Sorular, 30 yıllık bir inşaat mühendisinin sahada ilk baktığı noktalardan hazırlandı.",
+ sample:"Örnek bina ile doldur",reset:"Temizle",result:"Ön değerlendirme",prog:(a,n)=>`${a} / ${n} soru cevaplandı`,
+ empty:"Cevapladıkça sonuç burada oluşur",emptySub:"Emin olmadığınız sorularda “Bilmiyorum” seçin; bilinmeyen her şey dikkat puanı ekler.",
+ lv:["Düşük dikkat","Orta dikkat","Yüksek dikkat"],s:["Düşük","Orta","Yüksek"],
+ sub:["Belirgin bir uyarı işareti görünmüyor. Yine de garanti değildir.","Açıklama isteyen noktalar var. Yazılı cevap alın.","Ciddi uyarı işaretleri var. İmza ve kapora öncesi mühendis incelemesi yaptırın."],
+ nextH:"Şimdi ne yapmalı?",
+ next:["Bu sonucu evrakla birlikte saklayın, ağır eşyaları sabitleyin ve ailenizle deprem planı hazırlayın.","Satıcıdan ruhsat, iskân ve onaylı projeyi isteyin; işaretlenen noktaları yazılı sorun. Gerekirse mühendis görüşü alın.","Henüz imza atmayın, kapora vermeyin. Binayı yetkili bir inşaat mühendisine inceletin; mümkünse karot testi ve donatı taraması isteyin. Mal sahibi incelemeye izin vermiyorsa bunu da bir cevap kabul edin."],
+ cta:"<b>Sahada adım adım kullanmak için:</b> 10 sayfalık yazdırılabilir “Depreme Karşı Akıllı Ev Kontrol Listesi” 40'tan fazla kontrol maddesi, puan tablosu ve satıcıya sorulacak 12 soruyla bu aracın tam sürümüdür.",
+ disc:"Bu araç bir farkındalık ve ön kontrol aracıdır. Binanın güvenli olup olmadığını belirleyemez ve yetkili bir inşaat mühendisinin incelemesinin yerini tutmaz. Cevaplarınız yalnızca bu sayfada işlenir, hiçbir yere gönderilmez.",
+ unk:"Bilmiyorum"},
+en:{title:"Building Pre-Check",lede:"Before you buy or rent, answer 14 questions to see how much earthquake attention a building needs. The questions come from what a civil engineer with 30 years in the field looks at first.",
+ sample:"Fill with an example building",reset:"Clear",result:"Pre-assessment",prog:(a,n)=>`${a} / ${n} questions answered`,
+ empty:"Your result builds up as you answer",emptySub:"Pick “Don't know” when unsure; every unknown adds attention points.",
+ lv:["Low attention","Medium attention","High attention"],s:["Low","Medium","High"],
+ sub:["No clear warning sign appears. This is still not a guarantee.","Some points need an explanation. Get written answers.","Serious warning signs. Get an engineer's inspection before signing or paying a deposit."],
+ nextH:"What to do next",
+ next:["Keep this result with your documents, secure heavy furniture and prepare a household earthquake plan.","Ask for the building permit, occupancy certificate and approved drawings; ask about each flagged point in writing. Consider an engineer's opinion.","Do not sign or pay a deposit yet. Have a licensed structural engineer inspect the building, ideally with concrete core tests and a rebar scan. If the owner refuses an inspection, treat that as an answer."],
+ cta:"<b>To use it step by step on site:</b> the 10-page printable “Earthquake-Smart Home Checklist” is the full version of this tool, with 40+ check items, a score sheet and 12 questions to ask the seller.",
+ disc:"This is an awareness and screening tool. It cannot determine whether a building is safe and does not replace an inspection by a licensed structural engineer. Your answers are processed only on this page and are not sent anywhere.",
+ unk:"Don't know"}};
+
+// each option: [tr, en, points, critical?]
+const Q = [
+ {tr:"Binanın inşaat yılı (proje tarihi)",en:"Year the building was designed",d:{tr:"Türkiye'de deprem yönetmeliği 1998, 2007 ve 2018'de köklü biçimde yenilendi.",en:"Seismic codes in many countries were updated after major earthquakes."},
+  o:[["2019 ve sonrası","2019 or later",0],["2007–2018","2007–2018",1],["1998–2007","1998–2007",3],["1998 öncesi","Before 1998",5]]},
+ {tr:"Zemin türü",en:"Type of ground",d:{tr:"Komşulara ve belediyeye sorun; eski haritalara bakın.",en:"Ask neighbours and the municipality; check old maps."},
+  o:[["Kaya / sert zemin","Rock / firm ground",0],["Normal toprak","Ordinary soil",1],["Dolgu, dere yatağı, göl/deniz kıyısı","Fill, stream bed, lake or sea shore",4]]},
+ {tr:"Kat sayısı",en:"Number of floors",o:[["1–3","1–3",0],["4–7","4–7",1],["8 ve üzeri","8 or more",2]]},
+ {tr:"Zemin kat nasıl kullanılıyor?",en:"How is the ground floor used?",d:{tr:"Depremde yıkılan binaların çoğu önce zemin kattan göçer.",en:"Many buildings that collapse fail at the ground floor first."},
+  o:[["Konut, üst katlarla aynı düzende duvarlı","Homes, with walls like the floors above",0],["Bir kısmı dükkân","Partly shops",2],["Tamamen camlı dükkânlar veya açık otopark (az duvar)","All glass shop fronts or open parking (few walls)",4,1]]},
+ {tr:"Zemin kat dükkânlarında kolon veya duvar kesildi, kaldırıldı mı?",en:"Were columns or walls cut or removed in ground-floor shops?",
+  o:[["Hayır, gördüm ve sağlam","No, I saw them and they are intact",0],["Duvar kaldırılmış, kolonlar sağlam","A wall was removed, columns intact",3],["Kolonda kesik, oyuk veya delik var","A column is cut, notched or drilled",8,1]]},
+ {tr:"Kolon, kiriş ya da kolon dibindeki duvarlarda çatlak",en:"Cracks in columns, beams or walls next to columns",
+  o:[["Yok","None",0],["İnce sıva çatlakları","Thin plaster cracks",1],["Çapraz veya X şeklinde çatlaklar","Diagonal or X-shaped cracks",8,1]]},
+ {tr:"Paslı demir görünüyor veya betondan parça dökülmüş mü?",en:"Visible rusty rebar or concrete falling off?",d:{tr:"Bodrum ve otopark kolonlarına özellikle bakın.",en:"Look especially at basement and parking columns."},
+  o:[["Hayır","No",0],["Bodrumda nem, tuz izi var","Damp or salt marks in the basement",2],["Evet, paslı donatı açıkta","Yes, rusty reinforcement is exposed",7,1]]},
+ {tr:"Sonradan eklenmiş kat var mı?",en:"Were floors added later?",
+  o:[["Hayır","No",0],["Çatı katı / teras odası eklenmiş","An attic or roof room was added",3],["Tam kat eklenmiş, ruhsatta yok","A full floor was added, not on the permit",7,1]]},
+ {tr:"Üst katlarda büyük çıkmalar veya ağır balkonlar",en:"Large overhangs or heavy balconies on upper floors",o:[["Yok veya küçük","None or small",0],["Belirgin çıkmalar var","Noticeable overhangs",2]]},
+ {tr:"Komşu binayla ilişkisi",en:"Relation to the neighbouring building",o:[["Ayrık (bahçeli)","Detached",0],["Aynı yükseklikte bitişik","Attached, same height",1],["Farklı yükseklikte, arada boşluk yok","Attached, different height, no gap",3]]},
+ {tr:"Bina daha önce depremde hasar aldı mı?",en:"Was the building damaged in a previous earthquake?",
+  o:[["Hayır","No",0],["Evet, mühendis projesiyle onarıldı","Yes, repaired with an engineer's design",2],["Evet, sıvayla kapatıldı / bilinmiyor","Yes, just plastered over / unknown",6,1]]},
+ {tr:"Ruhsat ve iskân (yapı kullanma izni)",en:"Building permit and occupancy certificate",
+  o:[["İkisi de var, projeye uygun","Both exist and match the drawings",0],["Sadece Yapı Kayıt Belgesi (imar barışı)","Only an amnesty registration",3],["Hiçbiri yok","Neither exists",5,1]]},
+ {tr:"Binada risk tespiti, karot testi veya güçlendirme yapıldı mı?",en:"Has a risk assessment, core test or retrofit been done?",
+  o:[["Evet, sonuç olumlu / güçlendirildi","Yes, positive result / retrofitted",0],["Hayır, hiç yapılmadı","No, never",2],["Riskli yapı kararı var","There is an official 'risky building' decision",9,1]]},
+ {tr:"Dairede taşıyıcı olabilecek duvar kaldırıldı mı?",en:"Was a possibly load-bearing wall removed in the flat?",
+  o:[["Hayır","No",0],["Evet, mühendis onayı var","Yes, with an engineer's approval",1],["Evet, onay gösterilemiyor","Yes, no approval can be shown",5,1]]},
+];
+const UNK = 2; // points for "don't know"
+const MAX = Q.reduce((s,q)=>s+Math.max(...q.o.map(o=>o[2])),0);
+let lang = "tr";
+try{ const saved = localStorage.getItem("tp-lang"); if(saved) lang = saved; else if(!(navigator.language||"").startsWith("tr")) lang="en"; }catch(e){ if(!(navigator.language||"").startsWith("tr")) lang="en"; }
+const ans = {};
+
+function render(){
+  const t = L[lang];
+  document.documentElement.lang = lang;
+  document.getElementById("t-title").textContent = t.title;
+  document.getElementById("t-lede").textContent = t.lede;
+  document.getElementById("b-sample").textContent = t.sample;
+  document.getElementById("b-reset").textContent = t.reset;
+  document.getElementById("t-result").textContent = t.result;
+  document.getElementById("cta").innerHTML = t.cta;
+  document.getElementById("disc").textContent = t.disc;
+  ["s1","s2","s3"].forEach((id,i)=>document.getElementById(id).textContent=t.s[i]);
+  document.getElementById("l-tr").setAttribute("aria-pressed", lang==="tr");
+  document.getElementById("l-en").setAttribute("aria-pressed", lang==="en");
+  const f = document.getElementById("qs"); f.innerHTML = "";
+  Q.forEach((q,i)=>{
+    const box = document.createElement("fieldset"); box.className="q"; box.style.border="1px solid var(--rule)";
+    const opts = q.o.map((o,j)=>`<label class="opt"><input type="radio" id="q${i}o${j}" name="q${i}" value="${j}" ${ans[i]===j?"checked":""}><span>${lang==="tr"?o[0]:o[1]}</span></label>`).join("")
+      + `<label class="opt"><input type="radio" id="q${i}u" name="q${i}" value="u" ${ans[i]==="u"?"checked":""}><span>${t.unk}</span></label>`;
+    box.innerHTML = `<legend class="qh" style="padding:0"><span class="qn">${String(i+1).padStart(2,"0")}</span><span class="qt">${q[lang]}</span></legend>`
+      + (q.d?`<div class="qd">${q.d[lang]}</div>`:`<div style="height:8px"></div>`) + `<div class="opts">${opts}</div>`;
+    f.appendChild(box);
+  });
+  score();
+}
+
+function score(){
+  const t = L[lang];
+  let pts=0, n=0, crit=false; const flags=[];
+  Q.forEach((q,i)=>{
+    const a = ans[i]; if(a===undefined) return; n++;
+    if(a==="u"){ pts+=UNK; flags.push({q:q[lang],a:t.unk,c:false}); return; }
+    const o=q.o[a]; pts+=o[2];
+    if(o[3]) crit=true;
+    if(o[2]>=2) flags.push({q:q[lang],a:lang==="tr"?o[0]:o[1],c:!!o[3]});
+  });
+  const pct = Math.min(100, Math.round(pts/ (MAX*0.55) *100));
+  let lv = pct<30?0:pct<60?1:2; if(crit) lv=2;
+  const v=document.getElementById("verdict"), sub=document.getElementById("vsub"), pin=document.getElementById("pin");
+  document.getElementById("prog").textContent = t.prog(n,Q.length);
+  if(n===0){ v.textContent=t.empty; v.style.color="var(--muted)"; v.style.fontSize="24px"; sub.textContent=t.emptySub; pin.style.left="0%";
+    document.getElementById("find").innerHTML=""; document.getElementById("next").innerHTML=""; return; }
+  v.style.fontSize=""; v.textContent=t.lv[lv]; v.style.color=["var(--ok)","var(--warn)","var(--crit)"][lv];
+  sub.textContent=t.sub[lv];
+  pin.style.left = (crit?Math.max(pct,75):pct)+"%";
+  flags.sort((a,b)=>b.c-a.c);
+  document.getElementById("find").innerHTML = flags.slice(0,6).map(f=>`<li class="${f.c?"crit":""}"><b>${f.q}</b>${f.a}</li>`).join("");
+  document.getElementById("next").innerHTML = `<h3>${t.nextH}</h3>${t.next[lv]}`;
+}
+
+document.getElementById("qs").addEventListener("change",e=>{
+  const m = e.target.name.match(/^q(\d+)$/); if(!m) return;
+  ans[+m[1]] = e.target.value==="u"?"u":+e.target.value; score();
+});
+function setLang(l){ lang=l; try{localStorage.setItem("tp-lang",l)}catch(e){} render(); }
+document.getElementById("l-tr").onclick=()=>setLang("tr");
+document.getElementById("l-en").onclick=()=>setLang("en");
+document.getElementById("b-reset").onclick=()=>{ for(const k in ans) delete ans[k]; render(); };
+document.getElementById("b-sample").onclick=()=>{ [3,2,1,2,1,1,1,0,1,2,0,1,1,0].forEach((v,i)=>ans[i]=v); render(); };
+render();
+</script>

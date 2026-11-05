@@ -1,0 +1,170 @@
+<title>Kira Artış Hesaplayıcı</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: calculator card + result strip; below, letter generator with locked preview */
+:root{--bg:#F3F2EE;--paper:#FFFFFF;--ink:#1F2A22;--muted:#5F6A62;--rule:#D6D9D2;--accent:#2F6B4F;--accent-soft:#E3EEE7;--warn:#B3261E;
+--f-display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;--f-body:"Source Sans 3","Segoe UI",Roboto,Arial,sans-serif;--f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111613;--paper:#1A211C;--ink:#E7ECE8;--muted:#9EA9A1;--rule:#2C362F;--accent:#6CC39A;--accent-soft:#1F3328;--warn:#EF6A62;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#111613;--paper:#1A211C;--ink:#E7ECE8;--muted:#9EA9A1;--rule:#2C362F;--accent:#6CC39A;--accent-soft:#1F3328;--warn:#EF6A62;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5}
+.wrap{max-width:860px;margin:0 auto;padding-block:20px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.brand{font:500 12px var(--f-mono);letter-spacing:.14em;color:var(--accent);text-transform:uppercase}
+h1{font-family:var(--f-display);font-size:clamp(32px,6vw,48px);line-height:1;margin:4px 0 8px;text-wrap:balance}
+.lede{color:var(--muted);margin:0 0 18px;max-width:62ch}
+.card{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:18px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media(max-width:640px){.grid{grid-template-columns:1fr}}
+label{display:block;font-weight:600;font-size:14px;margin-bottom:4px}
+input,select,textarea{width:100%;font:16px var(--f-body);padding:9px 10px;border:1px solid var(--rule);border-radius:6px;background:var(--bg);color:var(--ink)}
+input:focus-visible,select:focus-visible,button:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.hint{font-size:13px;color:var(--muted);margin-top:4px}
+.result{margin-top:16px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media(max-width:640px){.result{grid-template-columns:1fr}}
+.stat{background:var(--accent-soft);border-radius:8px;padding:12px 14px}
+.stat .k{font:500 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.stat .v{font-family:var(--f-display);font-size:32px;font-weight:700;font-variant-numeric:tabular-nums}
+.note{font-size:14px;color:var(--muted);margin-top:12px}
+h2{font-family:var(--f-display);font-size:28px;margin:28px 0 6px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.tabs button,.btn{font:600 14px var(--f-body);border:1px solid var(--rule);background:var(--paper);color:var(--ink);padding:8px 12px;border-radius:6px;cursor:pointer}
+.tabs button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.letter{position:relative;background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:22px;white-space:pre-wrap;font-size:15px;line-height:1.6;max-height:520px;overflow:hidden}
+.letter.locked::after{content:"";position:absolute;inset:38% 0 0 0;background:linear-gradient(transparent,var(--paper) 45%)}
+.lock{display:flex;gap:8px;flex-wrap:wrap;align-items:end;margin-top:12px}
+.lock>div{flex:1 1 220px}
+.msg{font-size:14px;margin-top:6px}
+table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
+td,th{border-bottom:1px solid var(--rule);padding:6px 8px;text-align:left}
+.disc{font-size:12px;color:var(--muted);margin-top:24px}
+</style>
+
+<div class="wrap">
+  <div class="brand">gepara.com araçları</div>
+  <h1>Kira Artış Hesaplayıcı</h1>
+  <p class="lede">Konut ve çatılı işyeri kiralarında yasal üst sınır, son 12 aylık TÜFE ortalamasındaki değişimdir (TBK m.344). Mevcut kiranızı ve yenileme ayınızı girin, yeni kiranın en fazla ne kadar olabileceğini görün.</p>
+
+  <div class="card">
+    <div class="grid">
+      <div><label for="rent">Mevcut aylık kira (TL)</label><input id="rent" type="number" inputmode="decimal" value="20000"></div>
+      <div><label for="month">Kira yenileme ayı</label><select id="month"></select></div>
+      <div><label for="rate">Artış oranı (%)</label><input id="rate" type="number" step="0.01"><div class="hint" id="ratehint"></div></div>
+    </div>
+    <div class="result">
+      <div class="stat"><div class="k">Artış tutarı</div><div class="v" id="r-inc">–</div></div>
+      <div class="stat"><div class="k">Yeni kira (en fazla)</div><div class="v" id="r-new">–</div></div>
+      <div class="stat"><div class="k">Yıllık fark</div><div class="v" id="r-year">–</div></div>
+    </div>
+    <p class="note">Taraflar daha düşük bir artışta anlaşabilir. Sözleşmede bu oranın altında bir artış yazıyorsa o geçerlidir. Kiracı aynı evde 5 yılı doldurduysa, yeni kira hakkaniyete göre mahkemece de belirlenebilir.</p>
+  </div>
+
+  <h2>Hazır bildirim yazısı</h2>
+  <p class="lede" style="margin:0">Bilgileri doldurun, ev sahibi için kira artış bildirimi veya kiracı için fazla artışa itiraz yazınız hazırlansın. Noter ya da iadeli taahhütlü posta ile gönderilmeye hazır metin.</p>
+  <div class="tabs" role="group" aria-label="Yazı türü">
+    <button type="button" id="t-owner" aria-pressed="true">Ev sahibi: artış bildirimi</button>
+    <button type="button" id="t-tenant" aria-pressed="false">Kiracı: fazla artışa itiraz</button>
+  </div>
+  <div class="card">
+    <div class="grid">
+      <div><label for="f-owner">Ev sahibi ad soyad</label><input id="f-owner" value="Ayşe Yılmaz"></div>
+      <div><label for="f-tenant">Kiracı ad soyad</label><input id="f-tenant" value="Mehmet Demir"></div>
+      <div><label for="f-start">Sözleşme başlangıç tarihi</label><input id="f-start" type="date" value="2024-11-01"></div>
+    </div>
+    <div style="margin-top:12px"><label for="f-addr">Kiralanan adres</label><input id="f-addr" value="Örnek Mah. Çınar Sok. No:5 D:3, Nilüfer/Bursa"></div>
+    <div style="margin-top:12px" id="askedwrap" hidden><label for="f-asked">Ev sahibinin istediği yeni kira (TL)</label><input id="f-asked" type="number" value="30000"></div>
+  </div>
+  <div class="letter locked" id="letter" style="margin-top:12px"></div>
+  <div class="lock" id="lockbox">
+    <div><label for="code">Yazı kodu (49 TL, satın alma sonrası e-postanızda)</label><input id="code" placeholder="KA-XXXXXX-XXXX"></div>
+    <div style="font-size:.9rem;margin-top:4px">Kodunuz yok mu? <a href="mailto:info@gepara.com?subject=Kira%20art%C4%B1%C5%9F%20yaz%C4%B1s%C4%B1%20kodu">info@gepara.com</a> adresine yazın, ödeme bilgisi ve kod aynı gün e-postanıza gelir.</div>
+    <button type="button" class="btn primary" id="unlock">Yazının tamamını aç</button>
+  </div>
+  <div class="lock" id="copybox" hidden><button type="button" class="btn primary" id="copy">Metni kopyala</button></div>
+  <div class="msg" id="msg"></div>
+
+  <h2>Açıklanan oranlar</h2>
+  <table><thead><tr><th>Kira yenileme ayı</th><th>Üst sınır</th></tr></thead><tbody id="ratetable"></tbody></table>
+  <p class="disc">Oranlar TÜİK'in açıkladığı TÜFE verilerine göre hesaplanmıştır; listede olmayan ay için oranı kutuya kendiniz yazabilirsiniz. Bu araç bilgilendirme amaçlıdır, hukuki danışmanlık yerine geçmez. Girdiğiniz bilgiler yalnızca bu sayfada işlenir, hiçbir yere gönderilmez.</p>
+</div>
+
+<script>
+// Verified upper limits by renewal month (12-month CPI average change). Update monthly after TÜİK release (3rd of month).
+const RATES = [["2026-11","Kasım 2026",31.23],["2026-10","Ekim 2026",31.49],["2026-08","Ağustos 2026",31.90]];
+const HASHES = ["d2bd5fdd3bab543b628b1d1c7083cc3abda6badf2181487a624bc3000080ebbb", "ecdfbe9d433693b9c7250fb00b01b884e306898a09c65c46ee539577409ce50b", "2c95ff7651e5d7480b8a11be0cfe545d4c2b608c33367bf0e8c694d83bab5dd8", "49b4973ca94e51c0f3869aa575b5d8b43fa3f2d20a7bbb5f1ecae044a9370f93", "da30e37177256c06169595df23048374faedf4100a29be9542a447d06a42a69b", "1c650dbc4095366a9ed7245b50d5b129e370dcb5dca2e23ae6774dac790d5c35", "b60f326ed3dcea1e1caa9066dfd3f8728efc987b77b6c42752a77995f76f2547", "254ef8f6b288cb3f123be9fa7771cf24e303d69434e4e01f1f2080f6ad1af49d", "10643fe6c29c15b30c6765f7ab695ea009bf55656bb13c9e0e2e318ac4655108", "7c2163e5ad50dde9fbedb540599c44948a12ef13ccdfc65c87229ee45e60c1d4", "506f5a8a582f04d5ab6e3ad1548c01706d72741078d0ed364cc6cbdc208bddc6", "a3ba1667e29b8643d8f5f672e0ce5202404ca2feef6816858b4eebca08381cb2", "55bcb8fc9c11196750d1b2a3285f9411c5f5c5baa2f326c36bfc29e7ff06cd3e", "40f2cbf71aa333b4def50598769b21dce356036d9c9438c304db0d58d0ce9bd5", "38f40e82decac7821df0ecc8e6e3a6940fd1062e3c140ea83a6d121ca7360a7c", "3a7585f74099ca43047aaefc5730c11e3985fd8986b0d4fd3f44dbc5ba9dff89", "f4f88b7cfa84f844395eeb94ea87dfc548a59850d4dd015c00f435bddeedf484", "c1bf05141a70f9d6096f4575939d29ed8af892b0d39094cc554dbb12ec1ee9d7", "ad54a021ac8d4b8b7bb0f286a228457daf269b237171c5b05b7acd6c306b422f", "592a090f6e88724438d778927453fb8dae7e5777109aa30d2d4ad7db5d353a88", "7074bacf272f8a7b937943ebaf1997da3e265038b28832b2b21a1ffe8708d154", "e0626efbcc1e243c0301c2bcebd6cc0facd027a40141a578c81670e892f49051", "4b74d6407e725164e56b2ce1e1a2ceeaf2eb8f8c849278db2bde1dfc158dd39d", "c0cacf52ed22c1c7663faaf2752d4503a48c458cb811f53cd90fa38ef5f5e9e8", "48fc43c8753c815eaa7811cb7b9646bda5c7a90e81d6c602ee708236fdfb0261", "c6468f6cf59c1ba73841d077219f63c07facb42c70a2ac0da9a45d66ce2c4847", "09543f177054a8c5607696dd7164ba6aa579b37ff35377aac719dea31b1e8f97", "038190110dbd602c521bbfd808ff40a0d20ddb878c09961f8533b237447532f6", "0691eeaee66744f92ae7dd6b57caa37a154dd51f2715c826f72c3cb1cf595f28", "bce1160c38c0fc088a5f510f3ff59451fbb6dcab905aa837994d02fd91c5a26c", "06369618a276ac026e91255912a7145b9863e5fdc456f9a09812704e9fec87e6", "d50d99a35a6ea634cb00ab7e0afc48621c4bff01eda8be3b80a90982d5d68533", "db796a242e9315179019b2271a357b2a4c079b8dd70cacead6edaef5e6014e0e", "c89caddbf5d4770baf5faadbf720846781f71dab1434c54db3438f400d7d624f", "5d192743e62cd4f9b95d42d2b929110212ee542c0606beed7bc79752a3041094", "99c3c2ce3c72c2a584ec88330bc0d5e08e29fcbe2e60c940c93d497c435ad6f1", "7909d689e46b4abbccc2962b0566dcce53a1295216b4e99b552d891a02eb9229", "ee91c717c9d63d10bb79ae6fde68180041dc08fd93a1107da1a9d65a92cb2bd0", "aee326dd1494498e761bd66aa1f815ee844040877e48ebc44d9d2af5ffd7e326", "226334d803666b177111af06298fa039388e6e5927d265b14b6fa9b33e54f2a6", "b0f2e228d49430bc552b8a1ec7c6776ee76409a221dc557cadf434678412daf0", "9031696643df84825158d0223b99dac7e5c009f7d0f4153796b23e879a181cbc", "94fd0a0a248572ee0744adec88e28556ac6690625dd6605591c409e721a4f998", "feef518a67c2f5bf37889cb732502a12da6b7ed135c5753bc8152288e13f3665", "a57f87cb981d2355f086fce55633bff4503aabc4d0e576ec6abdbfc4e62a4b14", "8710f5e0c00b4f10e86200f0f79b9d9397daa80c9b5b99dfab0ec116df6260a1", "530d7106265a784041c815e4f40ea8cca63777f643d265dd438d0625c2a34db8", "62a35565f6ff88b31ebcddbf15a5ae52b7cd0164c20ade50598a01b81c35fe35", "c62f3af61ada01ae22f443b1ce2c4cadd6b494a33f62db96e29fcfbeb5c9705d", "d7f7065e244d52e2f065e657527e7614ce65a257fc41543c0464da85487e9a60", "ac74afda1c6231802fb49acc94356fb91475eddb2a6c2c8d216b45be952e2dfc", "0fa38dc6436a735d8e4247cafbca1bef266bec3fe2079d4c25ff01533c89fbd4", "f35c624702c7589d3c19d2346aa52b83d5256033992619af6b9d778ae7e404cb", "ff66b72c11d90027f327b744032fb1590ec4f2693486b641eb19c221b7dbadbc", "0fa981423a885af61ab08e0db758fb7cfbfb939e25163897e2ad30ac90088105", "8b2db13bc59734498bc3a81785d92b0975e4f2caf8c247662fe5de28ef982295", "64bad00c5bf4c4a4a01e851e5e1e4522c5d8ee61bcc05e83baf89899ebd39674", "6ece83fc5012f8bec02ade8c919e7951f88d4327597d93921ea6816ce1707ca8", "0c33b99a208bae07e9633a86342009442c246b908936f76d8f1e2d66f5788890", "ae4368d10d78ca2f974fbe39f41ac4e60bd1080a0a9324c1dd4719533d0aa7a8", "3ad039a0127d3a87e2076067162ca519a45b1509da21a410ce2714d1b147eb8e", "ee7413bfdb84166e9700354be80321110ea14bc12bcc0621406beafceb7becb1", "1d37e2f6679ee8346ac16f846de30301bf7c4cbd19d30a8e82a3f9dea8745fa9", "0066bf99ace6e1408febbcf79b8415f6afbbdbafbecd4abd12a4e3057ec45ed5", "34557120feb685dfc65e1958d194ce1b4ea66ef98144ff2ddba2e90b13945bfe", "4afdb2d1c7faa26c28225011c6873f2848c2240ed1bd18eee843922915868b47", "89ea862bed066f484c9943628df3612ca64fbe2fcc7b9f735d814c141bd847f8", "9e9be3d038641d28c52d51f918a096ae089b281e067be4ac1bf47dfe5e2a0f2b", "c9c2a03335f4d2e9cc4cd9fc27187ddb59c248a3dceac9cd60fc9e611668eaeb", "d2b4d4df54ac3daec125596457457ca7680506e434af55a964fed1034511e77c", "507ac32896a413007e5ccc641cf88cf494ffdffa2322523fbea542bb52f68eb3", "67ad70d89d473141531f77e6495b932043192dab4b99a3c45419512dcf89f589", "568aa5a70162b06ea29298a0fe2ec9c3766e5f066f1ae204b9477820af84e116", "47515156954ec8c80633dfac6b25050208ff127049cdcb6d7a5146b02d27ae89", "fd0005ddbe46ffce63be9f76178e100cb0630448de73cd88b5b2835c963c632f", "5355a25305b64f5fc6c9d260574f1de7533c038badc513c4490b8428af98a0b9", "c2d38c05630c9a972278956eda89e56e5625d0b07e8273e4a4c4c47132c0e33e", "4ae54d66d475746f9aba853f69b8c572c4925a6ffcece87ebd2f9541349321e2", "94583dce066f182d9215ca05b303733a8eb1275d636dee5b56fa544fe59304e4", "8c87945790492a55ee4b45f66269c874f754c2560bd9f00818429e9b9ad6618e", "0337faa74b2437e47019b4f722d3b20c9925aecef57f502e17ba00cf5165517a", "c953a82a0f03a12f7cb7471f620816204698d20dbab7bf6239c3a49dc2494fec", "95e1bb60712074457d494bae32e498fe7c44ab721bc4485a677004f236762e77", "acd98786186d1fab0497fb48258f0c32c66949b3b5a8bf142a41a7362a2c5a86", "664fd85dd7354dc09d0b175ab87fc43ca41ec3a145db779d2c2ee6c5cadef0ad", "022f3dacc2c20eefcaf0dd349c1490ac6520e7e9c4752fa2f783064f3ca7881e", "99274a360b641f1b2dc5a6c8a9e30a6c18d94cd5de9c900e254bd3ac5eacbf1b", "f2f231eb55d9824aaa98afb5664ebcf6155fdf72c1194aea76a7e0407744a8b6", "feae76253ec22bd5915e817d8daebfab323a4a343bf43e9d140eb1e77e763da2", "ddfe9241589dcf4d20af8ce3d598f38584701032c2cf10b7d9b444616d37e2b5", "50314fdf2f732efe574bd29448ca9cfb99dc8e36354bfdbba6b956963a31f25f", "45354f7b89b29fc5f0d51d6b74599a550935d841a1664a0af08c0a014c064d00", "4e897a4299f394226fd0bebfb5e8e7e8d722b3395c71d5b6798a3e5ed1f25d8c", "a90b91c339165556857f3cde3ab8c12603a8b983ccde40028623f2d8072a4e8c", "bed0cfc85115db501992a613303ee1aeebe0cec2d2da006fb5d3ba1533caec72", "37b237dfb506597e08a27b7e10bb0909e1c6ddd2c32817b606fc03e0b2bd647e", "8207405f646de06b415fc1b6d62e0bd8df399963204778703f3d23e410f5cb9b", "23fe1cc4061696495b7d44dc6fdb126d995520d7d0886e1a46717cd578704eb9", "1a4844256a8d6b5535e762aee7049e56b21fd5ea3df52e160a8d5ce5f6fc49ff", "f0976ea7e87b40616b9ef74f0f674ab812beafd6b4c18bdafdf6ef39e34d9f40"];
+const tl = n => isFinite(n) ? n.toLocaleString("tr-TR",{maximumFractionDigits:2}) + " TL" : "–";
+const $ = id => document.getElementById(id);
+let mode = "owner", unlocked = false;
+
+RATES.forEach(([k,l,r])=>{ $("month").insertAdjacentHTML("beforeend",`<option value="${k}">${l}</option>`);
+  $("ratetable").insertAdjacentHTML("beforeend",`<tr><td>${l}</td><td>%${r.toLocaleString("tr-TR")}</td></tr>`); });
+$("month").insertAdjacentHTML("beforeend",`<option value="other">Diğer ay (oranı kendim gireceğim)</option>`);
+
+function curRate(){ return parseFloat($("rate").value); }
+function syncRate(){ const r = RATES.find(x=>x[0]===$("month").value);
+  if(r){ $("rate").value = r[2]; $("ratehint").textContent = "Açıklanan yasal üst sınır"; } else { $("rate").value=""; $("ratehint").textContent="TÜİK'in o ay için açıkladığı oranı yazın"; } calc(); }
+function calc(){ const rent=parseFloat($("rent").value), r=curRate();
+  const inc = rent*r/100; $("r-inc").textContent=tl(inc); $("r-new").textContent=tl(rent+inc); $("r-year").textContent=tl(inc*12); letter(); }
+
+function fmtDate(v){ if(!v) return "____"; const [y,m,d]=v.split("-"); return `${d}.${m}.${y}`; }
+function letter(){
+  const rent=parseFloat($("rent").value)||0, r=curRate()||0, nw=rent*(1+r/100), mon=$("month").selectedOptions[0]?.text||"";
+  const o=$("f-owner").value, t=$("f-tenant").value, a=$("f-addr").value, s=fmtDate($("f-start").value), today=new Date().toLocaleDateString("tr-TR");
+  let txt;
+  if(mode==="owner"){
+    txt=`Sayın ${t},
+
+Konu: Kira bedelinin yeni kira dönemi için belirlenmesi hakkında bildirim
+
+${a} adresindeki taşınmaz, aramızda ${s} başlangıç tarihli kira sözleşmesi ile tarafınıza kiralanmıştır. Halen ödenmekte olan aylık kira bedeli ${tl(rent)}'dir.
+
+Türk Borçlar Kanunu'nun 344. maddesi uyarınca, yenilenen kira dönemlerinde kira bedelindeki artış, bir önceki kira yılında tüketici fiyat endeksindeki on iki aylık ortalamalara göre değişim oranını geçmemek koşuluyla belirlenebilir. ${mon} itibarıyla bu oran %${r.toLocaleString("tr-TR")}'dir.
+
+Buna göre yeni kira döneminden itibaren aylık kira bedelinin ${tl(nw)} olarak ödenmesini rica eder, ödemelerin sözleşmede belirtilen hesaba ve sürede yapılmasını bilgilerinize sunarım.
+
+Saygılarımla,
+
+${today}
+Kiraya veren: ${o}
+İmza:`;
+  } else {
+    const asked=parseFloat($("f-asked").value)||0;
+    txt=`Sayın ${o},
+
+Konu: Talep edilen kira artışına itiraz
+
+${a} adresindeki taşınmazda ${s} başlangıç tarihli kira sözleşmesi ile kiracı olarak oturmaktayım. Halen ödediğim aylık kira bedeli ${tl(rent)}'dir.
+
+Tarafınızca yeni kira dönemi için aylık ${tl(asked)} kira bedeli talep edilmiştir. Bu talep, ${tl(rent)} kira bedeli üzerinden %${(rent?((asked/rent-1)*100):0).toLocaleString("tr-TR",{maximumFractionDigits:2})} oranında bir artışa karşılık gelmektedir.
+
+Türk Borçlar Kanunu'nun 344. maddesi uyarınca yenilenen kira dönemlerinde artış, bir önceki kira yılında tüketici fiyat endeksindeki on iki aylık ortalamalara göre değişim oranını geçemez. ${mon} itibarıyla bu oran %${r.toLocaleString("tr-TR")}'dir. Buna göre yasal üst sınıra göre hesaplanan yeni kira bedeli en fazla ${tl(nw)}'dir.
+
+Bu nedenle yasal sınırı aşan kısma itiraz ediyor, yeni kira döneminde aylık ${tl(nw)} ödemeye hazır olduğumu bildiriyorum.
+
+Saygılarımla,
+
+${today}
+Kiracı: ${t}
+İmza:`;
+  }
+  $("letter").textContent = unlocked ? txt : txt.slice(0, Math.floor(txt.length*0.45)) + "…";
+  $("letter").dataset.full = txt;
+}
+function setMode(m){ mode=m; $("t-owner").setAttribute("aria-pressed",m==="owner"); $("t-tenant").setAttribute("aria-pressed",m==="tenant"); $("askedwrap").hidden = m!=="tenant"; letter(); }
+
+async function sha(t){ const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(t.trim().toUpperCase())); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join(""); }
+$("unlock").onclick = async ()=>{ const h = await sha($("code").value||"");
+  if(HASHES.includes(h)){ unlocked=true; $("letter").classList.remove("locked"); $("letter").style.maxHeight="none"; $("lockbox").hidden=true; $("copybox").hidden=false; $("msg").textContent=""; letter(); }
+  else { $("msg").style.color="var(--warn)"; $("msg").textContent="Kod geçersiz. Satın alma e-postanızdaki kodu kontrol edin."; } };
+$("copy").onclick = ()=>{ const t=$("letter").dataset.full;
+  navigator.clipboard.writeText(t).then(()=>{$("msg").style.color="var(--accent)";$("msg").textContent="Metin kopyalandı.";})
+  .catch(()=>{ const r=document.createRange(); r.selectNodeContents($("letter")); const s=getSelection(); s.removeAllRanges(); s.addRange(r); $("msg").textContent="Metin seçildi; kopyalayabilirsiniz."; }); };
+
+["rent","rate"].forEach(id=>$(id).addEventListener("input",calc));
+$("month").addEventListener("change",syncRate);
+["f-owner","f-tenant","f-start","f-addr","f-asked"].forEach(id=>$(id).addEventListener("input",letter));
+$("t-owner").onclick=()=>setMode("owner"); $("t-tenant").onclick=()=>setMode("tenant");
+syncRate();
+</script>

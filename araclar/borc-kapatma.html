@@ -1,0 +1,129 @@
+<title>Debt Payoff Planner</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: debts table left, strategy comparison + balance chart right; stacks on phones */
+:root{--bg:#F4F6F3;--paper:#FFFFFF;--ink:#26302A;--muted:#69756D;--rule:#D5DBD4;--sage:#5E8A68;--clay:#B8693F;--soft:#E7EEE6;
+--f-display:"Fraunces",Georgia,serif;--f-body:"Source Sans 3","Segoe UI",Roboto,Arial,sans-serif;--f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121613;--paper:#1A201C;--ink:#E6ECE7;--muted:#A0ACA4;--rule:#2D3630;--sage:#82BE8E;--clay:#E39467;--soft:#213028;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121613;--paper:#1A201C;--ink:#E6ECE7;--muted:#A0ACA4;--rule:#2D3630;--sage:#82BE8E;--clay:#E39467;--soft:#213028;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5}
+.wrap{max-width:1040px;margin:0 auto;padding-block:20px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.brand{font:500 12px var(--f-mono);letter-spacing:.14em;color:var(--sage);text-transform:uppercase}
+h1{font-family:var(--f-display);font-size:clamp(32px,6vw,50px);line-height:1.02;margin:6px 0 8px;text-wrap:balance}
+.lede{color:var(--muted);margin:0 0 18px;max-width:62ch}
+.grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:20px;align-items:start}
+@media(max-width:860px){.grid{grid-template-columns:1fr}}
+.card{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:16px}
+h2{font-family:var(--f-display);font-size:22px;margin:0 0 10px}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
+th{font:500 11px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;padding:4px 6px}
+td{padding:4px 6px}
+td input{width:100%;min-width:70px;font:15px var(--f-body);padding:7px 8px;border:1px solid var(--rule);border-radius:6px;background:var(--bg);color:var(--ink)}
+input:focus-visible,button:focus-visible{outline:2px solid var(--sage);outline-offset:2px}
+.btn{font:600 14px var(--f-body);border:1px solid var(--rule);background:var(--paper);color:var(--ink);padding:8px 12px;border-radius:6px;cursor:pointer}
+.x{border:0;background:none;color:var(--muted);font-size:18px;cursor:pointer}
+.extra{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+.extra input{width:140px;font:16px var(--f-body);padding:8px;border:1px solid var(--rule);border-radius:6px;background:var(--bg);color:var(--ink)}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{border:2px solid var(--rule);border-radius:8px;padding:12px}
+.opt.win{border-color:var(--sage)}
+.opt .n{font-family:var(--f-display);font-size:20px}
+.opt .v{font-family:var(--f-display);font-size:30px;font-variant-numeric:tabular-nums}
+.opt .s{font-size:13px;color:var(--muted)}
+.tag{display:inline-block;font:500 11px var(--f-mono);background:var(--sage);color:var(--paper);border-radius:999px;padding:1px 8px;margin-left:6px;vertical-align:middle}
+svg text{fill:var(--muted);font:11px var(--f-body)}
+.order{margin:10px 0 0;padding-left:20px;font-size:14px}
+.cta{margin-top:20px;background:var(--soft);border-radius:10px;padding:16px;font-size:15px}
+.cta b{font-family:var(--f-display);font-size:19px;display:block;margin-bottom:4px}
+.disc{font-size:12px;color:var(--muted);margin-top:20px}
+.legend{display:flex;gap:14px;font-size:13px;color:var(--muted);margin-top:4px}
+.legend i{display:inline-block;width:14px;height:3px;vertical-align:middle;margin-right:5px}
+</style>
+
+<div class="wrap">
+  <div class="brand">Daylit Paper tools</div>
+  <h1>Debt Payoff Planner</h1>
+  <p class="lede">List your debts, add what you can pay on top of the minimums, and see your debt-free date with two proven methods side by side. The example debts below show how it works; replace them with yours.</p>
+  <div class="grid">
+    <div class="card">
+      <h2>Your debts</h2>
+      <div class="tbl"><table><thead><tr><th>Name</th><th>Balance</th><th>Rate %</th><th>Min / month</th><th></th></tr></thead><tbody id="rows"></tbody></table></div>
+      <button type="button" class="btn" id="add" style="margin-top:8px">Add a debt</button>
+      <div class="extra"><label for="extra"><b>Extra each month</b></label><input id="extra" type="number" value="200" min="0"><span style="color:var(--muted);font-size:14px">on top of all minimums</span></div>
+    </div>
+    <div class="card">
+      <h2>Your plan</h2>
+      <div class="cmp">
+        <div class="opt" id="o-av"><div class="n">Avalanche</div><div class="s">Highest interest first</div><div class="v" id="av-m">–</div><div class="s" id="av-i"></div></div>
+        <div class="opt" id="o-sn"><div class="n">Snowball</div><div class="s">Smallest balance first</div><div class="v" id="sn-m">–</div><div class="s" id="sn-i"></div></div>
+      </div>
+      <svg id="chart" viewBox="0 0 440 200" width="100%" role="img" aria-label="Total balance over time"></svg>
+      <div class="legend"><span><i style="background:var(--sage)"></i>Avalanche</span><span><i style="background:var(--clay)"></i>Snowball</span></div>
+      <div style="font-size:14px;margin-top:10px"><b>Pay off in this order (avalanche):</b><ol class="order" id="order"></ol></div>
+    </div>
+  </div>
+  <div class="cta"><b>Stay on track on paper</b>The printable Daylit Paper Budget Planner has a debt payoff page, payment log, bill tracker and monthly budget: 12 pages, A4 and US Letter.</div>
+  <p class="disc">Estimates assume fixed interest rates compounded monthly and on-time payments. This is a planning tool, not financial advice. Your numbers stay on this page and are not sent anywhere.</p>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+let debts=[{n:"Credit card",b:4200,r:22.9,m:120},{n:"Car loan",b:9800,r:7.5,m:260},{n:"Store card",b:850,r:26.0,m:35},{n:"Personal loan",b:3100,r:11.0,m:95}];
+const money=n=>"$"+Math.round(n).toLocaleString("en-US");
+function draw(){
+  $("rows").innerHTML=debts.map((d,i)=>`<tr>
+   <td><input id="n${i}" value="${d.n.replace(/"/g,"&quot;")}" aria-label="Name"></td>
+   <td><input id="b${i}" type="number" value="${d.b}" aria-label="Balance"></td>
+   <td><input id="r${i}" type="number" step="0.1" value="${d.r}" aria-label="Interest rate"></td>
+   <td><input id="m${i}" type="number" value="${d.m}" aria-label="Minimum payment"></td>
+   <td><button class="x" data-i="${i}" aria-label="Remove">×</button></td></tr>`).join("");
+  calc();
+}
+function sim(list,extra,key){
+  let ds=list.map(d=>({...d})).filter(d=>d.b>0), month=0, interest=0, hist=[ds.reduce((s,d)=>s+d.b,0)], order=[];
+  const budget=ds.reduce((s,d)=>s+d.m,0)+extra;
+  while(ds.some(d=>d.b>0.005) && month<600){
+    month++; let pool=budget;
+    ds.forEach(d=>{ if(d.b>0){ const i=d.b*d.r/1200; d.b+=i; interest+=i; } });
+    ds.forEach(d=>{ if(d.b>0){ const p=Math.min(d.m,d.b); d.b-=p; pool-=p; } });
+    const live=ds.filter(d=>d.b>0.005).sort(key);
+    for(const d of live){ if(pool<=0)break; const p=Math.min(pool,d.b); d.b-=p; pool-=p; }
+    ds.forEach(d=>{ if(d.b<=0.005&&!order.includes(d.n)){ d.b=0; order.push(d.n);} });
+    hist.push(ds.reduce((s,d)=>s+d.b,0));
+  }
+  return {month,interest,hist,order,stuck:month>=600};
+}
+function fmtM(m){ if(m>=600) return "Never"; const y=Math.floor(m/12),r=m%12; return (y?y+" yr ":"")+(r?r+" mo":""); }
+function date(m){ const d=new Date(); d.setMonth(d.getMonth()+m); return d.toLocaleDateString("en-US",{month:"short",year:"numeric"}); }
+function calc(){
+  debts=debts.map((d,i)=>({n:$("n"+i)?.value||d.n,b:+($("b"+i)?.value??d.b)||0,r:+($("r"+i)?.value??d.r)||0,m:+($("m"+i)?.value??d.m)||0}));
+  const ex=Math.max(0,+$("extra").value||0);
+  const av=sim(debts,ex,(a,b)=>b.r-a.r), sn=sim(debts,ex,(a,b)=>a.b-b.b);
+  $("av-m").textContent=fmtM(av.month); $("sn-m").textContent=fmtM(sn.month);
+  $("av-i").textContent=av.stuck?"Minimums do not cover interest":`Debt-free ${date(av.month)} · interest ${money(av.interest)}`;
+  $("sn-i").textContent=sn.stuck?"Minimums do not cover interest":`Debt-free ${date(sn.month)} · interest ${money(sn.interest)}`;
+  const avWin=av.interest<=sn.interest;
+  $("o-av").classList.toggle("win",avWin); $("o-sn").classList.toggle("win",!avWin);
+  document.querySelectorAll(".tag").forEach(t=>t.remove());
+  (avWin?$("o-av"):$("o-sn")).querySelector(".n").insertAdjacentHTML("beforeend",`<span class="tag">saves ${money(Math.abs(av.interest-sn.interest))}</span>`);
+  $("order").innerHTML=av.order.map(n=>`<li>${n.replace(/</g,"&lt;")}</li>`).join("");
+  chart(av.hist,sn.hist);
+}
+function chart(a,b){
+  const W=440,H=200,L=44,R=10,T=10,B=26, n=Math.max(a.length,b.length)-1||1, mx=Math.max(...a,...b,1);
+  const x=i=>L+(W-L-R)*i/n, y=v=>T+(H-T-B)*(1-v/mx);
+  const path=h=>h.map((v,i)=>(i?"L":"M")+x(i).toFixed(1)+" "+y(v).toFixed(1)).join(" ");
+  let g=""; for(let k=0;k<=4;k++){const v=mx*k/4; g+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--rule)"/><text x="${L-6}" y="${y(v)+4}" text-anchor="end">${v>=1000?Math.round(v/1000)+"k":Math.round(v)}</text>`;}
+  const step=n>48?12:6; for(let i=0;i<=n;i+=step) g+=`<text x="${x(i)}" y="${H-8}" text-anchor="middle">${i}</text>`;
+  $("chart").innerHTML=g+`<path d="${path(b)}" fill="none" stroke="var(--clay)" stroke-width="2"/><path d="${path(a)}" fill="none" stroke="var(--sage)" stroke-width="2.5"/><text x="${W-R}" y="${H-8}" text-anchor="end">months</text>`;
+}
+$("rows").addEventListener("input",calc);
+$("rows").addEventListener("click",e=>{ if(e.target.dataset.i!==undefined){ calc(); debts.splice(+e.target.dataset.i,1); draw(); } });
+$("add").onclick=()=>{ calc(); debts.push({n:"New debt",b:1000,r:15,m:40}); draw(); };
+$("extra").addEventListener("input",calc);
+draw();
+</script>
