@@ -1,4 +1,4 @@
-<title>Debt Payoff Planner</title>
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#1F2D4A"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Ev Kontrol"><title>Debt Payoff Planner</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
@@ -127,3 +127,4 @@ $("add").onclick=()=>{ calc(); debts.push({n:"New debt",b:1000,r:15,m:40}); draw
 $("extra").addEventListener("input",calc);
 draw();
 </script>
+<script>if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js"));</script>

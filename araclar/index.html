@@ -7,8 +7,14 @@ main{max-width:860px;margin:0 auto;padding:32px 16px}h1{margin:0 0 6px}p.l{color
 .g{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
 a.c{display:block;background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:18px;color:inherit;text-decoration:none}
 a.c:hover{border-color:var(--navy)}a.c b{display:block;font-size:1.1rem;margin-bottom:4px}a.c span{color:var(--muted);font-size:.93rem}
-footer{margin-top:32px;color:var(--muted);font-size:.85rem}</style></head><body><main>
+footer{margin-top:32px;color:var(--muted);font-size:.85rem}</style><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#1F2D4A"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Ev Kontrol"></head><body><main>
 <h1>Ücretsiz araçlar</h1><p class="l">30 yıllık şantiye ve bilirkişilik deneyimiyle hazırladığım pratik hesap ve kontrol araçları. Verileriniz cihazınızdan çıkmaz.</p>
+<div id="inst" style="background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:16px;margin:0 0 20px">
+<b>Telefonunuza uygulama olarak kurun</b><div style="color:var(--muted);font-size:.93rem;margin:4px 0 10px">Kurulduktan sonra internet olmadan da açılır.</div>
+<button id="ib" style="display:none;font:inherit;font-weight:700;border:0;border-radius:8px;padding:10px 14px;background:var(--navy);color:#fff;cursor:pointer">Uygulamayı kur</button>
+<div id="ih" style="font-size:.93rem">Android (Chrome): sağ üstteki ⋮ menüsü → <b>Uygulamayı yükle</b> / <b>Ana ekrana ekle</b>.<br>iPhone (Safari): alttaki paylaş düğmesi □↑ → <b>Ana Ekrana Ekle</b>.</div></div>
+<script>let dp;addEventListener("beforeinstallprompt",e=>{e.preventDefault();dp=e;const b=document.getElementById("ib");b.style.display="inline-block";b.onclick=async()=>{dp.prompt();await dp.userChoice;b.style.display="none"}});
+addEventListener("appinstalled",()=>{document.getElementById("inst").style.display="none"});if(matchMedia("(display-mode: standalone)").matches)document.getElementById("inst").style.display="none";</script>
 <div class="g">
 <a class="c" href="bina-on-kontrol.html"><b>Bina Ön Kontrol</b><span>Ev almadan veya kiralamadan önce 14 soruyla binanın deprem açısından ne kadar dikkat istediğini görün.</span></a>
 <a class="c" href="bina-on-kontrol-pro.html"><b>Bina Ön Kontrol PRO</b><span>Adres, not ve fotoğraflı, yazdırılabilir ön değerlendirme raporu.</span></a>
@@ -16,4 +22,4 @@ footer{margin-top:32px;color:var(--muted);font-size:.85rem}</style></head><body>
 <a class="c" href="borc-kapatma.html"><b>Debt Payoff Planner</b><span>Avalanche ve snowball yöntemlerini karşılaştırın, borcunuzun ne zaman biteceğini görün (İngilizce).</span></a>
 </div>
 <p style="margin-top:24px">Yazdırılabilir kontrol listeleri ve kitler: <a href="https://tremorproof.gumroad.com">tremorproof.gumroad.com</a></p>
-<footer>gepara.com · <a href="../">Ana sayfa</a> · <a href="mailto:info@gepara.com">info@gepara.com</a></footer></main></body></html>
+<footer>gepara.com · <a href="../">Ana sayfa</a> · <a href="mailto:info@gepara.com">info@gepara.com</a></footer></main><script>if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js"));</script></body></html>

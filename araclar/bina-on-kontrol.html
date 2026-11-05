@@ -1,4 +1,4 @@
-<title>TremorProof Bina Ön Kontrol</title>
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#1F2D4A"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Ev Kontrol"><title>TremorProof Bina Ön Kontrol</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
@@ -221,3 +221,4 @@ document.getElementById("b-reset").onclick=()=>{ for(const k in ans) delete ans[
 document.getElementById("b-sample").onclick=()=>{ [3,2,1,2,1,1,1,0,1,2,0,1,1,0].forEach((v,i)=>ans[i]=v); render(); };
 render();
 </script>
+<script>if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js"));</script>
