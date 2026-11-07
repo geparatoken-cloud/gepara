@@ -34,7 +34,7 @@ Kullanım örnekleri: kira depozitosu, araç kiralama hasarı, eser/tasarım sah
 - **Anchored in Bitcoin.** The fingerprint goes to public [OpenTimestamps](https://opentimestamps.org) calendars and is anchored in the Bitcoin blockchain within hours. The proof (`.ots`) does not depend on this site; anyone can verify it independently, even if the site disappears.
 - **Handover pack.** Bundles check-in/check-out photos into a single proof.
 
-**GEPARA registry** lets experts (e.g. court-appointed expert reports) record document fingerprints on Polygon, and lets anyone verify them for free. First real use: **2,622 expert documents** from 2017–2026, recorded in 20 transactions. Live figures: [Open Ledger](https://gepara.com/defter.html).
+**GEPARA registry** lets experts (e.g. technical expert reports) record document fingerprints on Polygon, and lets anyone verify them for free. First real use: **2,622 expert documents** from 2017–2026, recorded in 20 transactions. Live figures: [Open Ledger](https://gepara.com/defter.html).
 
 ---
 
