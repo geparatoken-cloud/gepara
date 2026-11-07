@@ -18,6 +18,8 @@
 .pr{font-weight:700;font-size:1.25rem;margin-bottom:10px}
 .prod button{font:inherit;font-weight:700;border:0;border-radius:8px;padding:9px 12px;background:var(--navy);color:var(--on-navy);cursor:pointer}
 .prod button.added{background:var(--ok)}
+.prod a.iyz{display:block;text-align:center;margin-top:8px;font-weight:700;border:2px solid var(--navy);border-radius:8px;padding:7px 12px;color:var(--navy);text-decoration:none}
+@media (prefers-color-scheme:dark){.prod a.iyz{border-color:currentColor;color:inherit}}
 .cart{position:sticky;top:12px;background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:16px}
 .cart h2{margin:0 0 8px;font-size:1.1rem}
 .line{display:flex;justify-content:space-between;gap:8px;align-items:center;border-bottom:1px solid var(--rule);padding:8px 0;font-size:.95rem}
@@ -67,7 +69,7 @@ form input,form select,form textarea{width:100%;font:inherit;padding:9px 10px;bo
 <label for="cc"><span data-l="tr">Ülke</span><span data-l="en">Country</span></label><input id="cc" value="Türkiye" required autocomplete="country-name">
 <label><span data-l="tr">Ödeme yöntemi</span><span data-l="en">Payment method</span></label>
 <div class="pay">
-<label class="soon"><input type="radio" name="pm" value="kart" disabled><span data-l="tr">Kredi / banka kartı (iyzico) — çok yakında</span><span data-l="en">Credit / debit card — coming soon</span></label>
+<p class="note" style="margin:0" data-l="tr">Kartla ödemek için ürün kutusundaki <b>“Kartla öde (iyzico)”</b> düğmesini kullanın. Sepetteki ürünleri tek seferde aşağıdan Havale / EFT ile de ödeyebilirsiniz.</p><p class="note" style="margin:0" data-l="en">Card payment for Türkiye orders is on each product box. Worldwide orders: bank transfer below.</p>
 <label><input type="radio" name="pm" value="havale" checked><span data-l="tr">Havale / EFT (IBAN sipariş onayıyla gönderilir)</span><span data-l="en">Bank transfer (bank details sent with confirmation)</span></label>
 </div>
 <label class="chk"><input type="checkbox" id="k1" required><span><span data-l="tr"><a href="yasal.html#onbilgi" target="_blank">Ön bilgilendirme formunu</a> okudum.</span><span data-l="en">I have read the <a href="yasal.html" target="_blank">pre-contract information</a>.</span></span></label>
@@ -77,8 +79,8 @@ form input,form select,form textarea{width:100%;font:inherit;padding:9px 10px;bo
 <p style="margin-top:14px"><button class="btn gold" type="submit" style="width:100%"><span data-l="tr">Siparişi tamamla</span><span data-l="en">Place order</span></button></p>
 </form>
 <button class="btn" id="go" type="button" style="width:100%;margin-top:8px" hidden><span data-l="tr">Siparişe devam et</span><span data-l="en">Continue to checkout</span></button>
-<p class="note" data-l="tr"><b>Şu an yalnızca Havale / EFT ile ödeme alınıyor.</b> Kartla ödeme, ödeme kuruluşu onayı tamamlanınca açılacak. Siparişiniz e-postayla teyit edilir; IBAN bu teyitle gönderilir ve ödeme gelmeden ücret alınmaz. Kart bilgisi bu sitede hiçbir zaman saklanmaz.</p>
-<p class="note" data-l="en"><b>Right now we only accept bank transfer.</b> Card payment opens once the payment provider approval is complete. Your order is confirmed by email with the bank details; nothing is charged before payment arrives. Card details are never stored on this site.</p>
+<p class="note" data-l="tr"><b>Kartla ödeme iyzico güvencesiyle alınır.</b> “Kartla öde (iyzico)” düğmesi sizi iyzico’nun ödeme sayfasına götürür; lisans kodu ödemeden sonra en geç 1 iş günü içinde e-postanıza gelir. Havale / EFT siparişiniz e-postayla teyit edilir; IBAN bu teyitle gönderilir ve ödeme gelmeden ücret alınmaz. Kart bilgisi bu sitede hiçbir zaman saklanmaz.</p>
+<p class="note" data-l="en"><b>Türkiye orders can be paid by card through iyzico.</b> Worldwide orders are paid by bank transfer for now. Your order is confirmed by email with the bank details; nothing is charged before payment arrives. Card details are never stored on this site.</p>
 </aside>
 </div>
 <div id="ok" class="card done" hidden></div>
@@ -106,6 +108,7 @@ var P=[
  ['egitim','Kayıtlı çevrim içi eğitim','Recorded online course','Ön sipariş: meslek bazlı örneklerle dijital delilin tarihini kanıtlama eğitimi. Ödeme, eğitim yayına girince istenir.','Pre-order: how to prove when digital evidence existed, with profession examples. Payment is requested when the course goes live.',790,49],
  ['kayit','Açık Defter kaydı (herkese açık zaman kaydı)','Open Ledger record (public timestamp)','Dosyanın parmak izi Açık Defter\'e herkese açık kaydedilir; herkes kontrol edebilir. Hizmet bedelidir, kullanıcıya token veya kripto varlık verilmez.','The file fingerprint is publicly recorded in the Open Ledger. A service fee; no token or crypto asset is given.',19,1.5]
 ];
+var IY={tek:'https://iyzi.link/AK0ULw',teslim:'https://iyzi.link/AK0UMA',k10:'https://iyzi.link/AK0UMQ',k50:'https://iyzi.link/AK0UMg',isl100:'https://iyzi.link/AK0UNA',isl250:'https://iyzi.link/AK0UNg',pro1:'https://iyzi.link/AK0UOA',pro12:'https://iyzi.link/AK0UOQ',buro1:'https://iyzi.link/AK0UOg',dogr:'https://iyzi.link/AK0UOw',kayit:'https://iyzi.link/AK0UPA'};
 var K='gk-cart',R='gk-rg';
 function g(k,d){try{var v=JSON.parse(localStorage.getItem(k));return v==null?d:v}catch(e){return d}}
 function s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
@@ -114,7 +117,7 @@ var tr=function(){return document.documentElement.lang!=='en'};
 function money(n){return w?'$'+n.toLocaleString('en-US',{minimumFractionDigits:n%1?2:0,maximumFractionDigits:2}):n.toLocaleString('tr-TR')+' TL'}
 function price(p){return w?p[6]:p[5]}
 function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
-function renderProds(){var h=document.getElementById('prods');h.innerHTML='';P.forEach(function(p){var c=el('div','prod');c.id='u-'+p[0];c.appendChild(el('h3',null,tr()?p[1]:p[2]));c.appendChild(el('p',null,tr()?p[3]:p[4]));c.appendChild(el('div','pr',money(price(p))));var b=el('button',null,tr()?'Sepete ekle':'Add to cart');b.type='button';b.onclick=function(){cart[p[0]]=(cart[p[0]]||0)+1;s(K,cart);b.classList.add('added');b.textContent=tr()?'Sepete eklendi ✓':'Added ✓';setTimeout(function(){b.classList.remove('added');b.textContent=tr()?'Sepete ekle':'Add to cart'},1400);renderCart()};c.appendChild(b);h.appendChild(c)})}
+function renderProds(){var h=document.getElementById('prods');h.innerHTML='';P.forEach(function(p){var c=el('div','prod');c.id='u-'+p[0];c.appendChild(el('h3',null,tr()?p[1]:p[2]));c.appendChild(el('p',null,tr()?p[3]:p[4]));c.appendChild(el('div','pr',money(price(p))));var b=el('button',null,tr()?'Sepete ekle':'Add to cart');b.type='button';b.onclick=function(){cart[p[0]]=(cart[p[0]]||0)+1;s(K,cart);b.classList.add('added');b.textContent=tr()?'Sepete eklendi ✓':'Added ✓';setTimeout(function(){b.classList.remove('added');b.textContent=tr()?'Sepete ekle':'Add to cart'},1400);renderCart()};c.appendChild(b);if(!w&&IY[p[0]]){var a=el('a','iyz',tr()?'Kartla öde (iyzico)':'Pay by card (iyzico, TL)');a.href=IY[p[0]];a.target='_blank';a.rel='noopener';c.appendChild(a)}h.appendChild(c)})}
 function total(){return P.reduce(function(t,p){return t+(cart[p[0]]||0)*price(p)},0)}
 function renderCart(){var L=document.getElementById('lines');L.innerHTML='';var any=false;P.forEach(function(p){var q=cart[p[0]];if(!q)return;any=true;var r=el('div','line');var n=el('div');n.appendChild(el('div',null,tr()?p[1]:p[2]));var qd=el('span','qty');var m=el('button',null,'−');m.type='button';m.onclick=function(){cart[p[0]]--;if(cart[p[0]]<=0)delete cart[p[0]];s(K,cart);renderCart()};var pl=el('button',null,'+');pl.type='button';pl.onclick=function(){cart[p[0]]++;s(K,cart);renderCart()};qd.append(m,el('span',null,q),pl);n.appendChild(qd);r.append(n,el('b',null,money(q*price(p))));L.appendChild(r)});
   if(!any)L.appendChild(el('p','empty',tr()?'Sepetiniz boş.':'Your cart is empty.'));
