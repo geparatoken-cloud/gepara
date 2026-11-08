@@ -1,0 +1,182 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#1F2D4A"><link rel="apple-touch-icon" href="apple-touch-icon.png">
+<title>Metraj ve Hakediş Hesaplayıcı</title>
+<meta name="description" content="Küçük müteahhit ve taşeronlar için ücretsiz metraj ve hakediş hesap aracı: iş kalemleri, kümülatif miktar, KDV, tevkifat, stopaj ve teminat kesintisi. Verileriniz cihazınızdan çıkmaz.">
+<link rel="canonical" href="https://gepara.com/araclar/metraj-hakedis.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+:root{--bg:#F3F2EE;--paper:#FFFFFF;--ink:#1F2A22;--muted:#5F6A62;--rule:#D6D9D2;--accent:#1F4E79;--accent-soft:#E2EBF4;--warn:#B3261E;
+--f-display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;--f-body:"Source Sans 3","Segoe UI",Roboto,Arial,sans-serif;--f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#11151B;--paper:#1A2029;--ink:#E7ECF2;--muted:#9EA9B4;--rule:#2C3644;--accent:#7FB2E5;--accent-soft:#1D2B3B;--warn:#EF6A62;color-scheme:dark}}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5;margin:0}
+.wrap{max-width:1100px;margin:0 auto;padding:20px 16px 48px}
+.brand{font:500 12px var(--f-mono);letter-spacing:.14em;color:var(--accent);text-transform:uppercase}
+.brand a{color:inherit}
+h1{font-family:var(--f-display);font-size:clamp(32px,6vw,48px);line-height:1;margin:4px 0 8px}
+h2{font-family:var(--f-display);font-size:26px;margin:26px 0 8px}
+.lede{color:var(--muted);margin:0 0 16px;max-width:70ch}
+.card{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+label{display:block;font-weight:600;font-size:13px;margin-bottom:3px}
+input,select{width:100%;font:15px var(--f-body);padding:7px 8px;border:1px solid var(--rule);border-radius:6px;background:var(--bg);color:var(--ink)}
+input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
+th,td{border-bottom:1px solid var(--rule);padding:5px 6px;text-align:left;vertical-align:middle}
+th{font-size:12px;color:var(--muted);font-weight:600;white-space:nowrap}
+td input{min-width:70px;padding:5px 6px;font-size:14px}
+td.n,th.n{text-align:right;white-space:nowrap}
+.btn{font:600 14px var(--f-body);border:1px solid var(--rule);background:var(--paper);color:var(--ink);padding:8px 12px;border-radius:6px;cursor:pointer}
+.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn.x{padding:4px 8px;color:var(--warn)}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.sum{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:12px}
+.stat{background:var(--accent-soft);border-radius:8px;padding:10px 12px}
+.stat .k{font:500 11px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.stat .v{font-family:var(--f-display);font-size:26px;font-weight:700;font-variant-numeric:tabular-nums}
+.stat.big{background:var(--accent);color:#fff}.stat.big .k{color:#dfe9f5}
+.note{font-size:13px;color:var(--muted);margin-top:10px}
+.msg{font-size:14px;margin-top:6px}
+.disc{font-size:12px;color:var(--muted);margin-top:24px}
+#print{display:none}
+@media print{
+ body{background:#fff;color:#000;font:10pt/1.4 Arial,sans-serif}
+ .wrap>*:not(#print){display:none!important}
+ #print{display:block}
+ #print table{font-size:8.5pt}#print th,#print td{border:1px solid #000;padding:3px 4px;color:#000}
+ #print h1{font:700 15pt Arial;margin:0 0 4pt}#print .wm{position:fixed;top:45%;left:0;right:0;text-align:center;font:700 34pt Arial;color:rgba(0,0,0,.08);transform:rotate(-24deg)}
+ #print .sig{display:flex;gap:18pt;margin-top:22pt}#print .sig div{flex:1;border-top:1px solid #000;padding-top:4pt;min-height:50pt;font-size:9pt}
+ @page{size:A4 landscape;margin:12mm}
+}
+</style></head><body>
+<div class="wrap">
+<div class="brand"><a href="./">gepara.com araçları</a></div>
+<h1>Metraj ve Hakediş Hesaplayıcı</h1>
+<p class="lede">Küçük müteahhit, taşeron ve iş sahibi için: iş kalemlerini girin, ölçtüğünüz metrajı hakedişe aktarın, önceki hakedişlerle birlikte kümülatif tutarı ve kesintilerden sonra ödenecek net tutarı görün. Verileriniz yalnızca bu cihazda saklanır.</p>
+
+<div class="card">
+<div class="grid">
+<div><label for="p-is">İşin adı</label><input id="p-is" placeholder="Ör. Konut inşaatı kaba işler"></div>
+<div><label for="p-iv">İşveren</label><input id="p-iv"></div>
+<div><label for="p-yk">Yüklenici</label><input id="p-yk"></div>
+<div><label for="p-no">Hakediş no</label><input id="p-no" type="number" min="1" value="1"></div>
+<div><label for="p-dn">Dönem / tarih</label><input id="p-dn" placeholder="Ör. Kasım 2026"></div>
+</div>
+</div>
+
+<h2>1. İş kalemleri ve hakediş</h2>
+<p class="lede" style="margin:0 0 8px">Sözleşme miktarı ve birim fiyatı bir kez girin. Her hakedişte "Önceki toplam" sütununa bir önceki hakedişin kümülatif miktarını, "Bu dönem" sütununa bu ay yapılan miktarı yazın.</p>
+<div class="card tw"><table id="tk"><thead><tr><th>Poz</th><th>Tanım</th><th>Birim</th><th class="n">Sözleşme miktarı</th><th class="n">Birim fiyat (TL)</th><th class="n">Önceki toplam</th><th class="n">Bu dönem</th><th class="n">Kümülatif</th><th class="n">İlerleme</th><th class="n">Bu dönem tutarı</th><th></th></tr></thead><tbody></tbody></table>
+<div class="row"><button class="btn" id="addK" type="button">+ Kalem ekle</button></div></div>
+
+<h2>2. Metraj cetveli</h2>
+<p class="lede" style="margin:0 0 8px">Ölçülerinizi satır satır yazın: miktar = adet × en × boy × yükseklik (boş bırakılan ölçü 1 sayılır, düşülecek kısımlar için adede eksi değer girin). Sonra "Metrajı hakedişe aktar" ile her kalemin toplamı "Bu dönem" sütununa yazılır.</p>
+<div class="card tw"><table id="tm"><thead><tr><th>Kalem</th><th>Açıklama / yer</th><th class="n">Adet</th><th class="n">En</th><th class="n">Boy</th><th class="n">Yükseklik</th><th class="n">Miktar</th><th></th></tr></thead><tbody></tbody></table>
+<div class="row"><button class="btn" id="addM" type="button">+ Metraj satırı</button><button class="btn primary" id="aktar" type="button">Metrajı hakedişe aktar</button></div>
+<div class="msg" id="aktarMsg" role="status"></div></div>
+
+<h2>3. Kesintiler ve ödenecek tutar</h2>
+<div class="card">
+<div class="grid">
+<div><label for="k-kdv">KDV oranı (%)</label><input id="k-kdv" type="number" step="0.01" value="20"></div>
+<div><label for="k-tev">KDV tevkifatı (pay / 10)</label><select id="k-tev"><option value="0">Yok</option><option value="2">2/10</option><option value="3">3/10</option><option value="4">4/10</option><option value="5">5/10</option><option value="7">7/10</option><option value="9">9/10</option></select></div>
+<div><label for="k-sto">Gelir/kurumlar vergisi stopajı (%)</label><input id="k-sto" type="number" step="0.01" value="0"></div>
+<div><label for="k-tem">Teminat kesintisi (%)</label><input id="k-tem" type="number" step="0.01" value="0"></div>
+<div><label for="k-av">Avans mahsubu (TL)</label><input id="k-av" type="number" step="0.01" value="0"></div>
+<div><label for="k-dg">Diğer kesinti (TL)</label><input id="k-dg" type="number" step="0.01" value="0"></div>
+</div>
+<div class="sum">
+<div class="stat"><div class="k">Bu dönem tutarı</div><div class="v" id="s-tut">–</div></div>
+<div class="stat"><div class="k">KDV</div><div class="v" id="s-kdv">–</div></div>
+<div class="stat"><div class="k">Toplam kesinti</div><div class="v" id="s-kes">–</div></div>
+<div class="stat big"><div class="k">Ödenecek net</div><div class="v" id="s-net">–</div></div>
+</div>
+<div class="sum">
+<div class="stat"><div class="k">Kümülatif iş tutarı</div><div class="v" id="s-kum">–</div></div>
+<div class="stat"><div class="k">Sözleşme bedeli</div><div class="v" id="s-soz">–</div></div>
+<div class="stat"><div class="k">Genel ilerleme</div><div class="v" id="s-ilr">–</div></div>
+</div>
+<p class="note">Vergi ve kesinti oranları işin türüne ve sözleşmenize göre değişir. Doğru oranları sözleşmenizden ve mali müşavirinizden teyit edip girin; araç yalnızca girdiğiniz oranlarla hesap yapar.</p>
+</div>
+
+<h2>4. Kaydet, dışa aktar, yazdır</h2>
+<div class="card">
+<div class="row" style="margin-top:0"><button class="btn" id="csv" type="button">Excel'e aktar (CSV)</button><button class="btn" id="yeni" type="button">Sonraki hakedişe geç</button><button class="btn" id="sil" type="button">Tümünü temizle</button><button class="btn primary" id="yaz" type="button">Yazdır / PDF</button></div>
+<p class="note">"Sonraki hakedişe geç": kümülatif miktarlar "Önceki toplam" sütununa taşınır, "Bu dönem" sıfırlanır, hakediş numarası bir artar.</p>
+<div style="margin-top:12px;border-top:1px solid var(--rule);padding-top:12px">
+<b>PRO çıktı (99 TL)</b>: filigransız, imza bloklu (hazırlayan, kontrol eden, onaylayan) hakediş raporu. Kod bir kez girilir, bu cihazda hatırlanır.
+<div class="grid" style="margin-top:8px"><div><label for="p-code">PRO kodu</label><input id="p-code" placeholder="MH-XXXX-XXXX-XXXX" autocomplete="off"></div>
+<div style="display:flex;align-items:end"><button class="btn" id="kodOk" type="button">Kodu doğrula</button></div></div>
+<div class="msg" id="kodMsg" role="status"></div>
+<div style="font-size:14px;margin-top:6px">Kodunuz yok mu? <a class="btn primary" style="display:inline-block;text-decoration:none" href="https://iyzi.link/AK0Vrw" target="_blank" rel="noopener">Kartla öde, 99 TL (iyzico)</a> Kodunuz ödemeden sonra en geç 1 iş günü içinde e-postanıza gelir. Havale/EFT için: <a href="mailto:info@gepara.com?subject=Metraj%20Hakedi%C5%9F%20PRO%20kodu">info@gepara.com</a></div>
+</div>
+</div>
+
+<p class="disc">Bu araç hesaplama kolaylığı sağlar; resmî hakediş, muhasebe kaydı veya vergi danışmanlığı yerine geçmez. Kamu ihalelerinde ilgili idarenin hakediş usulü geçerlidir. Hazırlayan: İnş. Müh. Gökhan Ertan · <a href="../uzman-hizmetleri.html">Mühendis hizmetleri</a> · <a href="./">Diğer araçlar</a></p>
+
+<div id="print"></div>
+</div>
+<script>
+const CODE_HASHES=["1ca90d52a8e8d127b0e7832f8c356492d7cca33d233e36dbaa81b8886a55de5f", "7b3ec5f882559d8cdf02b7b4650ca62d90a2b51598983a956e34f7d0b95d153a", "ee5dca404f7b6959414909470dc2d9f436a8463c4fab94770ac305de2e24b83f", "414b1101e0ad09251f385576f2e76edd5a79ebc9fbeb3c756a23d26fb35841bf", "540f34533b575fd4b42281f81c38e39c9370503e0984f6dbfa91bc83a74986ef", "bad2a6947ed2b5ddf60317614b5b6d3a5029014e43c896ff0694a4400e05ce5c", "9d24022f206f758a73c14e6aabf4e73640f3e025d77241685417b2fb97e2556d", "2f677b6db43fb41dee4ab87d46779cef246d976376739e981d96419ec977b5c9", "b97a9f4cc6aeaa70056418e5ddb0a6e4ce0ac0eb63b1fd82c1dd948e84f2eee1", "1547b265a61f183350b8b541e6446a691b2ce070a69c762a382d75c3f83cbf2f", "d954ab46eaef6ca07355e266e0ab9a85a533e15b59a8e1f4ba61e54568960eb2", "d42ad7c23834aa75a0d0bcbcebc7e878fa2d412b49dc78cc53944f383f2e5e64", "5f3ae2d67b7f2b4f396a33c92de35ed558cce5ce79e74989c4da87549dba13f9", "5d9586db598f5a703af151890797f9c21a24b514afc73b345b924b1f30aea708", "8ca89a1a758e7f35a07d7502c866b602b2728847477b01511e62765faea24be6", "9fce430e8340f2a0092934430df2991e589722d0c59810f41daf925f357a4fc2", "b87d87b8cc7a99e31ffefd8a3fc629f88abedab8035370177ce8dc49b8211c3e", "9eb58ca96ec11d46923d2dc01585c41755ace9a661682ca09a8a3b275d410925", "1a03b1c63782b4406abfec351bbaae6f32a4afbaee1e04ca2004b498f178b2cd", "54ec0731008275e4effdd160ec3cf415f4834ea6ebbd7588a6ece801e7ad6d8c", "5273bc05eedf21e8e2eadc0fc25ef8e7b9f554335ba900768c3a17095e885f49", "adad32bde04d6676806ee7d0a8b4a70576709c2bf8db92b050ac15e1a0f37510", "4bdf3721bb413544f1d12489376ddc4cf30a54394200c62ada7e13015bdd3d5c", "70248dd407e390a05b5f2f551197d3d744f82716b6be35f1dba8e3953f2682bb", "c677d590bb722d2eb757906fac89dee91f6167e3df87394a0e8eb9f5da9a5c44", "f7c136ff641d3ee97e2ea085033add612ff10ade92d1fdd1659513b12f693087", "993a33c40d6de3d587a0e55d12b2dcd34d73cc9826d6aace6d13b296477141de", "4e1abb51c0ed8fa894a6cfbe6e36ce19852e1de0255022f625096a7e00acd59c", "09b66f8d5b69dde775b94070e4b8b165de811986b2e2af1abfd5d1d66feac58b", "f6818db85c036af906664b61cf301d65e51c672034996a60c97d09c106938594", "ccf12d77c4e17897a7d989ef61c3c3710e0c5afed9dcb37faafc0c322cfbfcdf", "81b31fd40d6d63d3101fe5b32558518aff62a5b3196bc385c6fe36b2a25d4749", "d819d9d46d6800fc26543740e61e980ae296e1a839d4e29c16be1a3e16f2fe3e", "941dbda893669e95886a3648cb457fc54c2dfe653d66d3a58017d77bb0bc9f78", "6b942422dd45047222fb71eedfcbe34cfa3d1cf4a1d5fb84fc1202639de4f7ec", "d38576702b763d7a38bb489ced2bbbd5c0bc66c88c15d36a8f0a0dac137c993c", "e6f94ee98df4ca4c5fdc29ce78e7181df13f017dc840f55d21991127eae6351f", "56c50e9e99393773947e54b5b4a44a7e1f6472aba1752481c60480eda7656260", "e97ec2e31432710b480a0c5afbbb9549b7e2a1757a9f69b4160f84d50c8a5330", "919ce43be56a0539fd7a4681462bdebe1078175d14c4cf6a484ac3ad7e29882b", "3760825c834e0bcd25fb87f5a615cb3a3b971303333e405ba2accff8b4512bc3", "360c6941bc381ade69f6da9090e051d2c3d401248f009929ceb9c37eaf6b20d3", "8b907e69714b562fc0dcf47e47e6c69fc63c40daf7abd4411399a6650704a35e", "ee78b70e0469a75bb13ad7ccea44f50cc335a7a024eb1f23d27cb51097e87003", "5c39bad3f1926504a88848da521c7fdc6a07c48259c24f271b31fd1493d8a806", "9d2a293c102f122f59e6ff868912becbe5f894f7d11c24921f7372cdb9fcbeb7", "7bffe1283a24208af5a4d0d49b34c22d0c835d923bea0cd26d84eb8a58f910b1", "3539d1bce6ed50203bf9bb431b904d3083813b0d8605d75e4996b7831a17802d", "6493d50a9a5cbef09c1a047d2a369e5b7e4496d7358c7cbcc69a58a5abc1da71", "1df0eeb3021f6ea51deb2ff6600df3d21f4183466ae40a0942b5e1478608847c"];
+const LS="gk-hakedis-v1";
+const $=id=>document.getElementById(id);
+const num=v=>{const x=parseFloat(String(v).replace(",","."));return isFinite(x)?x:0};
+const tl=n=>(Object.is(n,-0)||n===0?0:n).toLocaleString("tr-TR",{minimumFractionDigits:2,maximumFractionDigits:2})+" TL";
+const pc=x=>"%"+x.toFixed(1).replace(".",",");
+const q=n=>n.toLocaleString("tr-TR",{maximumFractionDigits:3});
+let S={p:{},k:[],m:[],c:{kdv:20,tev:0,sto:0,tem:0,av:0,dg:0},pro:false};
+function load(){try{const v=JSON.parse(localStorage.getItem(LS));if(v&&v.k)S=Object.assign(S,v)}catch(e){}
+ if(!S.k.length)S.k=[{poz:"1",tan:"Betonarme betonu C30",bir:"m³",sm:250,bf:3200,on:0,bu:0},{poz:"2",tan:"Kalıp",bir:"m²",sm:1800,bf:420,on:0,bu:0},{poz:"3",tan:"Donatı",bir:"ton",sm:32,bf:28500,on:0,bu:0}]}
+function save(){try{localStorage.setItem(LS,JSON.stringify(S))}catch(e){}}
+function inp(v,cb,type){const i=document.createElement("input");i.value=v??"";if(type)i.type=type,i.step="any",i.inputMode="decimal";i.oninput=()=>{cb(i.value);calc()};return i}
+function renderK(){const tb=$("tk").tBodies[0];tb.innerHTML="";S.k.forEach((k,ix)=>{const tr=tb.insertRow();
+ [["poz"],["tan"],["bir"],["sm",1],["bf",1],["on",1],["bu",1]].forEach(([f,n])=>{const td=tr.insertCell();if(n)td.className="n";td.appendChild(inp(k[f],v=>{k[f]=n?num(v):v},n?"number":null))});
+ ["kum","ilr","tut"].forEach(c=>{const td=tr.insertCell();td.className="n";td.dataset.c=c});
+ const td=tr.insertCell();const b=document.createElement("button");b.className="btn x";b.type="button";b.textContent="✕";b.setAttribute("aria-label","Kalemi sil");b.onclick=()=>{S.k.splice(ix,1);renderK();renderM();calc()};td.appendChild(b)});renderM()}
+function renderM(){const tb=$("tm").tBodies[0];tb.innerHTML="";S.m.forEach((m,ix)=>{const tr=tb.insertRow();
+ const sel=document.createElement("select");S.k.forEach((k,i)=>{const o=document.createElement("option");o.value=i;o.textContent=(k.poz?k.poz+" ":"")+(k.tan||"Kalem "+(i+1));sel.appendChild(o)});sel.value=Math.min(m.k||0,S.k.length-1);sel.onchange=()=>{m.k=+sel.value;calc()};tr.insertCell().appendChild(sel);
+ tr.insertCell().appendChild(inp(m.a,v=>m.a=v));
+ ["ad","en","by","yk"].forEach(f=>{const td=tr.insertCell();td.className="n";td.appendChild(inp(m[f],v=>m[f]=v,"number"))});
+ const td=tr.insertCell();td.className="n";td.dataset.c="mq";
+ const t2=tr.insertCell();const b=document.createElement("button");b.className="btn x";b.type="button";b.textContent="✕";b.setAttribute("aria-label","Satırı sil");b.onclick=()=>{S.m.splice(ix,1);renderM();calc()};t2.appendChild(b)})}
+function mq(m){const f=v=>(v===""||v==null)?1:num(v);return f(m.ad)*f(m.en)*f(m.by)*f(m.yk)}
+function totals(){let tut=0,kum=0,soz=0;S.k.forEach(k=>{tut+=k.bu*k.bf;kum+=(k.on+k.bu)*k.bf;soz+=k.sm*k.bf});
+ const c=S.c,kdv=tut*c.kdv/100,tev=kdv*c.tev/10,sto=tut*c.sto/100,tem=tut*c.tem/100,kes=tev+sto+tem+c.av+c.dg;return{tut,kum,soz,kdv,tev,sto,tem,kes,net:tut+kdv-kes}}
+function calc(){const rows=$("tk").tBodies[0].rows;S.k.forEach((k,i)=>{const r=rows[i];if(!r)return;const kum=k.on+k.bu;
+ r.querySelector('[data-c=kum]').textContent=q(kum);r.querySelector('[data-c=ilr]').textContent=k.sm?pc(kum/k.sm*100):"–";r.querySelector('[data-c=tut]').textContent=tl(k.bu*k.bf)});
+ const mr=$("tm").tBodies[0].rows;S.m.forEach((m,i)=>{if(mr[i])mr[i].querySelector('[data-c=mq]').textContent=q(mq(m))});
+ ["kdv","tev","sto","tem","av","dg"].forEach(f=>S.c[f]=num($("k-"+f).value));
+ ["is","iv","yk","no","dn"].forEach(f=>S.p[f]=$("p-"+f).value);
+ const t=totals();$("s-tut").textContent=tl(t.tut);$("s-kdv").textContent=tl(t.kdv);$("s-kes").textContent=tl(t.kes);$("s-net").textContent=tl(t.net);
+ $("s-kum").textContent=tl(t.kum);$("s-soz").textContent=tl(t.soz);$("s-ilr").textContent=t.soz?pc(t.kum/t.soz*100):"–";save()}
+$("addK").onclick=()=>{S.k.push({poz:String(S.k.length+1),tan:"",bir:"",sm:0,bf:0,on:0,bu:0});renderK();calc()};
+$("addM").onclick=()=>{if(!S.k.length)return;S.m.push({k:0,a:"",ad:"",en:"",by:"",yk:""});renderM();calc()};
+$("aktar").onclick=()=>{if(!S.m.length){$("aktarMsg").textContent="Önce metraj satırı ekleyin.";return}const t={};S.m.forEach(m=>{t[m.k||0]=(t[m.k||0]||0)+mq(m)});
+ Object.entries(t).forEach(([i,v])=>{if(S.k[i])S.k[i].bu=Math.round(v*1000)/1000});renderK();calc();$("aktarMsg").textContent=Object.keys(t).length+" kalemin bu dönem miktarı metrajdan güncellendi."};
+$("yeni").onclick=()=>{if(!confirmNext())return;S.k.forEach(k=>{k.on=Math.round((k.on+k.bu)*1000)/1000;k.bu=0});S.m=[];$("p-no").value=(num($("p-no").value)||0)+1;renderK();calc()};
+function confirmNext(){const b=$("yeni");if(b.dataset.ok){delete b.dataset.ok;b.textContent="Sonraki hakedişe geç";return true}b.dataset.ok=1;b.textContent="Emin misiniz? Tekrar basın";setTimeout(()=>{delete b.dataset.ok;b.textContent="Sonraki hakedişe geç"},4000);return false}
+$("sil").onclick=()=>{const b=$("sil");if(!b.dataset.ok){b.dataset.ok=1;b.textContent="Silinsin mi? Tekrar basın";setTimeout(()=>{delete b.dataset.ok;b.textContent="Tümünü temizle"},4000);return}
+ delete b.dataset.ok;b.textContent="Tümünü temizle";S.k=[{poz:"1",tan:"",bir:"",sm:0,bf:0,on:0,bu:0}];S.m=[];renderK();calc()};
+$("csv").onclick=()=>{const r=[["Poz","Tanım","Birim","Sözleşme miktarı","Birim fiyat","Önceki toplam","Bu dönem","Kümülatif","Bu dönem tutarı"]];
+ S.k.forEach(k=>r.push([k.poz,k.tan,k.bir,k.sm,k.bf,k.on,k.bu,k.on+k.bu,(k.bu*k.bf).toFixed(2)]));const t=totals();
+ r.push([]);[["Bu dönem tutarı",t.tut],["KDV",t.kdv],["KDV tevkifatı",t.tev],["Stopaj",t.sto],["Teminat",t.tem],["Avans mahsubu",S.c.av],["Diğer kesinti",S.c.dg],["Ödenecek net",t.net]].forEach(([a,b])=>r.push([a,"","","","","","","",b.toFixed(2)]));
+ const csv="﻿"+r.map(x=>x.map(v=>'"'+String(v??"").replace(/"/g,'""')+'"').join(";")).join("\r\n");
+ const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8"}));a.download="hakedis-"+(S.p.no||1)+".csv";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)};
+async function sha(t){const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(t.trim().toUpperCase()));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,"0")).join("")}
+$("kodOk").onclick=async()=>{const h=await sha($("p-code").value||"");if(CODE_HASHES.includes(h)){S.pro=true;save();$("kodMsg").textContent="Kod geçerli. PRO çıktı açıldı."}else $("kodMsg").textContent="Kod geçersiz. Satın alma e-postanızdaki kodu kontrol edin."};
+function esc(s){return String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+$("yaz").onclick=()=>{calc();const t=totals(),p=S.p;let h=(S.pro?"":'<div class="wm">ÜCRETSİZ SÜRÜM · gepara.com</div>')+
+ `<h1>${p.no||1} No.lu Hakediş Raporu</h1><div>İş: <b>${esc(p.is)}</b> · İşveren: <b>${esc(p.iv)}</b> · Yüklenici: <b>${esc(p.yk)}</b> · Dönem: <b>${esc(p.dn)}</b></div>
+ <table style="width:100%;border-collapse:collapse;margin-top:8pt"><tr><th>Poz</th><th>Tanım</th><th>Birim</th><th>Sözl. miktar</th><th>Birim fiyat</th><th>Önceki</th><th>Bu dönem</th><th>Kümülatif</th><th>İlerleme</th><th>Bu dönem tutarı</th><th>Kümülatif tutar</th></tr>`+
+ S.k.map(k=>`<tr><td>${esc(k.poz)}</td><td>${esc(k.tan)}</td><td>${esc(k.bir)}</td><td>${q(k.sm)}</td><td>${tl(k.bf)}</td><td>${q(k.on)}</td><td>${q(k.bu)}</td><td>${q(k.on+k.bu)}</td><td>${k.sm?pc((k.on+k.bu)/k.sm*100):"–"}</td><td>${tl(k.bu*k.bf)}</td><td>${tl((k.on+k.bu)*k.bf)}</td></tr>`).join("")+
+ `</table><table style="width:50%;margin-top:8pt;border-collapse:collapse">`+[["Bu dönem tutarı",t.tut],["KDV (%"+S.c.kdv+")",t.kdv],["KDV tevkifatı ("+S.c.tev+"/10)",-t.tev],["Stopaj (%"+S.c.sto+")",-t.sto],["Teminat (%"+S.c.tem+")",-t.tem],["Avans mahsubu",-S.c.av],["Diğer kesinti",-S.c.dg],["ÖDENECEK NET",t.net]].map(([a,b])=>`<tr><td>${a}</td><td style="text-align:right">${tl(b)}</td></tr>`).join("")+
+ `</table><div style="margin-top:6pt">Kümülatif iş tutarı: ${tl(t.kum)} · Sözleşme bedeli: ${tl(t.soz)} · Genel ilerleme: ${t.soz?pc(t.kum/t.soz*100):"–"}</div>`+
+ (S.pro?'<div class="sig"><div>Hazırlayan<br>Ad soyad, imza, tarih</div><div>Kontrol eden<br>Ad soyad, imza, tarih</div><div>Onaylayan<br>Ad soyad, imza, tarih</div></div>':'<div style="margin-top:14pt;font-size:8pt">Ücretsiz sürüm çıktısıdır. İmza bloklu ve filigransız çıktı için: gepara.com/araclar/metraj-hakedis.html</div>');
+ $("print").innerHTML=h;window.print()};
+document.querySelectorAll("#k-kdv,#k-tev,#k-sto,#k-tem,#k-av,#k-dg,#p-is,#p-iv,#p-yk,#p-no,#p-dn").forEach(e=>e.addEventListener("input",calc));
+load();["kdv","tev","sto","tem","av","dg"].forEach(f=>$("k-"+f).value=S.c[f]);["is","iv","yk","no","dn"].forEach(f=>{if(S.p[f]!=null)$("p-"+f).value=S.p[f]});
+if(S.pro)$("kodMsg").textContent="PRO çıktı bu cihazda açık.";renderK();calc();
+if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js"));
+</script></body></html>
